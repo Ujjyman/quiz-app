@@ -13,3 +13,4 @@ test series/
 
 # Node
 node_modules/
+.vercel
