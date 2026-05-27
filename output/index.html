@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UP TGT हिंदी प्रश्नोत्तरी</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.site-header{
+  background:linear-gradient(135deg,#312e81,#4f46e5 55%,#7c3aed);
+  color:#fff;padding:18px 24px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:0 4px 20px rgba(79,70,229,.4);
+}
+.logo{font-size:28px;flex-shrink:0}
+.site-title{font-size:19px;font-weight:800}
+.site-sub{font-size:12px;opacity:.75;margin-top:2px}
+.hero{
+  background:linear-gradient(135deg,#312e81,#4f46e5 60%,#7c3aed);
+  color:#fff;text-align:center;padding:52px 20px 44px;
+}
+.hero h1{font-size:clamp(22px,5vw,40px);font-weight:900;line-height:1.2;margin-bottom:12px}
+.hero p{font-size:15px;opacity:.85;max-width:460px;margin:0 auto 24px}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.15);backdrop-filter:blur(6px);
+      border:1px solid rgba(255,255,255,.25);border-radius:100px;
+      padding:5px 14px;font-size:13px;font-weight:600}
+main{max-width:1020px;margin:0 auto;padding:44px 18px 80px}
+.sec-label{display:inline-flex;align-items:center;gap:7px;font-size:12px;
+           font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+           padding:4px 13px;border-radius:100px;margin-bottom:10px}
+.lbl-pyq{background:var(--pyq-bg);color:var(--pyq)}
+.lbl-ts {background:var(--ts-bg); color:var(--ts)}
+.sec-title{font-size:21px;font-weight:900;margin-bottom:5px}
+.sec-desc{font-size:13px;color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));
+       gap:16px;margin-bottom:56px}
+.pcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 18px;
+        display:flex;flex-direction:column;gap:5px;
+        box-shadow:var(--shadow);cursor:pointer;position:relative;overflow:hidden;
+        transition:transform .18s,box-shadow .18s,border-color .18s}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pyq-card::before{background:linear-gradient(90deg,var(--pyq),#6366f1)}
+.ts-card::before {background:linear-gradient(90deg,var(--ts),#f97316)}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(79,70,229,.18);
+              border-color:var(--primary)}
+.ts-card:hover{border-color:var(--ts)}
+.p-year{font-size:11px;font-weight:800;color:var(--primary);letter-spacing:.5px;text-transform:uppercase}
+.p-name{font-size:17px;font-weight:800;line-height:1.3}
+.p-meta{display:flex;align-items:center;gap:8px;margin-top:3px}
+.tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:100px;letter-spacing:.3px}
+.tag-pyq{background:var(--pyq-bg);color:var(--pyq)}
+.tag-ts {background:var(--ts-bg); color:var(--ts)}
+.p-count{font-size:12px;color:var(--muted)}
+.p-desc{font-size:12px;color:var(--muted)}
+.p-cta{margin-top:9px;font-size:13px;font-weight:800;color:var(--primary)}
+.ts-card .p-cta{color:var(--ts)}
+footer{text-align:center;padding:24px;font-size:12px;color:var(--muted);
+        border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="logo">📚</div>
+  <div>
+    <div class="site-title">UP TGT हिंदी प्रश्नोत्तरी</div>
+    <div class="site-sub">पूर्ण तैयारी · स्मार्ट अभ्यास · स्मरण ट्रिक</div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>हिंदी परीक्षा की<br>स्मार्ट तैयारी करें</h1>
+  <p>पूर्व वर्षों के प्रश्नपत्र · मॉक परीक्षा श्रृंखला · व्याख्या सहित</p>
+  <div class="chips">
+    <span class="chip">⚡ तत्काल उत्तर</span>
+    <span class="chip">💡 ट्रिक सहित</span>
+    <span class="chip">🏆 स्कोर कार्ड</span>
+    <span class="chip">⏱ टाइमर</span>
+    <span class="chip">📱 मोबाइल अनुकूल</span>
+  </div>
+</section>
+
+<main>
+  <div class="sec-label lbl-pyq">⚡ PYQ Mode</div>
+  <div class="sec-title">पूर्ववर्ती वर्षों के प्रश्नपत्र</div>
+  <div class="sec-desc">विकल्प पर क्लिक करते ही तुरंत सही उत्तर, व्याख्या और ट्रिक देखें</div>
+  <div class="grid">
+      <a href="pyq/up_tgt_hindi_2013_quiz.html" class="pcard pyq-card">
+        <div class="p-year">2013</div>
+        <div class="p-name">UP TGT हिंदी 2013</div>
+        <div class="p-meta">
+          <span class="tag tag-pyq">⚡ PYQ</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">तत्काल उत्तर · व्याख्या · ट्रिक</div>
+        <div class="p-cta">शुरू करें →</div>
+      </a>
+
+      <a href="pyq/up_tgt_hindi_2016_quiz.html" class="pcard pyq-card">
+        <div class="p-year">2016</div>
+        <div class="p-name">UP TGT हिंदी 2016</div>
+        <div class="p-meta">
+          <span class="tag tag-pyq">⚡ PYQ</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">तत्काल उत्तर · व्याख्या · ट्रिक</div>
+        <div class="p-cta">शुरू करें →</div>
+      </a>
+
+      <a href="pyq/up_tgt_hindi_2021_quiz.html" class="pcard pyq-card">
+        <div class="p-year">2021</div>
+        <div class="p-name">UP TGT हिंदी 2021</div>
+        <div class="p-meta">
+          <span class="tag tag-pyq">⚡ PYQ</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">तत्काल उत्तर · व्याख्या · ट्रिक</div>
+        <div class="p-cta">शुरू करें →</div>
+      </a></div>
+
+  <div class="sec-label lbl-ts">🏆 Test Series</div>
+  <div class="sec-title">मॉक परीक्षा श्रृंखला</div>
+  <div class="sec-desc">पूरी परीक्षा दें — जमा करने के बाद उत्तर व स्कोर कार्ड देखें</div>
+  <div class="grid">
+      <a href="test_series/test_35_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 35: हिंदी भाषाः उद्भव एवं विकास सहित</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 44 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_47_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 47: संपूर्ण व्याकरण</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 22 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_48_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 48: आधुनिक काल</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 30 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_65_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 65: समग्र पाठ्यक्रम आधृत</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 124 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_66_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 66: समग्र पाठ्यक्रम आधृत</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 124 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_67_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 67: समग्र पाठ्यक्रम आधृत</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_22_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 22: उपन्यास विधा</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 80 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_24_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 24: निबंध (22मई)</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 41 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_29_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 29: पत्र-पत्रिका</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 45 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_30_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 30: पुरस्कार एवं सम्मान</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 42 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_37_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 37: संधि</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 45 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/test_63_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">TEST 63: नाटक</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 69 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/400_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">संपूर्ण व्याकरण 400+ प्रश्नोत्तर</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 69 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/13_quiz.html" class="pcard ts-card">
+        
+        <div class="p-name">समग्र पाठ्यक्रम 13 अप्रैल</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 114 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/up_tgt_hindi_2013_mock_quiz.html" class="pcard ts-card">
+        <div class="p-year">2013</div>
+        <div class="p-name">UP TGT हिंदी 2013 — मॉक टेस्ट</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/up_tgt_hindi_2016_mock_quiz.html" class="pcard ts-card">
+        <div class="p-year">2016</div>
+        <div class="p-name">UP TGT हिंदी 2016 — मॉक टेस्ट</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a>
+
+      <a href="test_series/up_tgt_hindi_2021_mock_quiz.html" class="pcard ts-card">
+        <div class="p-year">2021</div>
+        <div class="p-name">UP TGT हिंदी 2021 — मॉक टेस्ट</div>
+        <div class="p-meta">
+          <span class="tag tag-ts">🏆 Mock Test</span>
+          <span class="p-count">📝 125 प्रश्न</span>
+        </div>
+        <div class="p-desc">टाइमर · जमा करने पर उत्तर</div>
+        <div class="p-cta">परीक्षा दें →</div>
+      </a></div>
+</main>
+
+<footer>© 2026 UP TGT हिंदी प्रश्नोत्तरी · प्रश्न hindisarang.com एवं अन्य स्रोतों से संकलित</footer>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 48: आधुनिक काल — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 48: आधुनिक काल</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 30 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/30</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "डॉ. रामकुमार वर्मा के अनुसार छायावाद है-", "options": ["कथन (i) सही और (ii) गलत", "कथन (i) गलत और (ii) सही", "कथन (i) और (ii) दोनों गलत", "कथन (i) और (ii) दोनों सही (क) परमात्मा की छाया आत्मा पर तथा आत्मा की छाया परमात्मा पर पड़ने लगती है,यही छायावाद है।"], "correct_index": 3, "explanation": ""}, {"id": 3, "question": "निम्नलिखित कथनों के आधार पर उत्तर दीजिए- () ‘Alea? 2 सर्गों का महाकाव्य है। इसका सबसे मार्मिक सर्ग नवम्‌ सर्ग है जिसमें उर्मिला का विरह वर्णन है। (Il) ‘alee? नायक प्रधान रचना है जबकि यशोधरा,पंचवटी और विष्णुप्रिया नायिका प्रधान रचनाएँ हैं।", "options": ["कथन (i) सही और (ii) गलत", "कथन (i) गलत और (ii) सही", "कथन (i) और (ii) दोनों गलत", "कथन (i) और (ii) दोनों सही"], "correct_index": 0, "explanation": ""}, {"id": 4, "question": "“चार खेमे चौंसठ खूंटे” किसकी प्रसिद्ध रचना है?", "options": ["छायावाद वस्तुवाद और रहस्यवाद के बीच की कड़ी है-गंगाप्रसाद पांडेय", "छायावाद एक दाशुतनक अनुभूतत है-शांतततप्रय तिवेदी", "छायावाद वस्तुत प्रकृतत के बीच सवाुत्मवाद है और उसका मूल उद्गीथ है- महादेवी वमाु", "छायावाद एक तवशाल सांस्कृततक चेतना का पररणाम था। यह केवल पाश्चात्य प्रभाव नहीं था अतपतु कतवयों की भीतरी व्याकुलता ने ही नवीन भाषा-शैली में अपने को अतभव्यक्त तकया- ह.प्र.तिवेदी (क) भगवतीचरण वमाु (ख) अज्ञेय (ग) हररवंशराय बच्चन (घ) धूतमल"], "correct_index": 2, "explanation": ""}, {"id": 6, "question": "“प्रगतिवाद साम्यवाद का पोषक है और पूँजीवाद का शत्रु...प्रगतिवाद साम्यवाद की ही साहित्यिक अभिव्यक्ति है।” कथन किसका है?", "options": ["डॉ. रामकुमार वमाु", "नामवर तसंह", "डॉ. नगेंद्र", "सुतमत्रानंदन पंत"], "correct_index": 2, "explanation": ""}, {"id": 8, "question": "निम्नलिखित में से कौनसी रचना एवं उसका रचनाकार सुमेलित नहीं है?", "options": ["कथन (i) सही और (ii) गलत", "कथन (i) और (ii) दोनों सही", "कथन (i) और (ii) दोनों गलत", "कथन (i) गलत और (ii) सही"], "correct_index": 3, "explanation": ""}, {"id": 9, "question": "निम्नलिखित में से सत्य कथन है?", "options": ["भारत में प्रगततशील लेखक संघ की स्थापना 1936 में हुई और इसका प्रथम अतधवेशन काशी में हुआ तजसकी अध्यक्षता प्रेमचंद ने की।", "अतखल भारतीय तहंदी प्रगततशील लेखक संघ का पहला अतधवेशन राहुल सांकृत्यायन की अध्यक्षता में 1947 में राजस्थान में हुआ।", "‘क’ व ‘ख’ दोनों", "इनमें से कोई नहीं"], "correct_index": 1, "explanation": ""}, {"id": 10, "question": "CHA सुसज्जित कर के क्षण में प्रियतम को प्राणों के पण में हमीं भेज देती है रण में क्षात्रधर्म के नाते॥” पंक्तियाँ गुप्त जी की किस रचना की है?", "options": ["साकेत", "िापर", "यशोधरा", "उपयुक्त में से कोई नहीं"], "correct_index": 2, "explanation": ""}, {"id": 11, "question": "RAMA का समय मेघमय आसमान से उतर रही है वह संध्या सुंदरी परी-सी धीरे-धीरे ।” पंक्तियों के रचनाकार कौन हैं?", "options": ["सुतमत्रानंदन पंत", "रांगेय राघव", "प्रसाद", "मुतक्तबोध"], "correct_index": 0, "explanation": ""}, {"id": 12, "question": "'उस जनपद का कवि हूँ” किसकी रचना है?", "options": ["भगवतीचरण वमाु", "पंत", "मुतक्तबोध", "तनराला"], "correct_index": 3, "explanation": ""}, {"id": 13, "question": "TAK सहाय के अनुसार प्रयोगवाद है?", "options": ["सुदामा पांडेय ‘धूतमल’", "तशवमंगलतसंह ‘सुमन’", "माखनलाल चतुवेदी", "तत्रलोचन शास्त्री"], "correct_index": 3, "explanation": ""}, {"id": 15, "question": "प्रश्न 15", "options": ["नयी कतवता में समग्र मनुष्य की बात ही नहीं कही गई वरन् मनुष्य के समग्र अनुभव खंड़ों को संयोतजत तकया गया है।", "नयी कतवता वैतवध्यमय जीवन के प्रतत प्रतततक्रया आत्म-चेतस् की है। नयी कतवता का स्वर एक नहीं तवतवध है।", "नयी कतवता आज की मानव तवतशष्टता से उद्भूत उस लघु मानव की अतभव्यतक्त है जो एक ओर आज की समस्त ततक्तता और तवषमता को तो भोग रहा है , साथ ही उन समस्त ततक्तताओं के बीच अपने व्यतक्तत्व को भी सुरतक्षत रखना चाहता है।", "नयी कतवता तहंदी सातहत्य श्ृंखला की सशक्त एवं जीवंत प्रतक्रया है।"], "correct_index": 1, "explanation": ""}, {"id": 17, "question": "Preaferhtact कथनों के आधार पर उत्तर दीजिए - 0)प्रसाद द्वारा रचित “आँसू? (925 ई.) 33 छंदों का विरह प्रधान/वियोग प्रधान स्मृति काव्य है, यह करुण रस प्रधान रचना है। (7) निराला द्वारा 840 Set में रचित “राम की शक्ति पूजा”का प्रकाशन वर्ष 936 है। यह अनामिका(938ई.) के द्वितीय संस्करण में संकलित है।", "options": ["पंत", "प्रसाद", "हररऔध", "तनराला"], "correct_index": 2, "explanation": ""}, {"id": 18, "question": "प्रश्न 18", "options": ["तदनकर", "तनराला", "जयशंकर प्रसाद", "महादेवी वमाु"], "correct_index": 2, "explanation": ""}, {"id": 20, "question": "प्रश्न 20", "options": ["डॉ. रामकुमार वमाु ने", "रामस्वरूप चतुवेदी ने", "नंददुलारे वाजपेयी ने", "इनमें से कोई नहीं"], "correct_index": 3, "explanation": ""}, {"id": 21, "question": "प्रश्न 21", "options": ["कथन (i) सही और (ii) गलत", "कथन (i) गलत और (ii) सही", "कथन (i) और (ii) दोनों गलत", "कथन (i) और (ii) दोनों सही"], "correct_index": 2, "explanation": ""}, {"id": 22, "question": "प्रश्न 22", "options": ["बालमुकुंद गुप्त", "माखनलाल चतुवेदी", "सूयुकांत तत्रपाठी 'तनराला'", "ठाकुर गोपालतसंह"], "correct_index": 3, "explanation": ""}, {"id": 23, "question": "“ओरे सर्वहारा की जय हो जिनका श्रम जीवन की धारा आग लगा देंगे जग भर में जहाँ-जहाँ मानव रोता है।” पंक्तियों के रचनाकार हैं ?", "options": ["माखनलाल चतुवेदी", "मुतक्तबोध", "हररवंशराय बच्चन", "रामधारी तसंह ‘तदनकर’ (क) भगवतीचरण वमाु (ख) तशवमंगल तसंह ‘सुमन’ (ग) धूतमल (घ) रांगेय राघव (क) माखनलाल चतुवेदी (ख) सूयुकांत तत्रपाठी ‘तनराला’ (ग) बालकृष्ण शमाु ‘नवीन’ (घ) मुतक्तबोध"], "correct_index": 2, "explanation": ""}, {"id": 27, "question": "“मुझे तोड़ लेना वनमाली, उस पथ पर देना तुम फेंक मातृभूमि पर शीश चढ़ाने जिस पथ पर जावें वीर अनेक I” पंक्तियों के रचनाकार हैं ?", "options": ["1919-1980 ई.", "1919-1975 ई.", "1927-1983 ई.", "1929-2000 ई. (क) माखनलाल चतुवेदी (ख) मुतक्तबोध (ग) भगवतीचरण वमाु (घ) बालकृष्ण शमाु ‘नवीन’ (क) पंत (ख) बालकृष्ण शमाु ‘नवीन’ (ग) हररवंशराय बच्चन"], "correct_index": 1, "explanation": ""}, {"id": 30, "question": "निम्नलिखित में से कविता आंदोलन एवं उसके प्रवर्तक की दृष्टि से असंगत है?", "options": ["माखनलाल चतुवेदी", "मुतक्तबोध", "लोचनप्रसाद पांडेय", "बालकृष्ण शमाु ‘नवीन’"], "correct_index": 2, "explanation": ""}, {"id": 31, "question": "इसलिए मेरी ये कविताएँ भयानक हिडिम्बा है, वास्तव में विस्फारित प्रतिमाएँ विकृताकृति-बिम्बा है। पंक्तियों के रचनाकार हैं?", "options": ["माखनलाल चतुवेदी", "मैतथलीशरण गुप्त", "लोचनप्रसाद पांडेय", "बालकृष्ण शमाु ‘नवीन’ (क) युयुत्सावादी कतवता- शलभ श्ीराम तसंह (ख) ताजी कतवता- लक्ष्मीकांत वमाु (ग)  साम्प्प्रततक कतवता-श्यामनारायण (घ)  वाम/प्रततबद्ध कतवता- ओंकारनाथ"], "correct_index": 1, "explanation": ""}, {"id": 33, "question": "“मैं जानता हूँ कि मेरे देश का समाजवाद मालगोदाम में लटकती हुई प्त करने हेतु व्हाट्स अप करें- 36636I , +9] 9]29257027", "options": ["वीणा", "लोकायतन", "पररवतुन", "इनमें से कोई नहीं"], "correct_index": 0, "explanation": ""}, {"id": 34, "question": "प्रश्न 34", "options": ["माखनलाल चतुवेदी", "मैतथलीशरण गुप्त", "मुतक्तबोध", "बालकृष्ण शमाु ‘नवीन’"], "correct_index": 2, "explanation": ""}, {"id": 35, "question": "प्रश्न 35", "options": ["धूतमल", "मैतथलीशरण गुप्त", "मुतक्तबोध", "बालकृष्ण शमाु ‘नवीन’ (क) माखनलाल चतुवेदी (ख) सवेश्वरदयाल सक्सेना (ग) लोचनप्रसाद पांडेय (घ) बालकृष्ण शमाु ‘नवीन’ (क) माखनलाल चतुवेदी (ख) धूतमल (ग) रघुवीर सहाय (घ) तनराला"], "correct_index": 0, "explanation": ""}, {"id": 40, "question": "“संसद एक मंदिर है जहाँ किसी को द्रोही नहीं कहा जा सकता दूध पिये मुँह पौंछें आ बैठे...॥” पंक्तियों के रचनाकार हैं ?", "options": ["प्रगततवाद कतवता में नए सत्यों या नई यथाथुताओं का जीतवत बोध भी है,इन सत्यों के साथ नए रागात्मक संबंध भी हैं- अज्ञेय", "प्रयोगों का लक्ष्य है-व्यापक सामातजक सत्य के खंड अनुभवों का साधारीकरण करने में कतवता को भावानुकूल माध्यम देना,तजसमें व्यतक्त िारा इस व्यापक सत्य का सवुबोधगम्प्य प्रेषण संभव हो सके- तगररजाकुमार माथुर", "प्रयोगवादी कतवता में भावना है,तकंतु हर भावना के सामने एक प्रश्न-तचह्न लगा हुआ है। सांस्कृततक ढााँचा चरमरा उठा है और यह प्रश्न तचह्न उसी की ध्वतन मात्र है-धमुवीर भारती", "उपयुक्त सभी"], "correct_index": 3, "explanation": ""}, {"id": 42, "question": "प्रयोगवाद के संबंध में सही कथन है ?", "options": ["1965", "1966", "1967", "1968"], "correct_index": 2, "explanation": ""}, {"id": 43, "question": "दूसरा सप्तक में शामिल रचनाकार नहीं हैं?", "options": ["वनपाखी सुनो", "जंगल का ददु", "हम तुम", "इनमें से कोई नहीं (क) धमुवीर भारती (ख) नरेश मेहता (ग) शकुंत माथुर (घ) कीततु चौधरी (क) प्रयागनारायण तत्रपाठी (ख) सवेश्वरदयाल सक्सेना (ग) तवजयदेव नारायण साही"], "correct_index": 2, "explanation": ""}, {"id": 46, "question": "प्रश्न 46", "options": ["नरेश मेहता", "रघुवीर सहाय", "कुाँवर नारायण", "हररनारायण व्यास"], "correct_index": 3, "explanation": ""}, {"id": 47, "question": "प्रश्न 47", "options": ["नरेश मेहता", "रघुवीर सहाय", "कुाँवर नारायण", "धमुवीर भारती"], "correct_index": 3, "explanation": ""}, {"id": 48, "question": "प्रश्न 48", "options": ["1956", "1957", "1958", "1959"], "correct_index": 1, "explanation": ""}, {"id": 50, "question": "प्रश्न 50", "options": ["तवजयदेवनारायण साही", "रघुवीर सहाय", "कुाँवर नारायण", "मुतक्तबोध"], "correct_index": 0, "explanation": ""}];
+const TOT=30,SEC=5400;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 29: पत्र-पत्रिका — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 29: पत्र-पत्रिका</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 45 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/45</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "‘हंस’ पहत्रका के वर्तमान संपादक कौन हैं?", "options": ["रचना यादव", "अहखलेश", "संजय", "मनोहर गुप्त"], "correct_index": 2, "explanation": ""}, {"id": 2, "question": "‘र्द्भव’ पहत्रका का प्रकाशन कहाँ से होर्ा है?", "options": ["कोलकर्ा", "लखनऊ", "काशी", "प्रयागराज"], "correct_index": 1, "explanation": ""}, {"id": 3, "question": "1922 D. ज्ञानोदय              4. 1955 कूट- A    B    C    D", "options": ["1     2      3     4", "1     2      4     3", "1     4      3     2", "1     3     4      2"], "correct_index": 2, "explanation": ""}, {"id": 4, "question": "‘सरस्वर्ी’ पहत्रका के वर्तमान संपादक कौन हैं?", "options": ["संजय पररहार", "अनुपमहसंह", "रवींद्रनार् त्यागी", "रहवनंदन हसंह"], "correct_index": 3, "explanation": ""}, {"id": 6, "question": "‘नया ज्ञानोदय’ पहत्रका के वर्तमान संपादक कौन है?", "options": ["मधुसूदन आनंद", "हररसुमन हबष्ट", "डॉ. महेश्वर", "रघुराज"], "correct_index": 0, "explanation": ""}, {"id": 7, "question": "‘पाखी’ पहत्रका के वर्तमान संपादक कौन हैं?", "options": ["डॉ. पंकश शमात", "कँवल भारर्ी", "गणेश दास", "मोहन दत्तात्रेय"], "correct_index": 0, "explanation": ""}, {"id": 8, "question": "‘कादंहबनी’ का प्रकाशन कहाँ से होर्ा है?", "options": ["मुम्बई से", "हदल्ली से", "कोलकर्ा से", "लखनऊ से"], "correct_index": 1, "explanation": ""}, {"id": 9, "question": "‘मधुमर्ी’ के वर्तमान संपादक कौन हैं?", "options": ["सुरेश प्रभाकर", "ब्रजरर्न जोशी", "हगररजादत्त शमात", "मोहन पांडेय"], "correct_index": 1, "explanation": ""}, {"id": 11, "question": "हनम्नहलहखर् में से हद्ववेदी युग की पहत्रका नहीं है?", "options": ["सुदशतन", "छत्तीसगढ़ हमत्र", "भाषा चंहद्रका", "कमतवीर"], "correct_index": 3, "explanation": ""}, {"id": 12, "question": "‘समालोचक’ पहत्रका के संपादक कौन र्े?", "options": ["अंहबका प्रसाद गुप्त", "चंद्रधर शमात ‘गुलेरी’", "कृष्णकांर् मालवीय", "देवीदत्त शुक्ल"], "correct_index": 1, "explanation": ""}, {"id": 13, "question": "‘अदहन’ पहत्रका का प्रकाशन कहाँ से होर्ा है?", "options": ["हदल्ली", "अलीगढ़", "लखनऊ", "मुम्बई"], "correct_index": 2, "explanation": ""}, {"id": 14, "question": "‘हदनमान’ पहत्रका का प्रकाश कब से आरंभ हुआ ?", "options": ["1964 से", "1965 से", "1967 से", "1968 से"], "correct_index": 1, "explanation": ""}, {"id": 16, "question": "इलाचंद्र जोशी हनम्नहलहखर् में से हकस पहत्रका के संपादक नहीं रहे ?", "options": ["साहहत्यकार", "चाँद", "सुधा", "कादंहबनी"], "correct_index": 3, "explanation": ""}, {"id": 17, "question": "‘सामहयक सरस्वर्ी’ पहत्रका का प्रकाशन कहाँ से होर्ा है?", "options": ["हदल्ली", "मुम्बई", "लखनऊ", "कोलकर्ा"], "correct_index": 0, "explanation": ""}, {"id": 18, "question": "‘अपेक्षा’ पहत्रका का प्रकाशन हकस वषत से आरंभ हुआ?", "options": ["1999 ई.", "2000 ई.", "2001 ई.", "2002 ई."], "correct_index": 1, "explanation": ""}, {"id": 19, "question": "कसौटी (1999) के संपादक कौन हैं?", "options": ["हररनारायण", "नंदहकशोर नवल", "हवभूहर्नारायण राव", "अहखलेश"], "correct_index": 1, "explanation": ""}, {"id": 20, "question": "‘वाक्’ पहत्रका का प्रकाशन हकस वषत से हो रहा है?", "options": ["2005", "2006", "2007", "2008"], "correct_index": 0, "explanation": ""}, {"id": 21, "question": "‘वानर’ पहत्रका के संपादक कौन र्े?", "options": ["श्रीधर पाठक", "रामनरेश हत्रपाठी", "राजेंद्र कुमार", "हवजयराय"], "correct_index": 1, "explanation": ""}, {"id": 22, "question": "‘दूसरी परंपरा’ पहत्रका का प्रकाशन कहाँ से होर्ा है ?", "options": ["मुम्बई", "लखनऊ", "कोलकर्ा", "अलीगढ़"], "correct_index": 1, "explanation": ""}, {"id": 23, "question": "अज्ञेय ने हनम्नहलहखर् में से हकस पत्र/पहत्रका का संपादन नहीं हकया  ?", "options": ["हवशाल भारर्", "सैहनक", "हबजली", "हचंर्न हदशा"], "correct_index": 3, "explanation": ""}, {"id": 24, "question": "‘उद्भावना’ पहत्रका का प्रकाशन हकस वषत से हो रहा है?", "options": ["1986", "1987", "1988", "1989"], "correct_index": 0, "explanation": ""}, {"id": 25, "question": "ओम प्रकाश वाल्मीहक हनम्नहलहखर् में से हकस पहत्रका के संपादक रहे ?", "options": ["आक्रोश", "प्रज्ञा साहहत्य", "पश्यंर्ी", "र्ीसरा पक्ष"], "correct_index": 1, "explanation": ""}, {"id": 26, "question": "‘प्रवासी संसार’ पहत्रका का प्रकाशन कहाँ से होर्ा है?", "options": ["हदल्ली", "प्रयागराज", "जबलपुर", "बीजापुर"], "correct_index": 0, "explanation": ""}, {"id": 27, "question": "‘धमतयुग’ पहत्रका का प्रकाशन हकस वषत से हुआ?", "options": ["1949 ई.", "1950 ई.", "1951 ई.", "1952 ई."], "correct_index": 1, "explanation": ""}, {"id": 28, "question": "‘अक्षर’ पहत्रका का प्रकाशन कहाँ से होर्ा है?", "options": ["हदल्ली", "भोपाल", "प्रयागराज", "कोलकत्ता"], "correct_index": 1, "explanation": ""}, {"id": 29, "question": "हनम्नहलहखर् में से केंद्रीय हहंदी हनदेशालय द्वारा प्रकाहशर् पहत्रका है ?", "options": ["भाषा", "बहुवचन", "आजकल", "अहभप्राय"], "correct_index": 0, "explanation": ""}, {"id": 30, "question": "भारर् के प्रर्म दैहनक हहंदी पत्र ‘समाचार सुधा वषतन’ के संबंध में असत्य कर्न है?", "options": ["इसका प्रकाशन वषत 1855 ई. र्ा ।", "इसके प्रधान संपादक श्यामसुंदर सेन र्े ।", "यह हद्व- भाषी (हहंदी एवं बांगला) पत्र र्ा ।", "इसका प्रकाशन स्र्ल कलकत्ता र्ा ।"], "correct_index": 0, "explanation": ""}, {"id": 31, "question": "आचायत रामचंद्र शुक्ल ने हकस पहत्रका को ‘20वीं शर्ाब्दी के प्रारंहभक काल का हवश्वकोश’ कहा ?", "options": ["हंस", "हवशाल भारर्", "इंदु", "सरस्वर्ी"], "correct_index": 3, "explanation": ""}, {"id": 32, "question": "हहंदी पत्रकाररर्ा हदवस कब मनाया जार्ा है?", "options": ["10 मई", "20 मई", "30 मई", "10 जनवरी"], "correct_index": 2, "explanation": ""}, {"id": 33, "question": "कहववचन सुधा का प्रकाशन कर भारर्ेंदु ने एक नये युग का सुत्रपार् हकया ।‛ कर्न हकस हवद्वान का है?", "options": ["रामचंद्र शुक्ल", "डॉ. नगेंद्र", "डॉ. बच्चन हसंह", "रामहवलास शमात"], "correct_index": 3, "explanation": ""}, {"id": 35, "question": "हनम्नहलहखर् में से कौन ‘ब्राह्मण पहत्रका’ के संपादक रहे र्े?", "options": ["पं. केशवराम भट्ट", "बालकृष्ण भट्ट", "राधाचरण गोस्वामी", "प्रर्ापनारायण हमश्र"], "correct_index": 3, "explanation": ""}, {"id": 36, "question": "हनम्नहलहखर् में से हकस पहत्रका का प्रकाशन स्र्ल अलीगढ़ रहा है?", "options": ["भारर् बंधु", "प्रजा हहर्ैषी", "बाला बोहधनी", "भारर्ेंदु पहत्रका"], "correct_index": 0, "explanation": ""}, {"id": 37, "question": "बालकृष्ण ‘नवीन’ व माखनलाल चर्ुवेदी हकस पहत्रका के संपादक रहे र्े ?", "options": ["मनोरंजन (1912)", "प्रभा (1913)", "चाँद (1920)", "माधुरी (1922)"], "correct_index": 1, "explanation": ""}, {"id": 38, "question": "हनम्नहलहखर् में से कौन ‘मर्वाला’ पहत्रका के संपादक रहे र्े?", "options": ["हनराला", "हशवपूजन सहाय", "नवजाहदकलाल श्रीवास्र्व", "उपयुतक्त सभी"], "correct_index": 3, "explanation": ""}, {"id": 40, "question": "हकस पहत्रका का प्रकाशन स्र्ल सुमेहलर् नहीं है?", "options": ["नागरी नीरद- हमजातपुर", "सुदशतन- काशी", "प्रभा- खंडवा", "चाँद- कानपुर"], "correct_index": 3, "explanation": ""}, {"id": 41, "question": "हनम्नहलहखर् में से साप्ताहहक प्रकाहशर् होने वाली पहत्रका कौनसी है ?", "options": ["माधुरी", "मर्वाला", "हवशाल भारर्", "हंस"], "correct_index": 1, "explanation": ""}, {"id": 42, "question": "‘चाँद’ पहत्रका का प्रकाशन हकस वषत साप्ताहहक से माहसक हकया गया?", "options": ["1921", "1922", "1923", "1924"], "correct_index": 2, "explanation": ""}, {"id": 43, "question": "हकस पहत्रका को ‘छायावाद का घोर समर्तक पत्र’ कहा जार्ा है?", "options": ["सरस्वर्ी", "जागरण", "मयातदा", "हंस"], "correct_index": 1, "explanation": ""}, {"id": 44, "question": "‘कहववचन सुधा’ सामान्य जन का सजग प्रहरी र्ा ।‛ कर्न हकसका है?", "options": ["डॉ. रामहवलास शमात", "डॉ. नगेंद्र", "रामचंद्र शुक्ल", "डॉ. बच्चन हसंह"], "correct_index": 0, "explanation": ""}, {"id": 45, "question": "हहंदी गद्य का पररष्कृर् रुप सबसे पहले हररश्चंद्र मैगजीन में ही प्रकट हुआ ।‛ कर्न हकस हवद्वान का है?", "options": ["डॉ. नगेंद्र", "गणपहर्चंद्र गुप्त", "रामचंद्र शुक्ल", "डॉ. रामहवलास शमात"], "correct_index": 2, "explanation": ""}, {"id": 46, "question": "‘आलोचना’ पहत्रका का प्रकाशन वषत है?", "options": ["1950", "1951", "1952", "1953"], "correct_index": 1, "explanation": ""}, {"id": 47, "question": "‘परख’ पहत्रका (2000) का प्रकाशन हुआ है?", "options": ["हदल्ली से", "कानपुर से", "प्रयागराज से", "लखनऊ से"], "correct_index": 2, "explanation": ""}, {"id": 48, "question": "‘साक्षात्कार’ पहत्रका का प्रकाशन वषत है?", "options": ["1976", "1978", "2000", "2002"], "correct_index": 0, "explanation": ""}, {"id": 49, "question": "‘क  ख  ग’ पहत्रका का प्रकाशन वषत क्या है?", "options": ["1955", "1960", "1963", "1965"], "correct_index": 2, "explanation": ""}, {"id": 50, "question": "हनम्नहलहखर् में से हकस पहत्रका का प्रकाशन वषत सही नहीं है ?", "options": ["नये पत्ते - 1953", "नयी कहवर्ा- 1954", "हनकष- 1955", "संचेर्ना - 1960"], "correct_index": 3, "explanation": ""}];
+const TOT=45,SEC=5400;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

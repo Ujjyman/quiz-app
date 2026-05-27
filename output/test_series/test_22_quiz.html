@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 22: उपन्यास विधा — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 22: उपन्यास विधा</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 80 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/80</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "मैं उपन्यास को मानि चररत्र का वचत्र मात्र समझता ह ूँ।मानि चररत्र पर प्रकाश डालना और उसके रहस्यों को खोलना ही उपन्यास का मूल तत्त्ि है।‛कथन वकस विद्वान का है ?", "options": ["जैनंद्र", "गुलाबराय", "प्रेमचंद", "रामचंद्र शुक्ल"], "correct_index": 2, "explanation": ""}, {"id": 2, "question": "उपन्यास व्यवि के अपनी पररवस्थवतयों के साथ संबंध की अवभव्यवि के उत्तरोत्तर विकास का प्रवतवनवधत्ि करता है।‛ यह कथन वकसका है?", "options": ["अज्ञेय", "जैनेंद्र", "रामचंद्र शुक्ल", "गुलाबराय"], "correct_index": 0, "explanation": ""}, {"id": 5, "question": "युग की गवतशील पृष्ठभूवम पर सहज शैली में स्िाभाविक जीिन की एक पूणण व्यापक झाूँकी प्रस्तुत करने िाला गद्यकाव्य उपन्यास कहलाता है।‛ मान्यता वकस विद्वान की है?", "options": ["डॉ. भगीरथ वमश्र", "गणपवतचंद्र गुप्त", "गुलाबराय", "रामकुमार िमाण"], "correct_index": 0, "explanation": ""}, {"id": 6, "question": "उपन्यास कायण – कारण श्रृंखला में बूँधा ह आ िह कथानक है वजसमें अपेक्षाकृत अवधक विस्तार और पेचीदगी के साथ िास्तविक जीिन का प्रवतवनवधत्ि करने िाले व्यवियों से संबंवधत िास्तविक ि काल्पवनक घटनाओं द्वारा मानि जीिन के सत्य का रसात्मक रूप से उद्घाटन वकया जाता है।‛ कथन वकस विद्वान का है?", "options": ["गणपवतचंद्र गुप्त", "रामकुमार िमाण", "जैनेंद्र कुमार", "गुलाबराय"], "correct_index": 3, "explanation": ""}, {"id": 7, "question": "उपन्यास उस गद्य आख्यान को कहा जाता है जो यथाथण जीिन का यथाथणिादी दृवि से अध्ययन करे।‛ कथन वकसका है?", "options": ["डॉ. मूलर", "क्रॉस", "हैनरी जेम्स", "लॉडण डेविड"], "correct_index": 1, "explanation": ""}, {"id": 9, "question": "वहंदी में ‘नॉिेल’ के अथण में ‘उपन्यास’ शब्द के प्रथम प्रयोिा हैं ?", "options": ["प्रेमचंद", "रामचंद्र शुक्ल", "भारतेंदु हररश्चंद्र", "डॉ. गोपालराय"], "correct_index": 2, "explanation": ""}, {"id": 10, "question": "वनम्नवलवखत में से वकसने ‘परीक्षागुरु’को अंग्रेजी ढंग का वहंदी का पहला मौवलक उपन्यास माना है ?", "options": ["प्रेमचंद ने", "गोपालराय ने", "रामस्िरूप चतुिेदी ने", "रामचंद्र शुक्ल ने"], "correct_index": 3, "explanation": ""}, {"id": 11, "question": "वकसने बालकृष्ण भट्ट को वहंदी का प्रथम ऐवतहावसक उपन्यासकार माना है?", "options": ["रामचंद्र शुक्ल ने", "गोपालराय ने", "गुलाबराय ने", "गणपवतचंद्र गुप्त ने"], "correct_index": 1, "explanation": ""}, {"id": 12, "question": "वनम्नवलवखत में से कौनसा उपन्यास एिं उसका रचनाकार सुमेवलत नहीं है ?", "options": ["िामा वशक्षक(1872)ईश्वरीप्रसाद ि कल्याणराय", "नूतन ब्रह्मचारी(1886)- बालकृष्ण भट्ट", "वनस्सहाय वहंदू(1890)-  राधाचरण गोस्िामी", "अधवखला फूल(1907)- हररऔध"], "correct_index": 1, "explanation": ""}, {"id": 13, "question": "वहंदी में वतलस्मी-ऐयारी उपन्यासों के जनक कौन माने जाते हैं?", "options": ["गोपालराम गहमरी", "वकशोरीलाल गोस्िामी", "देिकीनंदन खत्री", "बालकृष्ण भट्ट"], "correct_index": 2, "explanation": ""}, {"id": 14, "question": "वनम्नवलवखत में से वकसे वहंदी का कानन डायल कहा जाता है?", "options": ["गोपालराम गहमरी", "देिकीनंदन खत्री", "वकशोरीलाल गोस्िामी", "प्रेमचंद"], "correct_index": 0, "explanation": ""}, {"id": 15, "question": "देिकीनंदन खत्री के उपन्यास‘चंद्रकांता संतवत’ के वकतने भाग हैं?", "options": ["21", "22", "23", "24"], "correct_index": 3, "explanation": ""}, {"id": 16, "question": "वनम्नवलवखत में से ब्रजनंदन सहाय द्वारा रवचत उपन्यास नहीं है ?", "options": ["सौदावमनी (1891)", "राजेंद्र मालती (1897)", "अद्भुत प्रायवश्चत (1901)", "अरण्यबाला (1915)"], "correct_index": 0, "explanation": ""}, {"id": 17, "question": "वनम्नवलवखत में से बालकृष्ण भट्ट द्वारा रवचत उपन्यास नहीं है?", "options": ["रहस्य कथा(1879)", "नूतन ब्रह्मचारी(1886)", "सौ अजान एक सुजान(1892)", "स्ितंत्र रमा परतंत्र लक्ष्मी(1899)"], "correct_index": 3, "explanation": ""}, {"id": 18, "question": "प्रेमचंद को ‘उपन्यास सम्राट्’ की उपावध वकसने दी?", "options": ["रामचंद्र शुक्ल ने", "जैनेंद्र कुमार ने", "शरतचंद्र चट्टोपाध्याय ने", "अज्ञेय ने"], "correct_index": 2, "explanation": ""}, {"id": 19, "question": "प्रेमचंद का मूल रूप से वहंदी में वलखा प्रथम उपन्यास है?", "options": ["सेिासदन", "प्रेमाश्रम", "रंगभूवम", "कायाकल्प"], "correct_index": 3, "explanation": ""}, {"id": 20, "question": "प्रेमचंद के उपन्यासों का सही आरोही काल- अनुक्रम है ?", "options": ["कायाकल्प-वनमणला-गबन-कमणभूवम", "वनमणला-कायाकल्प-गबन-कमणभूवम", "कायाकल्प-कमणभूवम-वनमणला-गबन", "गबन-कायाकल्प-कमणभूवम-वनमणला"], "correct_index": 0, "explanation": ""}, {"id": 22, "question": "वनम्नवलवखत में से वकसने वशिपूजन सहाय द्वारा रवचत ‘देहाती दुवनया’(19260 को वहंदी का प्रथम आंचवलक उपन्यास है?", "options": ["नामिर वसंह ने", "गुलाबराय ने", "गोपालराय ने", "गणपवतचंद्र गुप्त ने"], "correct_index": 2, "explanation": ""}, {"id": 25, "question": "वहंदी में प्रकृवतिादी उपन्यासों के जनक कौन माने जाते हैं?", "options": ["जी.पी.श्रीिास्ति", "गोविंद िल्लभ पंत", "भगितीप्रसाद िाजपेयी", "पांडेय बेचन शमाण ‘उग्र’"], "correct_index": 3, "explanation": ""}, {"id": 26, "question": "वनम्नवलवखत में से ऋर्भचरण जैन द्वारा रवचत उपन्यास नहीं है ?", "options": ["पैसे का साथी-1928", "वदल्ली का व्यवभचार-1928", "अमर अवभलार्ा-1933", "रहस्यमयी-1931"], "correct_index": 2, "explanation": ""}, {"id": 27, "question": "जैनेंद्र के वकस उपन्यास का प्रकाशन िर्ण सही नहीं है?", "options": ["परख-1929", "सुनीता-1932", "त्याग पत्र-1937", "विितण-1953"], "correct_index": 1, "explanation": ""}, {"id": 29, "question": "वनम्नवलवखत में से कौनसा उपन्यास और उसका रचनाकार सुमेवलत नहीं है ?", "options": ["चन्ना (2019)- कृष्णा सोबती", "अल्प विराम (2020) –मृदुला गगण", "नकटौरा (2022) - वचत्रा मुद्गल", "महारास (2023) - डॉ. उर्ा यादि"], "correct_index": 1, "explanation": ""}, {"id": 30, "question": "वनम्नवलवखत में से नावसरा शमाण द्वारा रवचत उपन्यास नहीं है ?", "options": ["शब्द पखेरु-2017", "दूसरी जन्नत-2018", "हररवप्रया-2019", "अल्फा बीटा गामा-2022"], "correct_index": 2, "explanation": ""}, {"id": 31, "question": "इलाचंद्र जोशी के उपन्यास‘घृणामयी’ (1929) का पुन: प्रकाशन ‘लज्जजा’नाम से कब ह आ ?", "options": ["1948 ई. में", "1949 ई. में", "1950 ई. में", "1951 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 32, "question": "‘मवनया’ इलाचंद्र जोशी के वकस उपन्यास की नावयका है?", "options": ["घृणामयी", "वजप्सी", "मुविपथ", "कवि की प्रेयसी"], "correct_index": 1, "explanation": ""}, {"id": 34, "question": "अज्ञेय द्वारा रवचत ‘शेखर: एक जीिनी' का दूसरा भाग कब प्रकावशत ह आ ?", "options": ["1942 ई. में", "1943 ई. में", "1944 ई. में", "1945 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 35, "question": "वनम्नवलवखत में से विष्णु प्रभाकर द्वारा रवचत उपन्यास नहीं है?", "options": ["ढलती रात- 1951", "नये मोड़-1954", "तट के बंधन-1955", "स्िप्नमयी-1956"], "correct_index": 1, "explanation": ""}, {"id": 36, "question": "भीष्म साहनी के वकस उपन्यास का प्रकाशन िर्ण सही नहीं है?", "options": ["झरोखे-1965", "कवड़याूँ-1970", "तमस-1973", "िसंती-1980"], "correct_index": 0, "explanation": ""}, {"id": 39, "question": "‘इरा’ एिं ‘विमल’ कमलेश्वर के वकस उपन्यास के पात्र हैं?", "options": ["एक सड़क सत्तािन गवलयाूँ", "डाक बंगला", "लौटे ह ए मुसावफर", "आगामी अतीत"], "correct_index": 1, "explanation": ""}, {"id": 40, "question": "वनम्नवलवखत में से कृष्णा अवग्नहोत्री द्वारा रवचत उपन्यास नहीं है ?", "options": ["पुरिाई-2018", "पंचम की फेल-2022", "मंगलम्-2022", "मूवतण भंजन-2022"], "correct_index": 3, "explanation": ""}, {"id": 42, "question": "वनम्नवलवखत में से कौनसा उपन्यास एिं उसकी रचनाकार सुमेवलत नहीं है?", "options": ["ताले में शहर(2021)-मीराकांत", "देह कुठररया(2021)-जया जादिानी", "गाूँधी और सरलादेिी चौधरानी: बारह अध्याय( 2022)-अलका सरािगी", "तृन धरर ओट(2023)-रजनी गुप्त"], "correct_index": 3, "explanation": ""}, {"id": 44, "question": "प्रगवतिादी उपन्यासकारों का सही आरोही काल- अनुक्रम है ?", "options": ["यशपाल-भगितीचरण िमाण-रांगेय राघि- मन्मथलाल गुप्त", "यशपाल-भगितीचरण िमाण-मन्मथलाल गुप्त- रांगेय राघि", "भगितीचरण िमाण-यशपाल- मन्मथलाल गुप्त- रांगेय राघि", "रांगेय राघि-भगितीचरण िमाण-मन्मथलाल गुप्त- यशपाल"], "correct_index": 1, "explanation": ""}, {"id": 45, "question": "वनम्नवलवखत में से मनोविश्लेर्िादी उपन्यासकार नहीं है ?", "options": ["डॉ. धमणिीर भारती", "जैनेंद्र", "प्रभाकर माचिे", "िीरेंद्र नारायण"], "correct_index": 3, "explanation": ""}, {"id": 46, "question": "वनम्नवलवखत आंचवलक उपन्यासकारों का सही आरोही कालानुक्रम है ?", "options": ["देिेंद्र सत्याथी-नागाजुणन-फणीश्वरनाथ रेणु-वििेकी राय", "देिेंद्र सत्याथी-फणीश्वरनाथ रेणु-नागाजुणन-वििेकी   राय", "देिेंद्र सत्याथी-वििेकी राय-नागाजुणन-फणीश्वरनाथ रेणु", "फणीश्वरनाथ रेणु-देिेंद्र सत्याथी-नागाजुणन- वििेकी राय"], "correct_index": 0, "explanation": ""}, {"id": 47, "question": "फणीश्वरनाथ रेणु का कौनसा उपन्यास एिं उसका पात्र सुमेवलत नहीं है?", "options": ["मैला आूँचल-डॉ. प्रशांत", "परती पररकथा-वशिेंद्रनाथ वमश्र", "जुलूस-पवित्रा", "वकतने चौराहे-बेलागुप्त"], "correct_index": 3, "explanation": ""}, {"id": 48, "question": "‘बीमार शहर’ (1973) के उपन्यास के रचनाकर हैं?", "options": ["राजेंद्र अिस्थी", "वििेकी राय", "देिेंद्र सत्याथी", "गुलशेर खाूँ शानी"], "correct_index": 0, "explanation": ""}, {"id": 49, "question": "गुलशेर खाूँ शानी के वकस उपन्यास का प्रकाशन िर्ण सही सुमेवलत नहीं है ?", "options": ["कस्तूरी-1964 ई.", "कालाजल-1965 ई.", "फूल तोड़ना मना है-1976 ई.", "साूँप और सी़िी-1983 ई."], "correct_index": 2, "explanation": ""}, {"id": 50, "question": "वनम्नवलवखत में से राही मासूम रजा का उपन्यास नहीं है ?", "options": ["आधा गाूँि(1966 ई.)", "टोपी शुक्ला(1969 ई.)", "ओस की बूँद(1970 ई.)", "आकाश की छत(1979 ई.)"], "correct_index": 3, "explanation": ""}, {"id": 51, "question": "श्रीलाल शुक्ल को ‘राग दरबारी’ उपन्यास के वलए सावहत्य अकादमी पुरस्कार कब वमला ?", "options": ["1968 ई. में", "1969 ई. में", "1970 ई. में", "1971 ई. में"], "correct_index": 1, "explanation": ""}, {"id": 52, "question": "समर शेर् है(1988 ई.) उपन्यास के रचनाकार हैं?", "options": ["वहमांशु जोशी", "देिेंद्र सत्याथी", "गोविंद िल्लभ पंत", "वििेकी राय"], "correct_index": 3, "explanation": ""}, {"id": 53, "question": "‘सत्या’ उपेंद्रनाथ ‘अश्क’ के वकस उपन्यास की पात्र है?", "options": ["बड़ी-बड़ी आूँखें  (1955 ई.)", "पत्थर-अल-पत्थर(1957 ई.)", "गमणराख (1952 ई.)", "वसतारों का खेल(1940 ई.)"], "correct_index": 2, "explanation": ""}, {"id": 54, "question": "नागाजुणन के उपन्यासों का सही आरोही काल- अनुक्रम है ?", "options": ["रवतनाथ की चाची-बलचनमा-उग्रतारा-नई पौध", "रवतनाथ की चाची-बलचनमा-नई पौध-उग्रतारा", "रवतनाथ की चाची-उग्रतारा- बलचनमा-नई पौध", "रवतनाथ की चाची-नई पौध-उग्रतारा- बलचनमा"], "correct_index": 1, "explanation": ""}, {"id": 57, "question": "वहंदी में रवचत आख्यावयका शैली का प्रथम उपन्यास है  ?", "options": ["भाग्यिती", "श्यामा स्िप्न", "चंद हसीनों के खतूत", "देहाती दुवनया"], "correct_index": 1, "explanation": ""}, {"id": 58, "question": "वकसने पांडेय बेचन शमाण ‘उग्र’ के उपन्यासों को घासलेटी सावहत्य कहा है?", "options": ["बनारसीदास चतुिेदी ने", "रामस्िरूप चतुिेदी ने", "डॉ. गोपाल राय ने", "मुविबोध ने"], "correct_index": 0, "explanation": ""}, {"id": 60, "question": "प्रेमचंद द्वारा रवचत गोदान उपन्यास में वकतने प्रकरण हैं ?", "options": ["32", "34", "36", "38"], "correct_index": 2, "explanation": ""}, {"id": 61, "question": "‘प्रजामंडल’ (1941 ई.) के रचनाकार हैं?", "options": ["जी.पी. श्रीिास्ति", "मन्नन वद्विेदी", "श्रीनाथ वसंह", "वगररजादत्त शुक्ल"], "correct_index": 2, "explanation": ""}, {"id": 63, "question": "नरेंद्र कोहली द्वारा रवचत ‘महासमर’ उपन्यास के वकतने खंड हैं ?", "options": ["छह", "सात", "आठ", "नौ"], "correct_index": 2, "explanation": ""}, {"id": 64, "question": "वनम्नवलवखत में से श्रीलाल शुक्ल द्वारा रवचत उपन्यास नहीं है?", "options": ["सूनी घाटी का सूरज-1957 ई.", "मकान-1976 ई.", "विश्रामपुर का संत-1998 ई.", "काला पहाड़-1999 ई."], "correct_index": 3, "explanation": ""}, {"id": 65, "question": "अमृतलाल नागर के वकस उपन्यास में बंगाल के अकाल की त्रासदी का वचत्रण ह आ है ?", "options": ["महाकाल", "करिट", "अवग्नगभाण", "बूँद और समुद्र"], "correct_index": 0, "explanation": ""}, {"id": 67, "question": "होरी महाजन और शासन के शोर्ण का कभी खत्म न होने िाला वसलवसला है।‛ गोदान उपन्यास के वकस पात्र ‘होरी’ के संबंध में यह कथन वकस आलोचक का है?", "options": ["रामचंद्र शुक्ल", "रामविलास शमाण", "डॉ. बच्चन वसंह", "नामिर वसंह"], "correct_index": 1, "explanation": ""}, {"id": 68, "question": "‘गोदान’ नियुग का प्रथम गंभीर उद्घोर् है।‛ कथन वकसका है?", "options": ["डॉ. सत्येंद्र", "डॉ. लक्ष्मीसागर िाष्णेय", "नवलन विलेचन शमाण", "रामविलास शमाण"], "correct_index": 1, "explanation": ""}, {"id": 69, "question": "‘अंवतम अरण्य’(2000 ई.) उपन्यास के रचनाकार हैं?", "options": ["मोहन राकेश", "दुष्यंत कुमार", "लक्ष्मीकांत िमाण", "वनमणल िमाण"], "correct_index": 3, "explanation": ""}, {"id": 70, "question": "विपात्र (1970 ई.) उपन्यास के रचनाकार हैं?", "options": ["जैनेंद्र", "मुविबोध", "केदारनाथ वसंह", "केदारनाथ अग्रिाल"], "correct_index": 1, "explanation": ""}, {"id": 71, "question": "‘जस तस भई सबेर’ (1998 ई.)उपन्यास के रचनाकार हैं?", "options": ["जयप्रकाश कदमण", "मदन दीवक्षत", "मोहनदास नैवमर्राय", "सत्यप्रकाश"], "correct_index": 3, "explanation": ""}, {"id": 72, "question": "वनम्नवलवखत में से बदीउज्जजमाूँ का कौनसा उपन्यास फैंटेसी शैली में रवचत प्रतीकात्मक उपन्यास है ?", "options": ["एक चूहे की मौत-1971 ई.", "छाको की िापसी-1975 ई.", "अपुरुर्-1976 ई.", "सभापिण-1994 ई."], "correct_index": 0, "explanation": ""}, {"id": 73, "question": "फणीश्वरनाथ रेणु का अपूणण उपन्यास है?", "options": ["जुलूस", "रामरतन राय", "पल्टू बू रोड़", "दीघणतपा"], "correct_index": 1, "explanation": ""}, {"id": 74, "question": "रामदरश वमश्र के वकस उपन्यास में बा़ि की विभीवर्का से वघरे मनुष्य की मानवसकता का वचत्रण ह आ है?", "options": ["जल टूटता ह आ", "आकाश की छत", "दूसरा घर", "बीच का समय"], "correct_index": 1, "explanation": ""}, {"id": 75, "question": "‘संजीि’ वकस श्रेणी के उपन्यासकार हैं?", "options": ["आंचवलक", "मनोविश्लेर्णिादी", "ऐवतहावसक", "प्रगवतिादी"], "correct_index": 3, "explanation": ""}, {"id": 76, "question": "नरेश मेहता के वकस उपन्यास का प्रकाशन िर्ण सही नहीं है?", "options": ["डूबते मस्तूल-1954  ई.", "यह पथ बंधु था-1962 ई.", "नदी यशस्िी थी-1965 ई.", "दो एकांत- 1964 ई."], "correct_index": 2, "explanation": ""}, {"id": 77, "question": "‘पाूँि तले की दूब’ (1995) उपन्यास के रचनाकार कौन हैं ?", "options": ["अब्दुल वबवस्मल्लाह", "संजीि", "काशीनाथ वसंह", "रृदयेश"], "correct_index": 1, "explanation": ""}, {"id": 78, "question": "‘नागफनी का देश’ (1953ई.) उपन्यास के रचनाकार हैं?", "options": ["अशोक िाजपेयी", "जगदीशचंद्र", "अमृतराय", "भैरि प्रसाद गुप्त"], "correct_index": 2, "explanation": ""}, {"id": 79, "question": "‘छाया मत छूना मन’ (1974 ई.) उपन्यास के रचनाकार हैं?", "options": ["अमरकांत", "वहमांशु जोशी", "राजेंद्र अिस्थी", "राही मासूम रजा"], "correct_index": 1, "explanation": ""}, {"id": 80, "question": "रामेश्वर शुक्ल‘अंचल’ का कौनसा उपन्यास भारत छोड़ो आंदोलन पर आधृत है?", "options": ["च़िती धूप", "उल्का", "नई इमारत", "मरु प्रदीप"], "correct_index": 2, "explanation": ""}, {"id": 82, "question": "‘मछली बाजार’ (1977 ई.) उपन्यास के रचनाकार हैं?", "options": ["राजेंद्र अिस्थी", "रामदरश वमश्र", "वििेकी राय", "मन्मथनाथ गुप्त"], "correct_index": 0, "explanation": ""}, {"id": 84, "question": "‘सेज पर संस्कृत’ (2008 ई.) के रचनाकार हैं?", "options": ["िीणा वसन्हा", "नीरजा माधि", "अलका सरािगी", "मधु काूँकररया"], "correct_index": 3, "explanation": ""}, {"id": 85, "question": "झूलानट (1999 ई.) की रचनाकार है?", "options": ["वचत्रा मुद्गल", "शवमणला बोहरा", "मैत्रेयी पुष्पा", "कुसुम कुमार"], "correct_index": 2, "explanation": ""}, {"id": 86, "question": "‘अपने अपने कोणाकण’(1995 ई.)की रचनाकार हैं?", "options": ["सूयणबाली", "मृणाल पांडेय", "राजी सेठ", "चंद्रकांता"], "correct_index": 3, "explanation": ""}, {"id": 87, "question": "‘स्मृवत दंश’ (1990 ई.) की रचनाकार हैं?", "options": ["मैत्रेयी पुष्पा", "वक्षवतज शमाण", "नावसरा शमाण", "मधु काूँकररया"], "correct_index": 0, "explanation": ""}, {"id": 88, "question": "‘अम्बा नहीं मैं भाष्मा’ (2004 ई.) की रचनाकार हैं?", "options": ["प्रभाखेतान", "मैत्रेयी पुष्पा", "वचत्रा मुद्गल", "वचत्रा चतुिेदी"], "correct_index": 3, "explanation": ""}, {"id": 89, "question": "अलका सरािगी के उपन्यास ‘एक ब्रेक के बाद’ का प्रकाशन िर्ण है?", "options": ["2006 ई.", "2007 ई.", "2008 ई.", "2009 ई."], "correct_index": 2, "explanation": ""}, {"id": 90, "question": "वनम्नवलवखत में से मृणाल पांडेय द्वारा रवचत उपन्यास नहीं है?", "options": ["विरुर्द्-1977 ई.", "पटरंगपुर पुराण-1983 ई.", "यावमनी कथा- 1991 ई.", "रास्तों पर भटकते ह ए-2000 ई."], "correct_index": 2, "explanation": ""}, {"id": 91, "question": "‘विितण’ (1984 ई.) के रचनाकार हैं?", "options": ["जैनेंद्र कुमार", "ज्ञानरंजन", "वशिानी", "शवशप्रभा शास्त्री"], "correct_index": 2, "explanation": ""}, {"id": 92, "question": "‘मरीवचका’ (2004 ई.) के रचनाकार हैं?", "options": ["यादिेंद्र शमाण", "ज्ञान चतुिेदी", "राकेश  कुमार वसंह", "हररप्रकाश त्यागी"], "correct_index": 1, "explanation": ""}, {"id": 93, "question": "वनम्नवलवखत में से ममता कावलया द्वारा रवचत उपन्यास नहीं है?", "options": ["बेघर- 1971 ई.", "नरक दर  नरक-1975 ई.", "प्रेम कहानी- 1980 ई .", "आूँख वमचौली-1991 ई."], "correct_index": 3, "explanation": ""}, {"id": 94, "question": "पणीश्वरनाथ रेणु के वकस उपन्यास में एक बंगाली पररिार के चाररवत्रक पतन की कहानी है?", "options": ["दीघणतपा", "परती पररकथा", "रामरतन राय", "पल्टू बाबू रोड़"], "correct_index": 3, "explanation": ""}, {"id": 95, "question": "‘लहरों की छाती पर’ (1962ई.) के रचनाकार हैं?", "options": ["शैलेश मवटयानी", "बलभद्र ठाकुर", "श्रीलाल शुक्ल", "जगदीश चंद्र"], "correct_index": 1, "explanation": ""}, {"id": 96, "question": "वनमणल िमाण का कौनसा उपन्यास चेकोस्लाविया की पृष्ठभूवम पर आधृत है?", "options": ["िे वदन", "लाल वटन की छत", "एक वचथड़ा सुख", "अंवतम अरण्य"], "correct_index": 0, "explanation": ""}, {"id": 97, "question": "‘तत्सम’ (1983 ई.) की रचनाकार हैं?", "options": ["कांता भारती", "राजी सेठ", "प्रभा खेतान", "अनावमका"], "correct_index": 1, "explanation": ""}, {"id": 98, "question": "वनम्नवलवखत में से कौनसा उपन्यास और उसका रचनाकार सुमेवलत नहीं है?", "options": ["पाही घर(1991 ई.)- कमलाकांत वत्रपाठी", "लेवकन दरिाजा(1982 ई.)-पंकज विि", "मनमाटी(2011 ई.)-असगर िजाहत", "िे िहाूँ कैद हैं(1994 ई.)-प्रकाश मनु"], "correct_index": 3, "explanation": ""}, {"id": 99, "question": "वनम्नवलवखत में से‘देिरानी-जेठानी’ (1870 ई.) उपन्यास का पात्र नहीं है?", "options": ["सिणसुख", "दौलतराम", "छोटेलाल", "राघिन"], "correct_index": 3, "explanation": ""}];
+const TOT=80,SEC=7200;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 63: नाटक — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 63: नाटक</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 69 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/69</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "“हिंदी नाटकों का भाग्योदय तो भारतेंदु के उदय के साथ ही हुआ।” कथन किस आलोचक का है ?", "options": ["ाईनके नाटकों में ाअदर्श वीरत्व तथा ववर्ुद्ध प्रेम की धारा समानाांतर प्रवावहत हुाइ है ।", "ाईनके नाटकों के पात्र दार्शवनकता के बोझ से दबे हुए हैं ।", "ाऄवभनय की दृवि से ाईनके नाटकों को पूर्शताः सफल नहीं कहा जा सकता ।", "ाआवतहास के ाऄप्रकावर्त ाऄांर्ों को प्रकावर्त करने के मोह में ाईन्होंने वतशमान की ाईपेक्षा की है ।"], "correct_index": 3, "explanation": ""}, {"id": 2, "question": "“कलकत्ता थियेटर” की स्थापना किस वर्ष हुई?", "options": ["रामचांद्र र्ुक्ल", "रामचांद्र वतवारी", "डॉ. बच्चन वसांह", "गर्पवतचांद्र गुप्त"], "correct_index": 1, "explanation": ""}, {"id": 3, "question": "निम्नलिखित में से किन दो रचनाकारों ने 'भारत- सौभाग्य” नामक नाटक लिखे ?", "options": ["1875 ाइ.", "1876  ाइ.", "1877 ाइ.", "1878 ाइ."], "correct_index": 2, "explanation": ""}, {"id": 4, "question": "'\"ऐज यू लाइक Fe का अनुवाद “मन-भावन' नाम से किसने किया?", "options": ["ाऄवबबकादत्त व्यास एवां बदरी नारायर् चौधरी ‘प्रेमघन’ ने", "ाऄवबबकादत्त व्यास एवां बलदेव प्रसाद वमश्र ने", "बदरीनारायर् चौधरी ‘प्रेमघन’ एवां तोताराम वमाश ने", "बदरीनारायर् चौधरी ‘प्रेमघन’ एवां प्रतापनारायर् वमश्र ने"], "correct_index": 0, "explanation": ""}, {"id": 5, "question": "प्रश्न 5", "options": ["सीताहरर् नाटक", "नांदववदा नाटक", "नांदोत्सवनाटक", "लक्ष्मी सरस्वती वमलन नाटक"], "correct_index": 1, "explanation": ""}, {"id": 6, "question": "प्रश्न 6", "options": ["रत्नचांद्र ने", "गोपीनाथ ने", "मथुराप्रसाद ाईपाध्याय ने", "ाअयाश ने"], "correct_index": 1, "explanation": ""}, {"id": 7, "question": "हरिकृष्ण प्रेमी किस तरह के नाटकों के लिए प्रसिद्ध हैं?", "options": ["छलना", "नक्र्े का रांग", "मादा कैक्टस", "दुमदार ाअदमी"], "correct_index": 3, "explanation": ""}, {"id": 8, "question": "अमृतराय के “चिंदियों की एक झालर', “शताब्दी! एवं “हमलोग'” नाटकों का संकलन किस नाम से प्रकाशित हुआ ?", "options": ["सन्न्यासी - 1930 ाइ.", "राक्षस का मांवदर - 1931 ाइ.", "राजयोग - 1932 ाइ.", "वसांदूर की होली - 1934 ाइ."], "correct_index": 2, "explanation": ""}, {"id": 9, "question": "प्रश्न 9", "options": ["पौरावर्क नाटकों के वलए", "सामावजक नाटकों के वलए", "राष्ट्रीय चेतना युक्त ऐवतहावसक नाटकों के वलए", "समस्यात्मक नाटकों के वलए"], "correct_index": 2, "explanation": ""}, {"id": 10, "question": "प्रश्न 10", "options": ["राधा - ाईदयर्ांकर भट्ट", "र्बरी - सीताराम चतुवेदी", "नारद की वीर्ा - लक्ष्मीनारायर् वमश्र", "गांगा का बेटा - सेठ गोववांददास"], "correct_index": 3, "explanation": ""}, {"id": 11, "question": "प्रश्न 11", "options": ["ाऄर्ोक - वत्सराज- गरुड़ध्वज- ववतस्ता की लहरें", "ाऄर्ोक - ववतस्ता की लहरें - वत्सराज- गरुड़ध्वज", "ाऄर्ोक - गरुड़ध्वज - वत्सराज - ववतस्ता की लहरें", "ाऄर्ोक - वत्सराज - ववतस्ता की लहरें – गरुड़ध्वज"], "correct_index": 2, "explanation": ""}, {"id": 12, "question": "प्रश्न 12", "options": ["डॉ. नामवर वसांह", "नांददुलारे बाजपेयी", "रामववलास र्माश", "दर्रथ ओझा"], "correct_index": 1, "explanation": ""}, {"id": 13, "question": "प्रश्न 13", "options": ["वडक्टेटर", "ाउसर", "ाऄांजो दीदी", "दुववधा"], "correct_index": 1, "explanation": ""}, {"id": 14, "question": "प्रश्न 14", "options": ["डॉ. नामवर वसांह", "डॉ. गोपाल राय", "नांददुलारे वाजपेयी", "डॉ. बच्चन वसांह"], "correct_index": 3, "explanation": ""}, {"id": 15, "question": "प्रश्न 15", "options": ["ाअजकल", "ाअज या कल", "ाअज ाऄभी", "ाअज ाआस समय"], "correct_index": 2, "explanation": ""}, {"id": 16, "question": "हिंदी में विसंगतिबोध के नाटकों के आरंभकर्ता माने जाते हैं ?", "options": ["द्रौपदी", "नायक खलनायक ववदूषक", "सेतुबांध", "सूयश की ाऄांवतम वकरर् से सूयश की पहली वकरर् तक"], "correct_index": 3, "explanation": ""}, {"id": 17, "question": "हिंदी में नुक्कड़ नाटकों के आरंभकर्ता हैं ?", "options": ["वसांहासन खाली", "देवयानी का कहना है", "तीसरा हाथी", "वामाचार"], "correct_index": 0, "explanation": ""}, {"id": 18, "question": "खड़ी बोली के प्रथम नाटककार हैं ?", "options": ["घोाअस - बुवद्धजीवी वगश की सांत्रस्त मानवसकता का वचत्रर्", "ाऄनुष्ठान - वहांसात्मक वृवत्त की वनरथशकता का प्रवतपादन", "वचांवदयों की एक झालर - भ्रिाचार पर प्रहार", "र्ुतुरमुगश - नेहरुकालीन राजनीवतक वस्थवतयों पर चोट"], "correct_index": 2, "explanation": ""}, {"id": 19, "question": "निम्नलिखित में से कौनसा नाटक और उसका रचनाकार सुमेलित नहीं है ?", "options": ["सुर्ील कुमार वसांह", "वववपन कुमार ाऄग्रवाल", "महेंद्र भल्ला", "र्ांकर र्ेष"], "correct_index": 1, "explanation": ""}, {"id": 20, "question": "प्रश्न 20", "options": ["दयाप्रकार् वसन्हा", "महेंद्र भल्ला", "र्ांकर र्ेष", "वगररराज वकर्ोर"], "correct_index": 2, "explanation": ""}, {"id": 21, "question": "प्रश्न 21", "options": ["कहै कबीर सुनो भााइ साधो- 1986", "सींगधारी - 1988", "कलांदर - 1991", "नो मैन्स लैंड - 1994"], "correct_index": 0, "explanation": ""}, {"id": 22, "question": "प्रश्न 22", "options": ["र्रद जोर्ी", "सुदर्शन मजीवठया", "नांदवकर्ोर ाअचायश", "नाग बोडस"], "correct_index": 1, "explanation": ""}, {"id": 23, "question": "प्रश्न 23", "options": ["गोपालचांद्र", "प्रार्चांद्र चौहान", "ववश्वनाथ वसांह", "भारतेंदु हररश्चांद्र"], "correct_index": 3, "explanation": ""}, {"id": 24, "question": "प्रश्न 24", "options": ["तोता झूठ नहीं बोलता- नाग बोडस", "कोटश मार्शल- स्वदेर् दीपक", "भारत भाग्य ववधाता- राजेर् जैन", "और नहीं कोाइ ाऄांत - प्रताप सहगल"], "correct_index": 2, "explanation": ""}, {"id": 25, "question": "“अंगरेज राज सुख AT सजे सब भारी | पै धन विदेश चलि जात इहै अति ख्वारी ॥” “भारत- TaN? नाटक में यह कथन किसका है ?", "options": ["राज्यश्री - देवगुप्त, र्ाांवतदेव, राज्यवद्धशन", "ववर्ाख - देवदत्त, गौतम बुद्ध, ववरुद्धक", "करुर्ालय - र्ुनाः र्ेप, ववश्वावमत्र, रोवहत", "स्कांदगुप्त - ाऄनांतदेव , देवकी, कुमारगुप्त"], "correct_index": 1, "explanation": ""}, {"id": 26, "question": "“हिंदी-साहित्य में राष्ट्रीय - भावना का प्रारंभ भारतेंदु के 'भारत-दुर्दशा? नाटक से होता है।” मान्यता किस विद्वान की है?", "options": ["5", "6", "7", "8"], "correct_index": 1, "explanation": ""}, {"id": 27, "question": "भारतेंदु हरिश्वंद्र के किस नाटक की श्रेणी सुमेलित नहीं है?", "options": ["भारत - भाग्य", "योगी", "भारत", "मधु"], "correct_index": 1, "explanation": ""}, {"id": 28, "question": "'भारत-दुर्दशा? नाटक में सात सभ्य लोगों की कमेटी में शामिल नहीं है ?", "options": ["रामचांद्र र्ुक्ल", "गर्पवतचांद्र गुप्त", "श्यामसुांदर दास", "डॉ. दर्रथ ओझा"], "correct_index": 2, "explanation": ""}, {"id": 29, "question": "“अंधेर - नगरी? नाटक के किस दृश्य का स्थान सुमेलित नहीं है ?", "options": ["वैवदकी वहांसा वहांसा न भववत - प्रहसन", "ववषस्य ववषमौषधम् - भार्", "भारत - दुदशर्ा - नाट्य रासक", "ाऄांधेर नगरी - गीवत रूपक"], "correct_index": 3, "explanation": ""}, {"id": 30, "question": "“सेत सेत सब एक से, जहाँ कपूर कपास | ऐसे देस कुदेस में, कबहुँन कीजै वास ॥” “अंधेर-नगरी” नाटक में यह गीत किसके द्वारा गाया गया है?", "options": ["प्रथम ाऄांक - राजसभा", "वितीय ाऄांक - पूजाघर", "तृतीय ाऄांक - राजपथ", "चतुथश ाऄांक - यमपुरी"], "correct_index": 0, "explanation": ""}, {"id": 31, "question": "प्रश्न 31", "options": ["वीथी", "श्मर्ान", "कमरा", "वकताबखाना"], "correct_index": 3, "explanation": ""}, {"id": 32, "question": "प्रश्न 32", "options": ["बांगाली", "महाराष्ट्री", "एवडटर", "ररपोटशर"], "correct_index": 3, "explanation": ""}, {"id": 33, "question": "प्रश्न 33", "options": ["प्रथम दृश्य – बाह्य प्राांत", "वितीय दृश्य – बाजार", "तृतीय दृश्य – जांगल", "चतुथश दृश्य – ाऄरण्य"], "correct_index": 3, "explanation": ""}, {"id": 34, "question": "प्रश्न 34", "options": ["महांत", "पाचकवाला", "घासीराम", "नारायर्दास"], "correct_index": 0, "explanation": ""}, {"id": 35, "question": "चंद्रगुप्त नाटक का कौनसा कथन एवं उसका वक्ता सुमेलित नहीं है ?", "options": ["वसांहरर्", "पवशतेश्वर", "नागदत्त", "वसल्यूकस"], "correct_index": 0, "explanation": ""}, {"id": 36, "question": "“वीरता जब भागती है तब उसके पैरों से राजनीतिक छलछंद की धूल उड़ती है।” “ध्रुवस्वामिनी? नाटक में यह कथन किसका है ?", "options": ["महत्त्वाकाांक्षा का मोती वनष्ठुरता की सीपी में रहता है- चार्क्य", "ाअयाशवत्तश का भववष्ट्य वलखने के वलए कुचक्र और प्रतारर्ा की लेखनी और मवस प्रस्तुत हो रही है - वसांहरर्", "मनुष्ट्य ाऄपनी दुबशलता से भली- भााँवत पररवचत रहता है – पवशतेश्वर", "राज्य वकसी का नहीं है, सुर्ासन का है – ाऄलका"], "correct_index": 2, "explanation": ""}, {"id": 37, "question": "“सौभाग्य और दुर्भाग्य मनुष्य की दुर्बलता के नाम हैं । मैं तो पुरुषार्थ को ही सबका नियामक समझता हूँ ।” ध्रुवस्वामिनी नाटक में यह कथन किसका है ?", "options": ["ध्रुवस्वावमनी", "कोमा", "वमवहरदेव", "मांदावकनी"], "correct_index": 3, "explanation": ""}, {"id": 38, "question": "“लहरों के राजहंस में एक ऐसे कथानक का नाटकीय पुनराख्यान है जिसमें सांसारिक सुखों और आध्यात्मिक शांति के पारस्परिक विरोध तथा उनके बीच खड़े व्यक्ति द्वारा निर्णय लेने का अंतदवद्व निहित है।” कथन किस विद्वान का है ?", "options": ["चांद्रगुप्त", "र्कराज", "पुरोवहत", "वर्खरस्वामी"], "correct_index": 1, "explanation": ""}, {"id": 39, "question": "लहरों के राजहंस नाटक में कितने अंक है ?", "options": ["राज्य श्री", "कामना", "एक घूाँट", "चांद्रगुप्त"], "correct_index": 2, "explanation": ""}, {"id": 40, "question": "निम्नलिखित में “लहरों के राजहंस” का पात्र नहीं है?", "options": ["कल्यार्ी पररर्य", "ाऄवग्नवमत्र", "राज्य श्री", "ववर्ाख"], "correct_index": 3, "explanation": ""}, {"id": 41, "question": "प्रश्न 41", "options": ["डॉ. दर्रथ ओझा", "डॉ. नामवर वसांह", "डॉ. सुरेर् ाऄवस्थी", "मधुरेर्"], "correct_index": 2, "explanation": ""}, {"id": 42, "question": "प्रश्न 42", "options": ["एक", "दो", "तीन", "चार"], "correct_index": 2, "explanation": ""}, {"id": 43, "question": "प्रश्न 43", "options": ["श्वेताांग", "र्र्ाांक", "नीहाररका", "नीरा"], "correct_index": 3, "explanation": ""}, {"id": 44, "question": "“लहरों के राजहंस” नाटक के संबंध में असत्य कथन है?", "options": ["श्वेताांग", "ाऄलका", "नांद", "वभक्षु ाअनांद"], "correct_index": 2, "explanation": ""}, {"id": 45, "question": "“मैं वह भविष्य हूँ, जो झूठा सिद्ध हुआ आज कौरव की नगरी में।” “अंधा-युग” नाटक में यह कथन किसका है?", "options": ["यह ाऄश्वघोष के प्रवसद्ध महाकाव्य ‘सौंदरनांद’ पर ाअधृत है ।", "यह नाटक ाअदर्शवादी पद्धवत पर रवचत है ।", "ाआसमें एक ही स्थान पर सभी घटनाएाँ वदखाकर स्थान- ाऄवन्ववत का पालन वकया गया है ।", "नांद के दीवक्षत होने की घटना वस्तु-ववज्ञान की दृवि से ाआस नाटक में एक कमजोर कड़ी है ।"], "correct_index": 1, "explanation": ""}, {"id": 46, "question": "“अवस्थानुकृतिर्नाट्यम्‌” कथन किस आचार्य का है?", "options": ["याचक", "ाऄश्वत्थामा", "युयुत्सु", "व्यास"], "correct_index": 0, "explanation": ""}, {"id": 47, "question": "डॉ. दशरथ ओझा के अनुसार हिंदी का प्रथम नाटक है?", "options": ["मवहमभट्ट", "भरतमुवन", "धनांजय", "दांडी"], "correct_index": 2, "explanation": ""}, {"id": 48, "question": "'कैशिकी afer की उत्पत्ति किस वेद से मानी गई है?", "options": ["तीन", "चार", "पााँच", "छह"], "correct_index": 0, "explanation": ""}, {"id": 49, "question": "रूपक का कौनसा भेद एवं अंको की संख्या सुमेलित नहीं है ?", "options": ["जयर्ांकर प्रसाद", "भारतेंदु हररश्चांद्र", "हडसन", "वनकल"], "correct_index": 3, "explanation": ""}, {"id": 50, "question": "प्रश्न 50", "options": ["नहुष", "गय सुकुमार रास", "ाअनांद रघुनांदन", "गोरक्ष ववजय"], "correct_index": 1, "explanation": ""}, {"id": 51, "question": "प्रश्न 51", "options": ["ाऊग्वेद", "सामवेद", "यजुवेद", "ाऄथवेद"], "correct_index": 1, "explanation": ""}, {"id": 52, "question": "प्रश्न 52", "options": ["नाटक - 5 से 10 ाऄांक", "प्रहसन - एक ाऄांक", "समवकार - 4 ाऄांक", "प्रकरर् - 10 ाऄांक"], "correct_index": 2, "explanation": ""}, {"id": 53, "question": "नाटक में कथानक की अर्थ - प्रकृत्तियों का सही अनुक्रम है?", "options": ["वपर्ेल", "डॉ. ररज़वे", "प्रो. वहलेब्ाां एवां प्रो. कोने", "ाऄरस्तू"], "correct_index": 2, "explanation": ""}, {"id": 54, "question": "“यह कसक अरे आँसू सह जा शीतलता फैलता बह जा....” “ध्रुवस्वामिनी” नाटक में यह गीत कौन गाती है?", "options": ["मुख", "प्रवतमुख", "ाऄवमर्श", "वनवशहर्"], "correct_index": 2, "explanation": ""}, {"id": 55, "question": "स्कंदगुप्त नाटक में पंचम अंक का स्थान है ?", "options": ["बीज – वबांदु – प्रकरी – पताका – कायश", "बीज – वबांदु  पताका – प्रकरी – कायश", "बीज – प्रकरी – वबांदु – पताका – कायश", "वबांदु – बीज – प्रकरी – पताका – कायश"], "correct_index": 1, "explanation": ""}, {"id": 56, "question": "भारतेंदु हरिश्वंद्र की अपूर्ण नाट्य-कृति है ?", "options": ["मांदावकनी", "कोमा", "ध्रुवस्वावमनी", "देवसेना"], "correct_index": 0, "explanation": ""}, {"id": 57, "question": "भारतेंदु हरिश्वंद्र की नाट्यकला के संबंध में असत्य कथन है?", "options": ["मालवा में वर्प्रातट - कुांज", "वर्प्रातट", "प्रकोष्ठ", "पथ में मुद्गल"], "correct_index": 3, "explanation": ""}, {"id": 58, "question": "“सफल नाटक के गुण मेरे विचार में उसकी वस्तु, उसका आधारभूत सत्य, उसके कथानक अथवा प्रभावों का संगठन, पात्रों का रचित्र- चित्रण, प्त करने हेतु व्हाट्स अप करें- 3366364 , +9] 929257027", "options": ["वदल्ली ाउाँचा सुनती है", "जो राम रवचराखा", "मौजूदा हालत को देखते हुए", "ाअदमी जो मछुाअरा नहीं था"], "correct_index": 0, "explanation": ""}, {"id": 59, "question": "प्रश्न 59", "options": ["मुख", "गभश", "ववमर्श", "वनवशहर्"], "correct_index": 3, "explanation": ""}, {"id": 60, "question": "प्रश्न 60", "options": ["सती प्रताप", "प्रवास", "नवमवल्लका", "ये सभी"], "correct_index": 3, "explanation": ""}, {"id": 61, "question": "प्रश्न 61", "options": ["ाआनके नाटकों में ाईच्चवगश के पात्रों की प्रधानता है ।", "भावपूर्श एवां रसात्मक स्थलों पर  ाआनके नाटकों के कथोपकथन लांबे हो गए हैं ।", "ाआनके नाटकों में नायकों का वचत्रर् यथाथशवादी दृविकोर् से हुाअ है ।", "ाआनके िारा वचवत्रत वनबनवगीय पात्रों में मनोवैज्ञावनक ववकास का ाऄभाव पररलवक्षत होता है ।"], "correct_index": 2, "explanation": ""}, {"id": 63, "question": "“जब इंसान मशीन बन जाएगा तो वह दिन दुनिया के लिए सबसे बड़े खतरे का दिन होगा। इंसान का मशीन बनना सनक का ही दूसरा रूप है।” किस नाटक की पंक्तियाँ हैं?", "options": ["कोर्ाकश", "ाऄांजो दीदी", "एक और द्रोर्ाचायश", "हानूर्"], "correct_index": 1, "explanation": ""}, {"id": 64, "question": "जैकब, कात्या एवं तुला भीष्म साहनी के किस नाटक के पात्र हैं ?", "options": ["हानूर्", "माधवी", "रांग दे बांसती चोला", "ाअलमगीर"], "correct_index": 0, "explanation": ""}, {"id": 65, "question": "“आधुनिक नाटक का मसीहाः मोहन राकेश! किसकी आलोचनात्मक रचना है?", "options": ["जगदीर् र्माश", "गोववांद चातक", "जीवन प्रकार् जोर्ी", "जय देव तनेजा"], "correct_index": 1, "explanation": ""}, {"id": 66, "question": "“कश्मीर का काँटा? नाटक के रचनाकार हैं ?", "options": ["ाऄांधा कुाअाँ", "तीन ाअाँखों वाली मछली", "मादा कैक्टस", "सगुन पांछी"], "correct_index": 2, "explanation": ""}, {"id": 67, "question": "FAR? जगदीशचंद्र माथुर के किस नाटक का पात्र है?", "options": ["ववश्ववांभरनाथ र्माश ‘कौवर्क’", "बद्रीनाथ भट्ट", "गोववांदवल्लभ पांत", "जगन्नाथ प्रसाद चतुवेदी"], "correct_index": 1, "explanation": ""}, {"id": 68, "question": "“ ‘SH’ पहले नाटककार हैं, जिन्होंने हिंदी नाटक को रंगमंच से सम्बद्ध किया और उसे रोमांस के कठघरे से बाहर निकालकर आधुनिक भावबोध के साथ जोड़ा |” कथन किस आलोचक का है?", "options": ["सेठ गोववांददास", "हररश्चांद्र सेठ", "देवराज वदनेर्", "वृांदावनलाल वमाश"], "correct_index": 3, "explanation": ""}, {"id": 69, "question": "प्रश्न 69", "options": ["कोर्ाकश", "र्ारदीया", "पहला राजा", "रघुकुल रीवत"], "correct_index": 0, "explanation": ""}, {"id": 70, "question": "प्रश्न 70", "options": ["रामववलास र्माश", "डॉ. बच्चन वसांह", "डॉ. दर्रथ ओझा", "मधुरेर्"], "correct_index": 1, "explanation": ""}];
+const TOT=69,SEC=6210;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

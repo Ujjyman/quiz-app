@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 35: हिंदी भाषाः उद्भव एवं विकास सहित — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 35: हिंदी भाषाः उद्भव एवं विकास सहित</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 44 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/44</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "भाषा के अथथ में ‘हहिंदी’ शब्द का सवथप्रथम प्रयोग हकस रचना में हमिता है ?", "options": ["नाट्यशास्त्र", "ज़फ़रनामा", "हसद्ध हेमचिंद्र शब्दानुशासन", "उहि-व्यहि प्रकरण"], "correct_index": 1, "explanation": ""}, {"id": 2, "question": "हिन ध्वहन-हचह्नों द्रारा मनुष्य परस्पर हवचार- हवहनमय करता है,उनको समहि रूप से भाषा कहते है ।‛ भाषा की उपयुथि पररभाषा हकसने दी ?", "options": ["डॉ. भोिानाथ हतवारी", "श्यामसुिंदर दास", "कामताप्रसाद गुरु", "बाबूराम सक्सेना"], "correct_index": 3, "explanation": ""}, {"id": 3, "question": "व्यिा वाहच वणाथ येषािं त इमे व्यिवाचाः‛ भाषा की उपयुथि पररभाषा हकसने दी है?", "options": ["पतिंिहि", "सुकुमार सेन", "भोिानाथ हतवारी", "कामताप्रसाद गुरु"], "correct_index": 0, "explanation": ""}, {"id": 4, "question": "भाषा यादृहछिक वाक् प्रतीकों की वह व्यवस्था है, हिसके माध्यम से मानव समुदाय परस्पर व्यवहार करता है ।‛ यह पररभाषा हकस हवद्रान की है?", "options": ["डॉ. भोिानाथ हतवारी", "उदयनारायण हतवारी", "डॉ. देवीशिंकर हद्रवेदी", "पिं. कामता प्रसाद गुरु"], "correct_index": 2, "explanation": ""}, {"id": 5, "question": "आचायथ नरेंद्रदेव की अध्यक्षता में गहित पररषद्", "options": ["केंद्रीय हहिंदी हनदेशािय का गिन- 1960 में", "वैज्ञाहनक एविं तकनीहक शब्दाविी आयोग का गिन- 1961 में", "केंद्रीय अनुवाद ब्यूरो की स्थापना- 1971 में", "केंद्रीय हहिंदी सहमहत, नई हदल्िी-   1973 में"], "correct_index": 3, "explanation": ""}, {"id": 7, "question": "पाश्चात्य हवद्रानों द्रारा भाषा की दी गई पररभाषा के सिंबिंध में असुमेहित है?", "options": ["‚भाषा उस स्पि, सीहमत तथा सुसिंगहित ध्वहन को कहते हैं िो अहभव्यिंिना के हिए हनयुि की िाती है‛- क्रोचे", "‚भाषा व्यि ध्वहन हचह्नों की उस पद्धहत को कहते हैं हिसके माध्यम से समाि- समूह परस्पर व्यवहार करते हैं‛- ब्िॉक एविं ट्रेगर", "‚हवचार आत्मा की मूक बातचीत है, पर वही िब ध्वन्यात्मक होकर होंिों पर प्रकट होती है, उसे भाषा की सिंज्ञा देते है‛- मैक्समूिर", "‚हवचारों की अहभव्यहि के हिए हिन व्यि एविं स्पि ध्वहन- सिंकेतों का व्यवहार हकया िाता है, उन्हें भाषा कहते हैं‛- ए. एच. गाहडथनर"], "correct_index": 2, "explanation": ""}, {"id": 8, "question": "भाषा की प्रकृहत के सिंबिंध में कौनसा हवकल्प सही नहीं है?", "options": ["भाषा सिंयोगावस्था से हवयोगावस्था की ओर बढ़ती है ।", "भाषा का अिंहतम रूप नहीं होता है ।", "भाषा का प्रवाह सरिता से कहिनता की ओर होता है ।", "भाषा की हनहश्चत सीमाएाँ होती है ।"], "correct_index": 2, "explanation": ""}, {"id": 10, "question": "वैहदक सिंस्कृत का समय है?", "options": ["2000 ई. पू. से 1500 ई. पू.", "1500 ई. पू. से 1000 ई. पू.", "1000 ई. पू. से 500 ई. पू.", "500 ई. पू. से 1 ई."], "correct_index": 1, "explanation": ""}, {"id": 11, "question": "वैहदक सिंस्कृत के हकतने रूप हमिते हैं?", "options": ["दो", "तीन", "चार", "पााँच"], "correct_index": 1, "explanation": ""}, {"id": 12, "question": "हहिंदी हकस भाषा पररवार की भाषा है ?", "options": ["द्रहवड़", "बास्क", "भारोपीय", "उपयुथि सभी"], "correct_index": 2, "explanation": ""}, {"id": 13, "question": "भारोपीय पररवार को अन्य हकस नाम से िाना िाता है?", "options": ["आयथ पररवार", "भारत-हहत्ती पररवार", "इिंडो-िमथहनक पररवार", "उपयुथि सभी"], "correct_index": 3, "explanation": ""}, {"id": 14, "question": "भारोपीय पररवार को ध्वहन के आधार पर हकतने वगों में बााँटा गया है ?", "options": ["दो", "चीन", "चार", "पााँच"], "correct_index": 0, "explanation": ""}, {"id": 15, "question": "भारोपीय भाषा-पररवार की हकतनी शाखाएाँ मानी गई हैं ?", "options": ["10", "12", "14", "18"], "correct_index": 0, "explanation": ""}, {"id": 17, "question": "हहिंदी में उपभाषाओिं की सिंख्या है?", "options": ["तीन", "चार", "पााँच", "िह"], "correct_index": 2, "explanation": ""}, {"id": 18, "question": "हनम्नहिहखत में से खड़ी बोिी के सिंबिंध में असत्य कथन है?", "options": ["खड़ी बोिी आकारािंत प्रधान है ।", "इसमें ‘ऐ’ और ‘औ’ का उछचारण अद्धथसिंवृत होता है ।", "इसमें स्वर मध्य ‘न’ के स्थान पर ‘ण’ बोिा िाता है ।", "हवकल्प ‘क’ व ‘ख’ दोनों"], "correct_index": 1, "explanation": ""}, {"id": 19, "question": "‘मैहथिी’ के सिंबिंध में कौनसा कथन सही नहीं है ?", "options": ["यह पूवी चम्पारन, मुिफ्फरपुर, मुिंगेर, भागिपुर, दरभिंगा, पूहणथया और सिंथाि परगने के उत्तरी भाग में बोिी िाती है ।", "इसका हवकास मागधी अपभ्रिंश के पहश्चमी रूप से है ।", "हवकल्प ‘क’ व ‘ख’ दोनों", "हवद्यापहत एविं गोहविंददास इसके प्रहसद्ध कहव रहे हैं ।"], "correct_index": 1, "explanation": ""}, {"id": 20, "question": "अस, िस, कस, एतन, ओतन, उत, कत इत्याहद सवथनाममूिक हवशेषण हकसकी हवशेषता है?", "options": ["ब्रिभाषा", "अवधी", "मगही", "रािस्थानी"], "correct_index": 1, "explanation": ""}, {"id": 22, "question": "हनम्नहिहखत में से खड़ी बोिी का क्षेत्र नहीं है?", "options": ["आगरा", "होशिंगाबाद", "मेरि", "अिंबािा"], "correct_index": 1, "explanation": ""}, {"id": 23, "question": "हनम्नहिहखत में से ‘ओकार बहुिा’ बोिी नहीं है ?", "options": ["ब्रिभाषा", "बुिंदेिी", "कन्नौिी", "खड़ी बोिी"], "correct_index": 3, "explanation": ""}, {"id": 24, "question": "रािभाषा (हवधायी ) आयोग का गिन कब हकया गया ?", "options": ["1959", "1960", "1961", "1967"], "correct_index": 2, "explanation": ""}, {"id": 25, "question": "सुमेहित कीहिए- (बोिी)                     (बोिी-क्षेत्र) A .  कौरवी(खड़ी बोिी)   1.हरदोई, शाहिहााँपुर, फरुथखाबाद,पीिीभीत B .  ब्रिभाषा                2.रीवााँ, दमोह,िबिपुर बािाघाट C.  बघेिी                   3.आगरा, मथुरा, अिीगढ़,गुडगााँव D .  कन्नौिी                 4.हदल्िी,सहारनपुर, मेरि,हबिनौर कूट-  A   B    C    D", "options": ["1    2     3    4", "4    3     2    1", "4    3     1    2", "3    4     2    1"], "correct_index": 1, "explanation": ""}, {"id": 26, "question": "हनम्नहिहखत  में से बुिंदेिी बोिी का क्षेत्र नहीं है?", "options": ["झााँसी", "भोपाि", "िािौन", "हबिासपुर"], "correct_index": 3, "explanation": ""}, {"id": 27, "question": "पाहि (प्रथम प्राकृत) का समय है?", "options": ["500 ई. पू. से 1 ई. तक", "1 ई. से 500 ई. तक", "500 ई. से 1000 ई. तक", "इनमें से कोई नहीं"], "correct_index": 0, "explanation": ""}, {"id": 28, "question": "हनम्नहिहखत में से हकसने खड़ी बोिी को ‘टकसािी भाषा’ कहा है?", "options": ["हगयथसन ने", "अमीर खुसरो ने", "हगिक्राइस्ट ने", "सुनीहत कुमार चटिी ने"], "correct_index": 2, "explanation": ""}, {"id": 29, "question": "हनम्नहिहखत में से उदासीन आकार बहुिा बोिी है?", "options": ["बघेिी", "अवधी", "हवकल्प ‘क’ व ‘ख’ दोनों", "भोिपुरी"], "correct_index": 2, "explanation": ""}, {"id": 30, "question": "हनम्नहिहखत में से हकस बोिी को ‘पािंचािी’ भी कहा िाता है ?", "options": ["खड़ी बोिी", "बुिंदेिी", "ब्रिभाषा", "हररयाणवी"], "correct_index": 1, "explanation": ""}, {"id": 31, "question": "डॉ. धीरेंद्र वमाथ ने हकस बोिी को ‘खड़ी बोिी’ का ही एक रूप माना है ?", "options": ["ब्रिभाषा", "बघेिी", "बुिंदेिी", "हररयाणवी"], "correct_index": 3, "explanation": ""}, {"id": 32, "question": "केशवदास और पद्माकर िैसे सुप्रहसद्ध कहव हकस बोिी- क्षेत्र से आते हैं ?", "options": ["बुिंदेिी", "ब्रिभाषा", "बघेिी", "हररयाणवी"], "correct_index": 0, "explanation": ""}, {"id": 33, "question": "हकसने ‘अवहट्ट’ को ‘पुरानी मगही’ कहा है?", "options": ["हरप्रसाद शास्त्री", "सुनीहत कुमार चटिी", "राहुि सािंकृत्यायन", "हप्रयारिंिन सेन"], "correct_index": 2, "explanation": ""}, {"id": 34, "question": "हनम्नहिहखत में से हकसे ‘िाररया’ व ‘खल्ताही’ नामों से भी िाना िाता है ?", "options": ["ब्रिभाषा", "हररयाणवी", "बघेिी", "ित्तीसगढ़ी"], "correct_index": 3, "explanation": ""}, {"id": 35, "question": "पटना, गया, मुिंगेर आहद हकस बोिी के क्षेत्र हैं ?", "options": ["मगही", "मैहथिी", "भोिपुरी", "कन्नौिी"], "correct_index": 0, "explanation": ""}, {"id": 36, "question": "सुमेहित कीहिए- सूची - I                 सूची – II A. पूवी हहिंदी         1. मागधी अपभ्रिंश B. पहश्चमी हहिंदी      2.अद्धथमागधी अपभ्रिंश C. हबहारी हहिंदी      3. शौरसेनी अपभ्रिंश D. पहाड़ी हहिंदी      4. खस अपभ्रिंश कूट-  A   B    C    D", "options": ["1    2    3    4", "4    3     2    1", "2    3     1    4", "3    2     1    4"], "correct_index": 2, "explanation": ""}, {"id": 37, "question": "िोहारी, भोहटया, दानपुररया एविं सीरािी हकसकी उपबोहियााँ है?", "options": ["मगही", "गढ़वािी", "कुमाऊाँनी", "बुिंदेिी"], "correct_index": 2, "explanation": ""}, {"id": 38, "question": "बघाटी, चमेआिी हकसकी उपबोहियााँ हैं?", "options": ["मगही", "बघेिी", "मैहथिी", "इनमें से कोई नहीं"], "correct_index": 3, "explanation": ""}, {"id": 39, "question": "‘खड़ी बोिी’ को ‘कौरवी’ कहने वािे हवद्रान हैं ?", "options": ["सुनीहत कुमार चटिी", "राहुि सािंकृत्यायन", "हग्रयसथन", "हगिक्राइस्ट"], "correct_index": 1, "explanation": ""}, {"id": 40, "question": "सुमेहित कीहिए- (बोिी)                 (उपबोहियााँ ) A.ित्तीसगढ़ी   1.पााँवरी, बनाफरी, हनभट्ठा B.अवधी        2.भुक्सा, िाटोवादी, डािंगी C.ब्रिभाषा     3.िोिहा, गहोरा, िूड़र D.बुिंदेिी        4.सरगुहिया,हबिंझवािी, सदरी कूट-  A   B    C    D", "options": ["1    2     3    4", "3    2     1    4", "4    3     2    1", "4    3     1    2"], "correct_index": 2, "explanation": ""}, {"id": 41, "question": "भाषा के अथथ में ‘रािस्थानी’ शब्द के प्रथम प्रयोिा हैं?", "options": ["हगिक्राइस्ट", "सुनीहत कुमार चटिी", "हग्रयसथन", "राहुि सािंकृत्यायन"], "correct_index": 2, "explanation": ""}, {"id": 42, "question": "सुमेहित कीहिए- (उपभाषाएाँ) (बोहियााँ) A.पूवी हहिंदी        1.ब्रिभाषा, कन्नौिी, बुिंदेिी B.पहश्चमी हहिंदी     2.अवधी, बघेिी,ित्तीसगढ़ी C.पहाड़ी हहिंदी      3. मगही, मैहथिी, भोिपुरी D.हबहारी हहिंदी     4.प.पहाड़ी,मध्यवती पहाड़ी कूट-  A   B    C    D", "options": ["1    2    3     4", "3   2     4     1", "2   1     4     3", "2   3     4     1"], "correct_index": 2, "explanation": ""}, {"id": 43, "question": "‘हररयाणवी’ का अन्य नाम है?", "options": ["बााँगरु", "देसवािी", "हवकल्प ‘क’ व ‘ख’ दोनों", "िाटू"], "correct_index": 2, "explanation": ""}, {"id": 44, "question": "कोंकणी, नेपािी और महणपुरी भाषाओिं को हकस सिंहवधान सिंशोधन के तहत आिवीं अनुसूची में सहम्महित हकया गया ?", "options": ["71 वें सिंहवधान सिंशोधन, 1992 के तहत", "73 वें सिंहवधान सिंशोधन, 1992 के तहत", "92 वें सिंहवधान सिंशोधन, 2003 के तहत", "93 वें सिंहवधान सिंशोधन, 2006 के तहत"], "correct_index": 0, "explanation": ""}, {"id": 45, "question": "भाषा के रूप में ‘अवधी’ का प्रथम प्रयोग हकस रचना में हमिता है?", "options": ["उहि- व्यहि प्रकरण", "खाहिक बारी", "चिंदायन", "वणथ रत्नाकर"], "correct_index": 1, "explanation": ""}, {"id": 46, "question": "प्रथम रािभाषा आयोग की स्थापना कब हुई?", "options": ["7 िून, 1951", "7 िून, 1953", "7 िून, 1954", "7 िून, 1955"], "correct_index": 3, "explanation": ""}, {"id": 47, "question": "गोहविंद बल्िभ पिंत की अध्यक्षता में सिंसदीय रािभाषा सहमहत का गिन कब हकया गया?", "options": ["1951", "1953", "1955", "1957"], "correct_index": 3, "explanation": ""}, {"id": 49, "question": "हनम्नहिहखत में से ‘ट’ वगथ बहुिा बोिी है?", "options": ["मारवाड़ी", "ियपुरी", "मेवाती", "उपयुथि सभी"], "correct_index": 3, "explanation": ""}];
+const TOT=44,SEC=5400;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

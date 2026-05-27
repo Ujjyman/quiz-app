@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+
+# Source PDFs and HTMLs (large files, not needed on GitHub)
+pyq/
+test series/
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/

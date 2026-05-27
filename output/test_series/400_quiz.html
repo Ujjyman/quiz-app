@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>संपूर्ण व्याकरण 400+ प्रश्नोत्तर — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">संपूर्ण व्याकरण 400+ प्रश्नोत्तर</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 69 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/69</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "औघड़ 2 .   औचक 3 .   औगुन 4 .   औसर इनमें से ‘औ’ उपसगण से बने शब्द हैं ?", "options": ["ववकल्प 1,2 व 3", "ववकल्प 1 व 2", "ववकल्प 1 व 3", "ईपयुणक्त सभी"], "correct_index": 3, "explanation": ""}, {"id": 2, "question": "जजस सभास भें ऩहरा शब्द प्रधान होता है औय जो सभूचा शब्द कक्रमा– ववशेषण अव्मम होता है,उसे कहते है?", "options": ["ऄव्ययीभाव समास", "कमणधारय समास", "तत्पुरुष समास", "बहुव्रीवह समास"], "correct_index": 0, "explanation": ""}, {"id": 3, "question": "ककस ववकल्ऩ भें वतडनी की दृजष्ठट से शुर्द्  शब्द है?", "options": ["रववंि", "ववराट्", "वावपस", "ऄभ्याथणना"], "correct_index": 0, "explanation": ""}, {"id": 4, "question": "व्मुत्ऩजत्त के आधाय ऩय धातु के ककतने बेद होते हैं ?", "options": ["दो", "तीन", "चार", "पााँच"], "correct_index": 0, "explanation": ""}, {"id": 5, "question": "‘उसकी नस - नस भें ऐफ बया है।‘ येखाॊककत ऩद भें सभास है?", "options": ["ऄव्ययीभाव समास", "कमणधारय समास", "आतरेतर द्रंद्र समास", "समाहार द्रंद्र समास"], "correct_index": 2, "explanation": ""}, {"id": 6, "question": "ककस ववकल्ऩ भें अनुकयण धातु है?", "options": ["बड़बड़ाना", "खटखटाना", "थरथराना", "आन सभी में"], "correct_index": 3, "explanation": ""}, {"id": 7, "question": "कक्रमा भें ववकाय ककतने कायण़ों से होता है?", "options": ["दो", "तीन", "चार", "पााँच"], "correct_index": 1, "explanation": ""}, {"id": 8, "question": "कक्रमा भें ववकाय ककतने कायण़ों से होता है ?", "options": ["तीन", "चार", "पााँच", "छह"], "correct_index": 3, "explanation": ""}, {"id": 9, "question": "ककस ववकल्ऩ भें नाभधातु नहीॊ है?", "options": ["हवथयाना", "बवतयाना", "ईठवाना", "गरमाना"], "correct_index": 2, "explanation": ""}, {"id": 10, "question": "यचना की दृजष्ठट से कक्रमा के ककतने भुख्म बेद भाने गए हैं?", "options": ["दो", "तीन", "चार", "पााँच"], "correct_index": 0, "explanation": ""}, {"id": 11, "question": "ककस ववकल्ऩ के सबी शब्द व्मजक्तवाचक सॊऻा हैं?", "options": ["ईत्तर,जापान,तोता", "काला सागर,ब्रह्मपुत्र,बहन", "वहमालय,रामचररतमानस,दीवाली", "ऊग्ज्वेद,जुलाइ,मंत्री"], "correct_index": 1, "explanation": ""}, {"id": 12, "question": "ककस ववकल्ऩ भें अकभडक कक्रमा नहीॊ है?", "options": ["ईसका वसर खुजलाता है ।", "वह तुम्हें लजा रही है ।", "बूाँद- बूाँद से घड़ा भरता है ।", "तुम्हारा जी ललचाता है ।"], "correct_index": 1, "explanation": ""}, {"id": 13, "question": "जजन धातुओॊ का प्रमोग अकभडक औय सकभडक दोऩों रूऩ़ों भें होता है, उन्हें कहते हैं ?", "options": ["संयुक्त धातु", "यौवगक धातु", "ईभयववध धातु", "नाम धातु"], "correct_index": 2, "explanation": ""}, {"id": 14, "question": "ककस ववकल्ऩ के सबी शब्द़ों भें सॊफॊध तत्ऩुरुष सभास हैं ?", "options": ["राजपुत्र,प्रजापवत,सेनानायक", "वपतृगृह,घुड़दौड़,मृगछौना", "राजदरबार,ऄमचूर,चररत्रवचत्रण", "ईपयुणक्त सभी"], "correct_index": 0, "explanation": ""}, {"id": 15, "question": "सॊमुक्त कक्रमा के ककतने बेद भाने गए हैं ?", "options": ["दस", "ग्ज्यारह", "बारह", "तेरह"], "correct_index": 1, "explanation": ""}, {"id": 16, "question": "जफ कताड एक कक्रमा सभाप्त कय उसी ऺण दूसयी कक्रमा भें प्रवृत्त होता है, तफ ऩहरी कक्रमा कहराती है ?", "options": ["समावपका विया", "प्रेरणाथणक विया", "पूवणकावलक विया", "वनश्चयबोधक विया"], "correct_index": 2, "explanation": ""}, {"id": 17, "question": "ननम्नलरखखत भें से वतडनी की दृजष्ठट से  शुर्द्  शब्द है?", "options": ["कारुण्य", "व्यावपत", "संयवमत", "ग्रवसत"], "correct_index": 3, "explanation": ""}, {"id": 18, "question": "सकभडक कक्रमा वारा वाक्म छाॉहटए", "options": ["राजू  सदा रोता रहता है ।", "हरीश बस पर चढ़ गया ।", "मोहन छत से वगर पड़ा ।", "सतीश ने केले खरीदे ।"], "correct_index": 3, "explanation": ""}, {"id": 19, "question": "हकस हवकल्प में ‘अहि’ उपसगण से हनहमणि शब्द है?", "options": ["ऄवभज्ञ", "ऄभीि", "ववकल्प ‘क’ व ‘ख’ दोनों", "आनमें से कोइ नहीं"], "correct_index": 3, "explanation": ""}, {"id": 20, "question": "‘वह घय ऩहुॉच गमा ।’ इस वाक्म भें ‘ऩहुॉच गमा’ ककस कक्रमा का उदाहयण है?", "options": ["प्रेरणाथणक विया", "पूवणकावलक विया", "वद्रकमणक विया", "संयुक्त विया"], "correct_index": 3, "explanation": ""}, {"id": 21, "question": "ननम्नलरखखत भें से ककस ववकल्ऩ के सबी शब्द़ों भें नञ् तत्ऩुरुष सभास नहीॊ है?", "options": ["ऄधमण,ऄन्याय,ऄवनि", "ऄनचाहा,ऄटूट.ऄनहोनी", "नावस्तक,गैरहावजर,नापसंद", "ऄलग,ऄकाज,दुगुण"], "correct_index": 3, "explanation": ""}, {"id": 22, "question": "ननम्नलरखखत भें से ककस ववकल्ऩ के सबी शब्द़ों भें प्राहद तत्ऩुरुष सभास है?", "options": ["प्रवतध्ववन,ऄवतिम,ईपदेव", "प्रगवत,दुगुण,ऄवतवृवि", "दुगुण,प्रकषण,प्रभात", "ईपयुणक्त सभी"], "correct_index": 0, "explanation": ""}, {"id": 23, "question": "ननम्नलरखखत भें से ककस वाक्म भें अकभडक कक्रमा नहीॊ है ?", "options": ["जंगल में हररण दौड़ रहे हैं ।", "छोटे बच्चे बात – बात पर रोते रहते हैं ।", "सुनीता ने ऄपने वपताजी से फोन करवाया ।", "अलसी बच्चे देर तक सोते रहते हैं ।"], "correct_index": 2, "explanation": ""}, {"id": 24, "question": "ननम्नलरखखत भें से ककस वाक्म भें हद्वकमणक  कक्रमा नहीॊ है ?", "options": ["राम ने मोहन को फल वदए ।", "सेठ मुनीम को वेतन देता है ।", "मााँ नौकर से भोजन बनवाती है ।", "वपता ने पुत्र को पुस्तक दी ।"], "correct_index": 2, "explanation": ""}, {"id": 25, "question": "ककस वाक्म भें अकभडक कक्रमा प्रमुक्त हुई है ?", "options": ["वशशु सो रहा है ।", "बालक खेल रहा है ।", "ववद्याथी पढ़ रहा है ।", "छात्रा वलख रही है ।"], "correct_index": 0, "explanation": ""}, {"id": 26, "question": "ककस ववकल्ऩ भें सबी शब्द अशुद्ध हैं?", "options": ["यौवनावस्था, वप्रयदशणनी", "नापतौल, त्योहार", "दैदीप्यमान, यौवन", "सौष्ठव, हतोत्साह"], "correct_index": 1, "explanation": ""}, {"id": 27, "question": "ननम्नलरखखत भें से अकभडक कक्रमा है?", "options": ["वलखना", "पढ़ना", "नाचना", "देखना"], "correct_index": 2, "explanation": ""}, {"id": 28, "question": "ककस ववकल्ऩ भें सही सॊधध कामड नहीॊ हुआ है?", "options": ["मनः +वचवकत्सक = मनोवचवकत्सक", "पुरः + चरण =  पुरश्चरण", "मनः + प्रसाद = मनःप्रसाद", "प्रातः + स्मरण = प्रातस्स्मरण"], "correct_index": 2, "explanation": ""}, {"id": 29, "question": "हद्वकमणक  कक्रमा भें ‘को’ ऩयसगड आता है?", "options": ["मुख्य कमण के बाद", "कताण के बाद", "गौण कमण के बाद", "कहीं नहीं"], "correct_index": 2, "explanation": ""}, {"id": 30, "question": "‘भोहन ननत्म भॊहदय जामा कयता है।’ वाक्म भें कौनसी कक्रमा है?", "options": ["ऄभ्यासबोधक", "शवक्तबोधक", "वनत्यताबोधक", "वनश्चयबोधक"], "correct_index": 0, "explanation": ""}, {"id": 32, "question": "वाक्म के गठन के ववषम भें कौनसा कथन सही नहीॊ है ?", "options": ["साधारण या सामान्य वाक्यों में कताण, कमण एवं विया का िम रहता है ।", "पूवणकावलक विया मुख्य विया से पहले अती है ।", "वद्रकमणक विया वाले वाक्यों में मुख्य कमण पहले तथा गौण कमण बाद में अता है ।", "वमश्र वाक्य की संरचना में प्रधान ईपवाक्य प्रायः अवश्रत ईपवाक्य के पहले अता है ।"], "correct_index": 2, "explanation": ""}, {"id": 33, "question": "ककस ववकल्ऩ भें सॊमुक्त कक्रमा नहीॊ है?", "options": ["बादलों के कारण चााँद नहीं वदखाइ वदया ।", "लुटेरों ने पूरे क्षेत्र को लूट वलया ।", "मैं नहाकर कायाणलय जाउाँगा ।", "वह सारे अम खा गया ।"], "correct_index": 2, "explanation": ""}, {"id": 34, "question": "शुद्ध शब्द है?", "options": ["सुश्रूषा", "सूश्रूषा", "शुश्रूषा", "शूश्रूषा"], "correct_index": 1, "explanation": ""}, {"id": 35, "question": "ककस ववकल्ऩ भें प्रेयणाथडक कक्रमा है ?", "options": ["जगना", "बोलना", "सुलाना", "भूलना"], "correct_index": 2, "explanation": ""}, {"id": 36, "question": "वे ववकायी शब्द जो ऩूवाडऩय सॊफॊध से ककसी बी सॊऻा के फदरे आते हैं, कहराते हैं?", "options": ["परसगण", "ऄव्यय", "कारक वचह्न", "सवणनाम"], "correct_index": 0, "explanation": ""}, {"id": 37, "question": "प्रेयणाथडक कक्रमा के सॊफॊध भें कौनसा कथन सही नहीॊ हैं ?", "options": ["ऄवधकतर धातुओं से दो-दो प्रकार की प्रेरणाथणक वियाएाँ बनती हैं ।", "मूल धातु के वजस ववकृत रूप से विया के व्यापार में कताण पर वकसी की प्रेरणा समझी जाती है, ईसे प्रेरणाथणक विया कहते हैं ।", "सभी प्रेरणाथणक वियाएाँ ऄकमणक होतीहैं।", "मूल धातु के ऄंत में ‘अ’ जोड़ने पर पहली प्रेरणाथणक विया और ‘वा’ जोड़ने पर दूसरी प्रेरणाथणक विया बनती है ।"], "correct_index": 2, "explanation": ""}, {"id": 38, "question": "‘ऩेड फढ़ता गमा ।’ वाक्म भें कक्रमा है?", "options": ["वनश्चयबोधक", "ऄभ्यासबोधक", "वनत्यताबोधक", "शवक्तबोधक"], "correct_index": 2, "explanation": ""}, {"id": 39, "question": "‘मह काभ भुझे कयना ऩडता है।’ वाक्म भें कक्रमा है?", "options": ["अवर्शयकताबोधक", "वनश्चयबोधक", "वनत्यताबोधक", "आच्छाबोधक"], "correct_index": 0, "explanation": ""}, {"id": 40, "question": "‘रेट जाना’, ‘धगय ऩडना’ ककस तयह की कक्रमा के उदाहयण हैं?", "options": ["संयुक्त विया", "नामधातु विया", "पुनरुक्त संयुक्त विया", "प्रेरणाथणक विया"], "correct_index": 0, "explanation": ""}, {"id": 41, "question": "‘आऩ बरा तो जग बरा’ भें सवडनाभ है?", "options": ["मध्यम पुरुषवाचक", "ऄन्य पुरुषवाचक", "संबंधवाचक", "वनजवाचक"], "correct_index": 2, "explanation": ""}, {"id": 42, "question": "ककस ववकल्ऩ भें ऩुनरुक्त सॊमुक्त कक्रमा है ?", "options": ["तुम वलखा करते हो, मैं खेला करता ह ाँ ।", "वह पढ़ा करता है ।", "वह घर अना चाहता है ।", "वह पढ़ा- वलखा करता है ।"], "correct_index": 3, "explanation": ""}, {"id": 43, "question": "‘दुखी होना’, ‘ननयाश होना’ ककस तयह की कक्रमा के उदाहयण हैं?", "options": ["संयुक्त", "यौवगक", "नामधातु", "ऄनुकरणात्मक"], "correct_index": 2, "explanation": ""}, {"id": 44, "question": "ककस ववकल्ऩ भें कक्रमा का साभान्म रूऩ है ?", "options": ["पढ़", "पढ़ना", "पढ़ाना", "पढ़वाना"], "correct_index": 1, "explanation": ""}, {"id": 45, "question": "महाॉ कोई ककसी की रीऩा-ऩोती नहीॊ कयेगा।वाक्म भें कौनसा सभास है?", "options": ["द्रंद्र समास", "बहुव्रीवह समास", "ऄव्ययीभाव समास", "कमणधारय समास"], "correct_index": 2, "explanation": ""}, {"id": 46, "question": "‘जीवनऩमंत’ भें कौनसा सभास है?", "options": ["आतरेतर द्रंद्र समास", "समाहार द्रंद्र समास", "ऄव्ययीभाव समास", "कमणधारय  समास"], "correct_index": 1, "explanation": ""}, {"id": 47, "question": "‘भोहन अच्छी ऩुस्तकें ऩढ़ता है।’वाक्म भें वाच्म – प्रमोग है?", "options": ["कतणरर प्रयोग", "कमणवण प्रयोग", "भावे प्रयोग", "आनमें से कोइ नहीं"], "correct_index": 0, "explanation": ""}, {"id": 48, "question": "‘आऩ नहीॊ जानते, यभेश अऩने-आऩ साये काभ कय रेता है।’ इस वाक्म भें कौन-कौनसे सवडनाभ प्रमुक्त हुए हैं?", "options": ["ईत्तम पुरुषवाचक, वनश्चयवाचक", "मध्यम पुरुषवाचक, वनजवाचक", "मध्यम पुरुषवाचक, संबंधवाचक", "मध्यम पुरुषवाचक, वनश्चयवाचक"], "correct_index": 0, "explanation": ""}, {"id": 50, "question": "ननम्नलरखखत भें से ककस ववकल्ऩ भें ताडनजात ध्वनन का प्रमोग हुआ है ?", "options": ["रेवडओ", "बोडण", "सड़क", "आन सभी में"], "correct_index": 1, "explanation": ""}, {"id": 51, "question": "‘योटी भत खाओ, क्म़ोंकक वह जरी है।’वाक्म भें सवडनाभ है?", "options": ["प्रश्नवाचक", "ऄन्य पुरुषवाचक", "वनश्चयवाचक", "संबंधवाचक"], "correct_index": 3, "explanation": ""}, {"id": 53, "question": "ननम्नलरखखत भें से ककस सवडनाभ का प्रमोग एकवचन व फहुवचन दोऩों भें होता है?", "options": ["तुम", "अप", "‘क’ व ‘ख’ दोनों", "हम"], "correct_index": 2, "explanation": ""}, {"id": 60, "question": "ववशेष्ठम से ऩूवड प्रमुक्त होने वारे ववशेषण को कहते हैं?", "options": ["ईद्देर्शय ववशेषण", "ववधेय ववशेषण", "प्रववशेषण", "संकेतवाचक ववशेषण"], "correct_index": 0, "explanation": ""}, {"id": 61, "question": "वाक्म भें जफ ववशेषण ववशेष्ठम के फाद कक्रमा के ऩूयक रूऩ भें प्रमुक्त होते हैं, तफ उन्हें कहते हैं?", "options": ["विया-ववशेषण", "ववधेय ववशेषण", "प्रववशेषण", "संकेतवाचक ववशेषण"], "correct_index": 1, "explanation": ""}, {"id": 62, "question": "ककस वाक्म भें गुणवाचक ववशेषण का प्रमोग नहीॊ हुआ है?", "options": ["ज्यादा गमण दूध नहीं पीना चावहए ।", "अम मीठा है ।", "यह मूवतण प्राचीन है ।", "झगड़े में कइ लोग मारे गए हैं ।"], "correct_index": 3, "explanation": ""}, {"id": 63, "question": "ककस क्रभ भें अननजश्चत सॊख्मावाची ववशेषण का प्रमोग नहीॊ हुआ है?", "options": ["कुछ लड़के मैदान में खेल रहे हैं ।", "वहााँ सैकड़ों व्यवक्त थे ।", "वह ढेर सारा मक्खन खा गया ।", "ईसने दजणनों  पुस्तकें खरीदी ।"], "correct_index": 2, "explanation": ""}, {"id": 64, "question": "जो सवडनाभ सॊऻा के स्थान ऩय आने के फजाम सॊऻा से ऩहरे रगकय उसकी ववशेषता फताते हैं, उन्हें कहते हैं?", "options": ["ईद्देर्शय ववशेषण", "ववधेय ववशेषण", "प्रववशेषण", "सावणनावमक ववशेषण"], "correct_index": 3, "explanation": ""}, {"id": 69, "question": "कौन-सा शब्द सॊऻा से फना हुआ ववशेषण नहीॊ है?", "options": ["भयंकर", "शुभंकर", "रुवचकर", "लाभकर"], "correct_index": 1, "explanation": ""}, {"id": 71, "question": "सावडनालभक ववशेषण-", "options": ["संज्ञा के पहले अते हैं ।", "संज्ञा के बाद अते हैं ।", "सवणनाम के बाद अते हैं।", "आनमें से कोइ नहीं"], "correct_index": 0, "explanation": ""}, {"id": 75, "question": "ककस वाक्म भें ववशेषण की उत्तभावस्था प्रमुक्त हुई है?", "options": ["ईसने सुंदर वचत्र बनाया ।", "वह मुझसे बड़ा है ।", "वह ऄच्छी-ऄच्छी कहावनयााँ सुनाता है ।", "हमारी कक्षा में वह सबसे होवशयार ववद्याथी है।"], "correct_index": 3, "explanation": ""}, {"id": 76, "question": "ककस वाक्म भें प्रववशेषण नहीॊ है?", "options": ["अपका भाइ बहुत होवशयार है ।", "वहााँ लगभग बीस लोग थे ।", "यहााँ बहुत इमानदार लोग हैं ।", "मैं ऄब पहले से ठीक ह ाँ ।"], "correct_index": 3, "explanation": ""}, {"id": 79, "question": "सावडनालभक ववशेषण का उऩमुक्त उदाहयण है?", "options": ["वह अदमी हाँसता है।", "वह अ रहा है।", "‘क’ व ‘ख’ दोनों", "काला कुत्ता भौंक रहा है।"], "correct_index": 0, "explanation": ""}, {"id": 85, "question": "‘मुद्ध देखकय अशोक का कठोय रृदम भोभ जैसा वऩघर गमा।’वाक्म भें ववशेष्ठम है?", "options": ["ऄशोक", "रृदय", "‘क’ व ‘ख’ दोनों", "मोम"], "correct_index": 1, "explanation": ""}, {"id": 86, "question": "ववशेष्ठम औय उसका ववशेषण सुभेलरत नहीॊ है ?", "options": ["ववष- ववषैला", "वपता – पैतृक", "अवद- अवदम", "प्रांत – प्रांवतक"], "correct_index": 3, "explanation": ""}, {"id": 88, "question": "‘दूसया रडका कहाॉ गमा है?’ वाक्म भें ‘दूसया’ ककस प्रकाय का ववशेषण है?", "options": ["समुदायवाचक", "गणनावाचक", "िमवाचक", "अवृवत्तवाचक"], "correct_index": 2, "explanation": ""}, {"id": 89, "question": "‘सफ ऩेड’ भें ‘सफ’ ककस प्रकाय का ववशेषण है?", "options": ["वनवश्चत संख्यावाचक", "ऄवनवश्चत संख्यावाचक", "गुणवाचक", "पररमाणवाचक"], "correct_index": 1, "explanation": ""}, {"id": 90, "question": "“सभुद्री साॉऩ भें घातक ऩयॊतु फहुत कीभती ज़हय ऩामा जाता है।” वाक्म भें ककतने ववशेषण व ववशेष्ठम हैं?", "options": ["तीन ववशेषण और दो ववशेष्य", "दो ववशेषण और तीन ववशेष्य", "दो ववशेषण और दो ववशेष्य", "तीन ववशेषण और एक ववशेष्य"], "correct_index": 0, "explanation": ""}, {"id": 93, "question": "ककस ववकल्ऩ के सबी ववशेषण सॊऻा शब्द़ों से फने हैं?", "options": ["भारतीय, दशणनीय, अलसी", "रक्षक, पैतृक, कमाउ", "सुंदर, शीतल, कैसा", "वैसा, सुरीला, स्वगीय"], "correct_index": 0, "explanation": ""}, {"id": 94, "question": "‘आज चुनाव का तीसया हदन है औय भतदानकभी थोडी- सी शाॊनत के साथ आयाभ कय यहे हैं।’ इस वाक्म भें कौन- कौनसे ववशेषण प्रमुक्त हुए हैं?", "options": ["गुणवाचक, ऄवनश्चत संख्यावाचक", "वनवश्चत पररमाणवाचक, संकेतवाचक", "वनवश्चत संख्यावाचक,ऄवनवश्चत पररमाणवाचक", "व्यवक्तवाचक, गुणवाचक"], "correct_index": 2, "explanation": ""}, {"id": 95, "question": "गुणवाचक ववशेषण का प्रमोग ककस वाक्म भें हुआ है ?", "options": ["यह पुस्तक मेरी है ।", "समारोह में ऄनेक लोग ईपवस्थत थे ।", "बालक पहली कक्षा में पढ़ता है ।", "हमें कपटी व्यवक्त से दूर रहना चावहए  ।"], "correct_index": 3, "explanation": ""}, {"id": 97, "question": "ककस ववकल्ऩ भें गणनावाचक ववशेषण है ?", "options": ["एक, दो, तीन", "पहला, दूसरा, तीसरा", "दुगुना, वतगुना, चौगुना", "दोनों, तीनों, चारों"], "correct_index": 0, "explanation": ""}];
+const TOT=69,SEC=6210;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

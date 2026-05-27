@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>समग्र पाठ्यक्रम 13 अप्रैल — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">समग्र पाठ्यक्रम 13 अप्रैल</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 114 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/114</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "“साहहत्म का इततहासकाय मह ऩता रगाने की चेष्टा कयता है कक ककसी रेखक ने अऩने सभम औय अतीत से क्मा प्राप्त ककमा औय फदरे भें उसने अऩने सभम तथा ऩयवती कार को क्मा हदमा।” भान्मता ककस  नवद्वान  की है?", "options": ["ग्रियससन", "हडसन", "तेन", "हेराल्ड पी. ग्रसमन्सन"], "correct_index": 3, "explanation": ""}, {"id": 2, "question": "‘मभश्रफॊधु-ववनोद’ के सॊफॊध भें असत्म कथन है?", "options": ["इसमें लगभग पााँच हजार रचनाकारों का पररचय ग्रदया गया है ।", "इसमें काल-ग्रिभाजन को व्यिग्रथथत रूप देने का प्रयास ग्रकया गया । पूरे ग्रहिंदी साग्रहत्य को पााँच  मुख्य कालखिंडों में व्यिग्रथथत ग्रकया गया है।", "कग्रि पररचय के साथ साग्रहत्य के ग्रिग्रिधािंगों पर भी पयासप्त प्रकाश डाला गया है ।", "इसमें अज्ञात कग्रियों को सामने लाने का कोई प्रयास नहीं है ।"], "correct_index": 3, "explanation": ""}, {"id": 3, "question": "हहॊदी के आयॊमबक रूऩ को अवहट्ठ कहने वारे  नवद्वान  हैं?", "options": ["रामचिंद्र शुक्ल", "राहुल सािंकृत्यायन", "चिंद्रधर शमास ‘गुलेरी’", "भोलाशिंकर व्यास"], "correct_index": 3, "explanation": ""}, {"id": 5, "question": "ग्रिमसडन ने यीततकाव्म की अवग्रध भानी है?", "options": ["1560 – 1592 ई.", "1580 – 1692 ई.", "1595 – 1843 ई.", "1600 – 1843 ई."], "correct_index": 1, "explanation": ""}, {"id": 6, "question": "आहदकार को ‘वीयकार’ कहने वारे आरोचक हैं?", "options": ["रामचिंद्र शुक्ल", "राहुल सािंकृत्यायन", "िासुदेि ग्रसिंह", "ग्रिश्वनाथ प्रसाद ग्रमश्र"], "correct_index": 3, "explanation": ""}, {"id": 7, "question": "आचामड याभचॊद्र शुक्र ने जजन फायह यचनाओॊ के आधाय ऩय आहदकार को ‘वीयगाथा कार’ कहा है,उनभें शामभर यचना नहीॊ हैं?", "options": ["परमालरासो", "ग्रिजयपाल रासो", "हम्मीर रासो", "सिंदेश रासक"], "correct_index": 3, "explanation": ""}, {"id": 8, "question": "मसद्धों के चमाडऩदों की ववशेषता नहीॊ है?", "options": ["चयासपद गेय है जो ग्रिग्रिध राग- राग्रगग्रनयों में गाये जा सकते हैं ।", "इनमें ग्रसद्धों की मनः ग्रथथग्रत सरल भाषा में अप्रतीकात्मक रूप में व्यक्त हुई हैं ।", "इनकी भाषा पूिी अपभ्रिंश है ।", "ये सािंध्य भाषा के दृष्टकूटों में ग्रलखे गये हैं ।"], "correct_index": 1, "explanation": ""}, {"id": 10, "question": "गोयखनाथ द्वाया प्रवततडत ‘फायहऩॊथी शाखा’ भें तनम्नमरखखत भें से ककसकी गणना नहीॊ की जाती है?", "options": ["सिंतनाथी", "धजपिंथ", "रामपिंथ", "सहजपिंथ"], "correct_index": 3, "explanation": ""}, {"id": 12, "question": "ऩुष्ऩदॊत द्वाया यग्रचत ‘भहाऩुयाण’ भें ककतनी सॊग्रधमाॉ है?", "options": ["101", "102", "103", "104"], "correct_index": 1, "explanation": ""}, {"id": 13, "question": "याजशेखय सूरय द्वाया यग्रचत ‘नेमभनाथ पागु’ भें ककतने छॊद हैं?", "options": ["25", "26", "27", "28"], "correct_index": 2, "explanation": ""}, {"id": 14, "question": "“उसभें न तो रृदम की ऩरयजस्थततमों का ग्रचत्रण है औय न कोई सॊदेश ही, मह केवर भनोयॊजन की साभिी है, जीवन की गॊबीयता से ऊफकय कोई बी व्मजक्त उससे ववनोद ऩा सकता है।”अभीय खुसयो की कववता के सॊफॊध भें मह कथन ककस नवद्वान  का है ?", "options": ["डॉ. रामकुमार िमास", "डॉ. बच्चन ग्रसिंह", "रामचिंद्र शुक्ल", "गुलाब राय"], "correct_index": 0, "explanation": ""}, {"id": 15, "question": "तनम्नमरखखत भें से ववद्माऩतत की यचना नहीॊ है?", "options": ["दानिाक्यािली", "ग्रिभागसार", "अग्रभसमय ग्रिभाग", "ग्रलखनािली"], "correct_index": 2, "explanation": ""}, {"id": 16, "question": "मभश्रफॊधुओॊ के अनुसाय ‘फीसरदेव यासो’ का यचनाकार है?", "options": ["ग्रि. सिं. 1212", "ग्रि. सिं. 1220", "ग्रि. सिं. 1272", "ग्रि. सिं. 1058"], "correct_index": 1, "explanation": ""}, {"id": 17, "question": "“हहॊदी का चरयत्र ऩहरी फाय ही, फडे भोहक रूऩ भें बाषा औय सॊवेदना दोनों स्तयों ऩय ऩृथ्वीयाज यासो भें तनखयकय आमा है।” काव्म प्रकिमा महाॉ ऩूयी तयह तनषन्न हुई है।”कथन ककस ववद्वान का है?", "options": ["गुलाबराय", "आचायस रामचिंद्र शुक्ल", "ग्रिश्वनाथ प्रसाद ग्रमश्र", "रामथिरूप चतुिेदी"], "correct_index": 3, "explanation": ""}, {"id": 18, "question": "आचामड हजायी प्रसाद द्वववेदी के अनुसाय ‘सॊदेश यासक’ का यचनाकार है   ?", "options": ["ग्यारहिीं शताब्दी", "ग्यारहिीं शताब्दी से चौदहिीं शताब्दी के मध्य", "बारहिीं शताब्दी के उत्तराद्धस से लेकर तेरहिीं शताब्दी पूिासद्धस के मध्य", "चौदहिीं शताब्दी के आस-पास"], "correct_index": 0, "explanation": ""}, {"id": 19, "question": "तनम्नमरखखत भें से ककस आरवाय का सॊस्कृत नाभ सुभेमरत नहीॊ है?", "options": ["मोयगै आलिार-सोरोयोग्रगन्", "नम्म आलिार- शठकोप", "अिंडाल आलिार- गोदा", "ग्रतरूप्पान आलिार- परकाल"], "correct_index": 3, "explanation": ""}, {"id": 20, "question": "‘भहानुबाव सॊप्रदाम’ के प्रवतडक कौन हैं?", "options": ["चक्रधर", "रामचरण दास", "जीिाराम", "पुिंडग्रलक"], "correct_index": 0, "explanation": ""}, {"id": 21, "question": "सॊतों ने ‘गॊगा’ शब्द का प्रमोग ककसके मरए ककमा है?", "options": ["इडा नाडी", "ग्रपिंगला नाडी", "सुषुम्ना नाडी", "ब्रह्मरिंध"], "correct_index": 0, "explanation": ""}, {"id": 22, "question": "“हहॊदू ऩूजै देहया, भुसरभान भसीत।....सोई सेववमा जहॉ देहया न भसीत।।” ककस सॊत कवव की ऩॊजक्तमाॉ हैं?", "options": ["ज्ञानेश्वर", "नामदेि", "नानक", "कबीर"], "correct_index": 1, "explanation": ""}, {"id": 23, "question": "तनम्नमरखखत भें से ककस िॊथ भें दशधा बजक्त का ववस्ताय से वणडन है?", "options": ["भक्तमाल", "भग्रक्तभािती जोग", "गुरु ििंथ साग्रहब", "िैष्णि मताब्ज भाथकर"], "correct_index": 1, "explanation": ""}, {"id": 24, "question": "कफीय की बाषा को ‘सॊतबाषा’ कहने वारे आरोचक है ?", "options": ["हजारी प्रसाद ग्रद्रिेदी", "रामचिंद्र शुक्ल", "श्यामसुिंदर दास", "डॉ. बच्चन ग्रसिंह"], "correct_index": 3, "explanation": ""}, {"id": 25, "question": "“कफीय ने साहहत्म के मरए साहहत्म नहीॊ मरखा।भस्तभौरा याभ को साहहत्म से क्मा भतरफ ,ऩय उनका उच्छर आवेग,भानवीम सॊवेदना,गहया जीवन फोध उनके ‘कहन’ को साहहत्म फना देते हैं।” कथन ककस आरोचक का है?", "options": ["डॉ. गणपग्रतचिंद्र गुप्त", "रामचिंद्र शुक्ल", "डॉ. बच्चन ग्रसिंह", "रामकुमार िमास"], "correct_index": 2, "explanation": ""}, {"id": 26, "question": "गुरुनानक की कौनसी यचना खडी फोरी भें है?", "options": ["जपुजी", "नसीहतनामा", "सोग्रहला", "आसादीिार"], "correct_index": 1, "explanation": ""}, {"id": 28, "question": "“तनगुडण ऩॊग्रथमों भें मही एक ऐसे व्मजक्त हुए,जजन्हें सभुग्रचत मशऺा मभरी थी औय जो काव्म करा की यीतत से अच्छी तयह ऩरयग्रचत थे।”आचामड याभचॊद्र शुक्र का मह कथन ककस सॊत कवव के सॊफॊध भें है?", "options": ["हररदास ग्रनरिंजनी", "गुरुनानक", "सुिंदरदास", "सिंत सींगा"], "correct_index": 2, "explanation": ""}, {"id": 29, "question": "“यैन गॉवाई सोई के,हदवसु गॉवाइमा खाम।हीये जैसा जनभु है,कउडी फदरे जाम।।” ककस सॊत कवव की उजक्त है ?", "options": ["सुिंदरदास", "गुरुनानक", "रग्रिदास", "कबीर"], "correct_index": 1, "explanation": ""}, {"id": 30, "question": "‘अनबै प्रफोध’ के यचनाकाय हैं ?", "options": ["सिंतदास", "गरीबदास", "धमसदास", "मोहनदास"], "correct_index": 1, "explanation": ""}, {"id": 31, "question": "सूपी साहहत्म का आयॊब कफ से भाना जाता है ?", "options": ["बारहिीं शताब्दी से", "तेरहिीं शताब्दी से", "चौदहिीं शताब्दी से", "पिंद्रहिीं शताब्दी से"], "correct_index": 2, "explanation": ""}, {"id": 32, "question": "“जामसी सूकपमों के अद्वैतवाद तक ही नहीॊ यहे हैं,वेदाॊत के अद्वैतवाद तक बी ऩहुॉचे हैं।बायतीम भत-भताॊतयों की उनभें अग्रधक झरक है।”कथन ककस ववद्वान का है?", "options": ["डॉ. बच्चन ग्रसिंह", "डॉ. रामकुमार िमास", "रामचिंद्र शुक्ल", "ह.प्रसाद ग्रद्रिेदी"], "correct_index": 2, "explanation": ""}, {"id": 33, "question": "“साहे हुसेन आहे फड याजा। छत्र मसॊघासन उनको छाजा।।” ककस सूपी यचना की ऩॊजक्तमाॉ हैं?", "options": ["हिंसािली", "मृगािती", "मधुमालती", "चिंदायन"], "correct_index": 1, "explanation": ""}, {"id": 34, "question": "तनम्नमरखखत भें से ककस सॊत कवव ने ‘अभय देस’ की कल्ऩना की है?", "options": ["रैदास ने", "कबीर ने", "गरीबदास ने", "रज्जब ने"], "correct_index": 1, "explanation": ""}, {"id": 35, "question": "‘हॊस जवाहहय’ की नातमका ‘जवाहहय’ ककसकी ऩुत्री थी ?", "options": ["बुरहान", "आलमसाह", "अमानुल्ला", "रामदेि"], "correct_index": 1, "explanation": ""}, {"id": 36, "question": "“गुणिाही गोववॊद गुण गावा। बजज बजज याभ ऩयभ ऩद ऩावा।।” तुरसी के सॊफॊध भें मे ऩॊजक्तमाॉ ककस कवव की है ?", "options": ["नाभादास", "बेनीमाधि दास", "सूरदास", "हररदास ग्रनरिंजनी"], "correct_index": 3, "explanation": ""}, {"id": 37, "question": "“तुरसी के काव्म भें उनका तनयीह बक्त रूऩ फहुत स्ऩष्ट हुआ है ऩय वे सभाज सुधायक ,रोक नामक, कवव ऩॊडडत औय बववष्म स्रष्टा बी थे।” कथन ककस आरोचक का है?", "options": ["रामथिरूप चतुिेदी", "हजारी प्रसाद ग्रद्रिेदी", "रामग्रिलास शमास", "रामकुमार िमास"], "correct_index": 1, "explanation": ""}, {"id": 38, "question": "बजक्तकार को ‘रोक जागयण कार’ कहने वारे आरोचक हैं ?", "options": ["गुलाबराय", "नामिर ग्रसिंह", "डॉ. बच्चन ग्रसिंह", "रामग्रिलास शमास"], "correct_index": 3, "explanation": ""}, {"id": 39, "question": "सूयदास की यचनाओॊ ‘सूयसायावरी’ एवॊ ‘साहहत्म रहयी’ को अप्राभाखणक भानने वारे ववद्वान हैं ?", "options": ["ग्रमश्रबिंधु", "दीनदयाल गुप्त", "निंददुलारे िाजपेयी", "ब्रजेश्वर शमास"], "correct_index": 3, "explanation": ""}, {"id": 40, "question": "ककसने नॊददास की यचना ‘यास ऩॊचाध्मामी’ को ‘हहॊदी का गीत गोववॊद’ कहा है?", "options": ["शािंग्रतग्रप्रय ग्रद्रिेदी ने", "ग्रियोगी हरर ने", "रामचिंद्र शुक्ल ने", "गणपग्रतचिंद्र गुप्त ने"], "correct_index": 1, "explanation": ""}, {"id": 41, "question": "तनम्नमरखखत भे से याधा-वल्रब सॊप्रदाम से सॊफॊग्रधत कवव नहीॊ है?", "options": ["हररव्यास देि", "दामोदरदास", "ध्रुिदास", "नेही नागरीदास"], "correct_index": 0, "explanation": ""}, {"id": 42, "question": "केशवदास की ककस यचना भें छॊदों की सॊख्मा सही सुभेमरत नहीॊ है?", "options": ["रग्रसक ग्रप्रया- 530", "कग्रिग्रप्रया- 896", "रामचिंग्रद्रका- 1717", "ग्रिज्ञान गीता- 1682"], "correct_index": 3, "explanation": ""}, {"id": 43, "question": "यीततकार को ‘रामरत्म मुग’ कहने वारे ववद्वान हैं?", "options": ["सूयसकािंत शास्त्री", "शिंभुनाथ ग्रसिंह", "सत्यकाम िमास", "ग्रिलोचन"], "correct_index": 0, "explanation": ""}, {"id": 44, "question": "तनम्नमरखखत भें से सही सुभेमरत नहीॊ है ?", "options": ["रीग्रत सुभाषा कग्रित्त की बरनत बुध अनुसार- ग्रचिंतामग्रण", "सो ग्रिश्रब्ध निौढ़ यो बरनत कग्रि रस रीग्रत- मग्रतराम", "अपनी अपनी रीग्रत के काव्य और कग्रि रीग्रत- ग्रभखारीदास", "छिंद रीग्रत समुझै नहीं ग्रबन ग्रपिंगल के ज्ञान- सोमनाथ"], "correct_index": 2, "explanation": ""}, {"id": 45, "question": "कुरऩतत मभश्र की यचना ‘यस यहस्म’ भें ककतने छॊद हैं ?", "options": ["652", "653", "654", "655"], "correct_index": 0, "explanation": ""}, {"id": 46, "question": "देव ने ‘शब्द यसामन’ भें ककतने अरॊकायों का तनरूऩण ककमा है ?", "options": ["44", "45", "46", "47"], "correct_index": 1, "explanation": ""}, {"id": 47, "question": "बफहायी को केशवदास का ऩुत्र भानने वारे ववद्वान हैं?", "options": ["राधाकृष्णदास", "जगन्नाथदास ‘रत्नाकर’", "गौरीशिंकर ग्रद्रिेदी", "ये सभी"], "correct_index": 3, "explanation": ""}, {"id": 48, "question": "“रोग राग्रग हैं कववत्त फनावत, भोहह तो भेये कववत्त फनावत।”यीततकार के ककस कवव की उजक्त है ?", "options": ["घनानिंद", "ठाकुर", "आलम", "बोधा"], "correct_index": 0, "explanation": ""}, {"id": 49, "question": "ठाकुय के ऩदों का सॊकरन ‘ठाकुय ठसक’ के नाभ से ककसने कयवामा ?", "options": ["माताप्रसाद गुप्त ने", "लाला भगिानदीन ने", "नकछेदी ग्रतिारी ने", "भारतेंदु हररश्चिंद्र ने"], "correct_index": 1, "explanation": ""}, {"id": 50, "question": "यीततकारीन कववमों को ‘कववता के सौदागय’ कहने वारे आरोचक हैं?", "options": ["गणपग्रतचिंद्र गुप्त", "नामिर ग्रसिंह", "गुलाबराय", "डॉ. बच्चन ग्रसिंह"], "correct_index": 3, "explanation": ""}, {"id": 51, "question": "याभचॊद्र शुक्र के अनुसाय बायतेंदु मुग की अवग्रध है ?", "options": ["1869-1888 ई.", "1868-1893 ई.", "1870-1900 ई.", "1857-1900 ई."], "correct_index": 1, "explanation": ""}, {"id": 52, "question": "“बायतेंदु मुग का साहहत्म व्माऩक रूऩ से गदय से प्रबाववत है।”भान्मता ककस ववद्वान की है ?", "options": ["रामग्रिलास शमास", "डॉ. नगेंद्र", "रामचिंद्र शुक्ल", "गुलाबराय"], "correct_index": 0, "explanation": ""}, {"id": 53, "question": "बायतेंदुमुगीन यचनाकायों का सही कारानुिभ है ?", "options": ["भारतेंदु-प्रेमघन-अिंग्रबकादत्त व्यास-ठाकुर जगमोहन ग्रसिंह", "भारतेंदु- प्रेमघन-ठाकुर जगमोहन ग्रसिंह-अिंग्रबकादत्त व्यास", "प्रेमघन-भारतेंदु-अिंग्रबकादत्त व्यास-ठाकुर जगमोहन ग्रसिंह", "भारतेंदु-अिंग्रबकादत्त व्यास- प्रेमघन –ठाकुर जगमोहन ग्रसिंह"], "correct_index": 1, "explanation": ""}, {"id": 54, "question": "बायतेंदु हरयश्चॊद्र ने ‘नायद बजक्त सूत्र’ का अनुवाद ककस नाभ से ककमा ?", "options": ["भग्रक्त सूि िैजयिंती", "तदीय सिसथि", "राग सिंिह", "मधु मुकुल"], "correct_index": 1, "explanation": ""}, {"id": 55, "question": "प्रताऩनायामण मभश्र की कौनसी यचना का प्रकाशन वषड सही नहीॊ है?", "options": ["प्रेम पुष्पािंजग्रल- 1881 ई.", "प्राथसना शतक- 1884 ई.", "मन की लहर- 1885 ई.", "दिंगल खिंड- 1887 ई."], "correct_index": 0, "explanation": ""}, {"id": 56, "question": "फदयीनायामण चौधयी ‘प्रेभघन’ की यचनाओॊ का सही आयोही कारानुिभ है?", "options": ["हाग्रदसक हषासदशस-लाग्रलत्य लहरी-भारत बधाई-आनिंद अरुणोदय", "हाग्रदसक हषासदशस-लाग्रलत्य लहरी- आनिंद अरुणोदय - भारत बधाई", "लाग्रलत्य लहरी-हाग्रदसक हषासदशस-आनिंद अरुणोदय-भारत बधाई", "आनिंद अरुणोदय-हाग्रदसक हषासदशस-लाग्रलत्य लहरी-भारत बधाई"], "correct_index": 0, "explanation": ""}, {"id": 57, "question": "तनम्नमरखखत भें से फारकृष्णबट्ट द्वाया यग्रचत तनफॊध नहीॊ है ?", "options": ["खटका", "भग्रक्त", "ग्रिश्वास", "ईश्वर का िचन"], "correct_index": 3, "explanation": ""}, {"id": 58, "question": "भहावीय प्रसाद द्वववेदी की कौनसी यचना का प्रकाशन वषड सही नहीॊ है ?", "options": ["िग्रनता ग्रिलास – 1915 ई.", "मग्रहला मोद- 1925 ई.", "लेखािंजग्रल- 1928 ई.", "साग्रहत्यालाप- 1929 ई."], "correct_index": 0, "explanation": ""}, {"id": 59, "question": "“गॊध ववहीन पूर है जैसे चॊद्र चॊहद्रका हीन। मों ही पीका है भनुष्म का जीवन प्रेभ ववहीन।।” ऩॊजक्तमाॉ ककस यचनाकाय की हैं ?", "options": ["श्रीधर पाठक", "रामनरेश ग्रिपाठी", "सत्यनारायण ‘कग्रिरत्न’", "जगन्नाथदास ‘रत्नाकर’"], "correct_index": 1, "explanation": ""}, {"id": 60, "question": "“मे खडी फोरी मुग भें ब्रजबाषा के सफसे फडे कवव थे।”जगन्नाथदास यत्नाकय के सॊफॊध भें मह कथन ककस आरोचक का है ?", "options": ["गुलाबराय", "डॉ. गणपग्रतचिंद्र गुप्त", "निंददुलारे िाजपेयी", "रामथिरूप चतुिेदी"], "correct_index": 2, "explanation": ""}, {"id": 61, "question": "“ ‘वप्रम प्रवास’ का भूर बाव यतत नहीॊ प्रेभ है।”भान्मता ककस ववद्वान की है ?", "options": ["रामचिंद्र शुक्ल", "डॉ. नगेंद्र", "हजारी प्रसाद ग्रद्रिेदी", "गणपग्रतचिंद्र गुप्त"], "correct_index": 1, "explanation": ""}, {"id": 62, "question": "भैग्रथरीशयण गुप्त को ‘मुग चायण’ ककसने कहा है ?", "options": ["िासुदेि शरण अििाल ने", "रामचिंद्र शुक्ल ने", "गणपग्रतचिंद्र गुप्त ने", "हररऔध ने"], "correct_index": 3, "explanation": ""}, {"id": 63, "question": "“छामावाद व्मजक्तवाद की कववता है,जजसका आयॊब व्मजक्त के भहत्त्व को स्वीकाय कयने औय कयवाने से हुआ है।”भान्मता ककस ववद्वान की है ?", "options": ["डॉ. नगेंद्र", "निंददुलारे िाजपेयी", "नामिर ग्रसिंह", "मुकुटधर पािंडेय"], "correct_index": 2, "explanation": ""}, {"id": 64, "question": "छामावाद को ‘अस्ऩष्टतावाद’ कहने वारे ववद्वान हैं?", "options": ["डॉ. बच्चन ग्रसिंह", "रामथिरूप चतुिेदी", "लाला भगिानदीन", "सुशील कुमार"], "correct_index": 3, "explanation": ""}, {"id": 65, "question": "ककस छामावादी कवव ने कववता को ‘कल्ऩना की यानी’ कहा है ?", "options": ["जयशिंकर प्रसाद ने", "पिंत ने", "ग्रनराला ने", "महादेिी िमास ने"], "correct_index": 1, "explanation": ""}, {"id": 66, "question": "काभामनी का दसवाॉ सगड है?", "options": ["थिप्न", "सिंघषस", "ग्रनिेद", "दशसन"], "correct_index": 0, "explanation": ""}, {"id": 67, "question": "“भुझे प्रोपेसयों के फीच छामावाद मसद्ध कयना ऩडेगा।”ककस छामावादी कवव ने कहा?", "options": ["मुकुटधर पािंडेय ने", "पिंत ने", "ग्रनराला ने", "जयशिंकर प्रसाद ने"], "correct_index": 2, "explanation": ""}, {"id": 68, "question": "ऩॊत ने अऩनी ककस यचना को ‘फार कल्ऩना का दूधभुॉहा प्रमास’ कहा है ?", "options": ["उच््िास", "ििंग्रथ", "िीणा", "पल्लि"], "correct_index": 2, "explanation": ""}, {"id": 69, "question": "ककसने हारावाद को ‘वैमजक्तक कववता’ कहा है?", "options": ["डॉ. नगेंद्र ने", "गणपग्रतचिंद्र गुप्त ने", "डॉ. बच्चन ग्रसिंह ने", "रामग्रिलास शमास ने"], "correct_index": 0, "explanation": ""}, {"id": 70, "question": "“मभट्टी का तन भस्ती का भन,ऺणबय जीवन भेया ऩरयचम।” ककस कवव की उजक्त है?", "options": ["भगितीचरण िमास", "हररििंशराय बच्चन", "रामेश्वर शुक्ल ‘अिंचल’", "नरेंद्र शमास"], "correct_index": 1, "explanation": ""}, {"id": 71, "question": "तनम्नमरखखत भें से ककस कववता को ‘प्रगततवाद का शॊखनाद’ कहा जाता है ?", "options": ["पररितसन", "ताज", "िे आाँखें", "बादल राग"], "correct_index": 1, "explanation": ""}, {"id": 72, "question": "“हहॊदी भें प्रगततवादी के नाभ ऩय कूडा ककडट मरखा गमा।” भान्मता ककस ववद्वान की है ?", "options": ["रामग्रिलास शमास", "नामिर ग्रसिंह", "प्रकाशचिंद्र गुप्त", "ग्रशिदान ग्रसिंह चौहान"], "correct_index": 3, "explanation": ""}, {"id": 73, "question": "‘प्रगततवाद: एक सभीऺा’ ककसकी यचना है?", "options": ["रािंगेय राघि", "धमसिीर भारती", "रणजीत", "रामग्रिलास शमास"], "correct_index": 1, "explanation": ""}, {"id": 74, "question": "डॉ. गणऩततचॊद्र गुप्त ने कारिभ की दृजष्ट से प्रथभ प्रगततवादी कवव ककसे भाना है?", "options": ["रामेश्वर ‘करुण’ को", "पिंत को", "रामधारी ग्रसिंह ‘ग्रदनकर’ को", "ग्रनराला को"], "correct_index": 0, "explanation": ""}, {"id": 76, "question": "ककसने प्रमोगवाद को ‘शुष्कतावाद’ कहा है?", "options": ["डॉ. नगेंद्र ग्रसिंह", "डॉ. बच्चन ग्रसिंह", "गणपग्रतचिंद्र गुप्त", "प्रकाशचिंद्र गुप्त"], "correct_index": 2, "explanation": ""}, {"id": 77, "question": "तनम्नमरखखत भें से ककसकी कववताएॉ स्वाधीन बायत का इस्ऩाती दस्तावेज भानी जाती है?", "options": ["मुग्रक्तबोध", "प्रभाकर माचिे", "अज्ञेय", "नरेश मेहता"], "correct_index": 0, "explanation": ""}, {"id": 78, "question": "तनम्नमरखखत भें से अऻेम की यचना नहीॊ है ?", "options": ["ग्रचिंता", "सागर मुद्रा", "नाश और ग्रनमासण", "महािृक्ष के नीचे"], "correct_index": 2, "explanation": ""}, {"id": 79, "question": "तनम्नमरखखत भें दूसया सप्तक भें शामभर यचनाकाय नहीॊ है ?", "options": ["रघुिीर सहाय", "राजेंद्र ग्रकशोर", "धमसिीर भारती", "हररनारायण व्यास"], "correct_index": 1, "explanation": ""}, {"id": 80, "question": "तनम्नमरखखत भें से कौनसी रॊफी कववता एवॊ उसका यचनाकाय सुभेमरत नहीॊ है ?", "options": ["पटकथा- धूग्रमल", "प्रमथ्यु गाथा- धमसिीर भारती", "आिाजों के कठघरे में - ग्रिलोचन शास्त्री", "मुग्रक्त प्रसिंग- राजकमल चौधरी"], "correct_index": 2, "explanation": ""}, {"id": 81, "question": "आज की कववता आॊदोरन के प्रवतडक हैं ?", "options": ["हरीश भादानी", "रिींद्र भ्रिंमर", "राजकमल चौधरी", "श्यामनारायण"], "correct_index": 0, "explanation": ""}, {"id": 82, "question": "“अदोषौ सगुणौ सारॊकायौ च शब्दाथौ काव्मभ्।”काव्म रऺण ककस आचामड ने हदमा?", "options": ["हेमचिंद्र", "मग्रहमभट्ट", "भामह", "ग्रिश्वनाथ"], "correct_index": 0, "explanation": ""}, {"id": 84, "question": "“जातन स्माभ को स्माभ घन नाग्रच वन भोय।” ऩॊजक्त भें अरॊकाय है?", "options": ["सिंदेहमान", "भ्रािंग्रतमान", "उत्प्रेक्षा", "श्लेष"], "correct_index": 1, "explanation": ""}, {"id": 85, "question": "“प्रततबा कायणॊ तस्म व्मुत्ऩजत्तस्मु ववबूषणभ्।” काव्म हेतु के सॊफॊध भें मह कथन ककस आचामड का है?", "options": ["िाग्भट्ट", "केशि ग्रमश्र", "हेमचिंद्र", "अग्रभनि गुप्त"], "correct_index": 0, "explanation": ""}, {"id": 86, "question": "“भैं जो नमा िॊथ ववरोकता हूॉ। बाता भुझे सो नव मभत्र सा है।।” ऩॊजक्तमों भें तनहहत छॊद है?", "options": ["इिंद्रिज्रा", "उपेंद्रिज्रा", "भुजिंग प्रयातम्", "तोटक"], "correct_index": 0, "explanation": ""}, {"id": 87, "question": "“सूयत जयाइ मसवा स्माही ऩातसाही भुख झरकी।“ ऩॊजक्तमों भें कौनसा साजत्त्वक अनुबाव है?", "options": ["प्रलय", "रोमािंच", "िैिण्यस", "िेपथु"], "correct_index": 2, "explanation": ""}, {"id": 88, "question": "“सुनत रखन के वचन कठोया।ऩयसु सुधारय धयेउ कय घोया। अफ जतन दोस देहहह भोहह रोगू। कटुवादी फारक वध जोगू।।” ऩॊजक्तमों भें कौनसा यस है?", "options": ["िीर", "रौद्र", "भयानक", "िीभत्स"], "correct_index": 1, "explanation": ""}, {"id": 89, "question": "“अनुस्वाय फयन जुत सफै वगड।अऺय जा भें भृदु ऩयै सो भाधुमड तनसगड।।” भाधुमड गुण का मह रऺण ककस आचामड ने हदमा?", "options": ["श्रीपग्रत ने", "केशिदास ने", "ग्रभखारीदास ने", "ग्रचिंतामग्रण ने"], "correct_index": 2, "explanation": ""}, {"id": 90, "question": "“ऩुष्ऩ ऩयाग से यॊजजत हो,षट्ऩद हुआ भदभस्त है।”ऩॊजक्तमों भें कौनसा काव्मदोष है?", "options": ["अक्रमत्ि", "दुष्क्रमत्ि", "िाम्यत्ि", "अग्रधकपदत्ि"], "correct_index": 3, "explanation": ""}, {"id": 91, "question": "सरृदम के ग्रचत्त का साधायणीकयण भानने वारे ववद्वान हैं?", "options": ["श्यामसुिंदर दास", "रामचिंद्र शुक्ल", "डॉ. नगेंद्र ग्रसिंह", "केशिग्रमश्र"], "correct_index": 0, "explanation": ""}, {"id": 92, "question": "“स्वमॊ सुसजजजत कयके ऺण भें, वप्रमतभ को प्राणों के ऩण भें। हभीॊ बेज देती हैं यण भें,ऺात्र धभड के नाते।सखी वे भुझसे कहकय जाते।।” ऩॊजक्तमों भें तनहहत शब्द – शजक्त है?", "options": ["अग्रभधा", "लक्षणा", "शाब्दी व्यिंजना", "आथी व्यिंजना"], "correct_index": 3, "explanation": ""}, {"id": 93, "question": "तनम्नमरखखत भें से ऻान चतुवेदी का तनफॊध सॊिह नहीॊ है?", "options": ["रिंदा- 2018 ई.", "प्रत्यिंचा- 2010 ई.", "नेपथ्य लीला- 2021 ई.", "सींग िाले गधे- 2023 ई."], "correct_index": 3, "explanation": ""}, {"id": 94, "question": "‘इततहास का ऩरयमशष्ट (2021 ई.)’ ककसकी आरोचनात्भक यचना है?", "options": ["मैनेजर पािंडेय", "मधुरेश", "निंदग्रकशोर निल", "शिंभुनाथ"], "correct_index": 1, "explanation": ""}, {"id": 95, "question": "‘नकटौया (2022 ई.)’ ककसके द्वाया यग्रचत उऩन्मास है ?", "options": ["कुसुम अिंसल", "पद्मा सचदेि", "ग्रचिा मुद्गल", "मृणाल पािंडेय"], "correct_index": 2, "explanation": ""}, {"id": 96, "question": "‘सभानाॊतय (2023 ई.)’ ककसका कहानी सॊिह है?", "options": ["मालती जोशी", "कृष्णा अग्रग्नहोिी", "मृदुला गगस", "सुधा अरोडा"], "correct_index": 1, "explanation": ""}, {"id": 97, "question": "‘ईश्वय अल्राह (2021 ई.)’ नाटक के यचनाकाय हैं?", "options": ["थिदेश दीपक", "नाग बोडस", "असगर िजाहत", "सुरेंद्र िमास"], "correct_index": 2, "explanation": ""}, {"id": 98, "question": "‘सभाज जजसभें भैं यहता हूॉ (2021 ई.)’ ककसकी आत्भकथा है?", "options": ["भगिानदास मोरिाल", "नरेंद्र कोहली", "नामिर ग्रसिंह", "ग्रमग्रथलेश्वर"], "correct_index": 1, "explanation": ""}, {"id": 99, "question": "‘स्वगड भें ऩाॉच हदन (2019 ई.)’ ककसके द्वाया यग्रचत मात्रा-वृत्ताॊत है?", "options": ["उग्रमसलेश", "अनुराधा बेग्रनिाल", "असगर िजाहत", "कमलेश्वर"], "correct_index": 2, "explanation": ""}, {"id": 100, "question": "‘सुग्रधमों के छॊद (2022 ई.)’ ककसके द्वाया यग्रचत सॊस्भयण है?", "options": ["ग्रिश्वनाथ ग्रिपाठी", "चिंद्रकािंता", "ममता काग्रलया", "केदारनाथ ग्रसिंह"], "correct_index": 1, "explanation": ""}, {"id": 101, "question": "नाभवय मसॊह के ऩत्रों का सॊऩादन ‘तुम्हाया नाभवय’ नाभ से 2022 ई. भें ककसने ककमा ?", "options": ["कमल कुमार ने", "जसिीर त्यागी ने", "आशीष ग्रिपाठी ने", "ग्रिजय मोहन शमास ने"], "correct_index": 2, "explanation": ""}, {"id": 102, "question": "‘एक देश फायह दुतनमाॉ (2022 ई.)’ ककसके द्वाया यग्रचत रयऩोताडज है?", "options": ["ग्रशरीष खरे", "रमेशचिंद्र शाह", "राजी सेठ", "निंददग्रकशोर आचायस"], "correct_index": 0, "explanation": ""}, {"id": 103, "question": "‘फातें हैं फातों का क्मा (2022 ई.) ’ ककसके साऺात्कायों का सॊिह है?", "options": ["काशीनाथ ग्रसिंह", "नरेंद्र मोहन", "थियिंप्रकाश", "अशोक िाजपेयी"], "correct_index": 0, "explanation": ""}, {"id": 104, "question": "बाषा सॊफॊधी ववग्रधमों को अग्रधतनममभत कयने का प्रावधान सॊववधान के ककस अनुच्छेद भें है?", "options": ["अनु. 347", "अनु. 348", "अनु. 349", "अनु. 350"], "correct_index": 2, "explanation": ""}, {"id": 105, "question": "बदावयी,ऩॊवायी ककसकी उऩफोमरमाॉ हैं?", "options": ["बघेली", "बुिंदेली", "कन्नौजी", "हररयाणिी"], "correct_index": 1, "explanation": ""}, {"id": 106, "question": "ककस िभ भें अल्ऩप्राण ध्वतन है?", "options": ["फ,ध", "ठ,भ", "क,ल", "ख,ढ"], "correct_index": 2, "explanation": ""}, {"id": 107, "question": "ककस ववकल्ऩ भें वृवद्ध स्वय सॊग्रध का उदाहयण नहीॊ है?", "options": ["ग्रिश्वैक्य", "थिैग्रच्छक", "मतैक्य", "ग्रशश्वैक्य"], "correct_index": 3, "explanation": ""}, {"id": 108, "question": "ककस ववकल्ऩ भें ‘वव’ उऩसगड से फना शब्द है?", "options": ["िैराग्य", "िैशेग्रषक", "िैकग्रल्पक", "ये सभी"], "correct_index": 3, "explanation": ""}, {"id": 109, "question": "ककस ववकल्ऩ भें कयण तत्ऩुरुष सभास नहीॊ है?", "options": ["मदािंध", "जन्मािंध", "मोहािंध", "धमाांध"], "correct_index": 1, "explanation": ""}, {"id": 110, "question": "ककस ववकल्ऩ भें ‘म’ प्रत्मम का प्रमोग नहीॊ हुआ है?", "options": ["आग्रदत्य", "सौंदयस", "धैयस", "भारतीय"], "correct_index": 3, "explanation": ""}, {"id": 111, "question": "तनम्नमरखखत भें से ‘याऺस’ का ऩमाडमवाची है?", "options": ["मनुजाद", "यातुधान", "दनुज", "ये सभी"], "correct_index": 3, "explanation": ""}, {"id": 112, "question": "तनम्नमरखखत भें से कौनसा शब्द अनेकाथडक शब्द ‘ऩॊक’ से सॊफद्ध नहीॊ है?", "options": ["कीचड", "दलदल", "पाप", "तीक्ष्ण"], "correct_index": 3, "explanation": ""}, {"id": 113, "question": "तनम्नमरखखत भें से वातडतनक दृजष्ट से अशुद्ध शब्द है?", "options": ["मलयुद्ध", "युग्रधग्रिर", "ग्रिद्रत्ता", "तत्त्िािधान"], "correct_index": 0, "explanation": ""}, {"id": 115, "question": "ककस ववकल्ऩ भें ‘से’ ऩयसगड का प्रमोग अऩादान कायक के मरए हुआ है?", "options": ["नग्रदयााँ पहाडों से ग्रनकलती हैं।", "आकाश से पानी बरसा।", "िह ग्रिद्यालय से आ रहा है।", "उपयुसक्त सभी में"], "correct_index": 3, "explanation": ""}, {"id": 116, "question": "‘भ्राॊत’ का सही ववरोभ शब्द है?", "options": ["ग्रनभ्रािंत", "सिंभ्रािंत", "उद्भ्रािंत", "ग्रिभ्रािंत"], "correct_index": 0, "explanation": ""}, {"id": 118, "question": "ककस वाक्म भें ववशेषण की उत्तभावस्था का प्रमोग हुआ है?", "options": ["यह ग्रचि बहुत सुिंदर है।", "मेरा घर उसके घर से छोटा है।", "उसे सिासग्रधक अिंक प्राप्त हुए।", "मोहन की अपेक्षा सोहन होग्रशयार है।"], "correct_index": 2, "explanation": ""}, {"id": 120, "question": "तनम्नमरखखत भें से शुद्ध वाक्म है?", "options": ["िह पक्के हनुमान के भक्त हैं।", "िह सारी रातभर जागता रहा।", "मेरी बात ध्यान के साथ सुनो।", "इनमें से कोई नहीं"], "correct_index": 3, "explanation": ""}, {"id": 122, "question": "इनभें से सवडनाभ से फनी बाववाचक सॊऻा है?", "options": ["अपनापन", "छुटपन", "लडकपन", "ग्रलखािट"], "correct_index": 0, "explanation": ""}, {"id": 123, "question": "वह अऩने मभत्र को ऩत्र मरखता होगा।वाक्म ककस कास से सॊफॊग्रधत है?", "options": ["सिंग्रदग्ध भूत", "सिंग्रदग्ध ितसमान", "सामान्य भग्रिष्यत्", "सिंभाव्य भग्रिष्यत्"], "correct_index": 1, "explanation": ""}, {"id": 124, "question": "वह रडकी सफसे जमादा फततमाती है। वाक्म भें किमा है?", "options": ["पूिसकाग्रलक", "नामधातु", "प्रेरणाथसक", "रिंजक ग्रक्रया"], "correct_index": 1, "explanation": ""}];
+const TOT=114,SEC=10260;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

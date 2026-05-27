@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 67: समग्र पाठ्यक्रम आधृत — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 67: समग्र पाठ्यक्रम आधृत</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 125 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/125</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "रामचन्द्र शुक्ल का साहित्येतिहास ग्रन्थ “हिंदी साहित्य का इतिहास' नागरी प्रचारिणी से प्रकाशित “हिंदी शब्दसागर' की भूमिका में किस शीर्षक से लिखा गया था ?", "options": ["‘इस्तावर द ला ललतरेत्यूर ऐन्दूई ए ऐन्दूस्तानी’ को", "‘ए स्केच ऑफ लहिंदी ललटरेचर’ को", "‘ए लहस्री ऑफ लहिंदी ललटरेचर’ को", "‘द मॉडनन वनानक्यूलर ललटरेचर ऑफ लहिंदुस्तान’ को"], "correct_index": 3, "explanation": ""}, {"id": 2, "question": "इनमें से किस साहित्येतिहासकार ने अपने इतिहास ग्रंथ में हिंदी के गद्य साहित्य को “गद्य की वर्तमान गति! नामक खण्डों में विभक्त करके विवेचित किया है ?", "options": ["लहिंदी सालहत्य की भूलमका", "लहिंदी सालहत्य की परम्परा", "लहिंदी सालहत्य का अतीत", "लहिंदी सालहत्य का लवकास"], "correct_index": 3, "explanation": ""}, {"id": 3, "question": "“मैं हिंदुस्तान की तूती हैँ, अगर तुम वास्तव में मुझसे कुछ पूछना चाहते हो, ते हिंदवी में पूछो, जिससे कि मैं कुछ अद्भुत बातें बता सकूँ।” यह किसका कथन है?", "options": ["बच्चन लसिंह", "लिवलसिंह सेंगर", "रामचन्र िुक्ल", "रामििंकर िुक्ल ‘रसाल’"], "correct_index": 2, "explanation": ""}, {"id": 4, "question": "TRA किस तरह की रचना है?", "options": ["अमीर खुसरो", "कण्हपा", "मौलवी करीम", "इनमें से कोई नहीं"], "correct_index": 0, "explanation": ""}, {"id": 5, "question": "हिंदी साहित्य के 700 से 400 ई. के काल- खण्ड को प्रियर्सन ने क्या नाम दिया है ?", "options": ["गद्य-पद्य लमलित चम्पू", "िुद्ध काव्य", "नाटक", "प्रेमाख्यात्मक प्रबन्धकाव्य"], "correct_index": 0, "explanation": ""}, {"id": 6, "question": "APA और Heer के चरित्र को वीरगीतात्मक काव्य के रूप में रचने वाले कवि हैं-", "options": ["सलन्धकाल", "प्रारलम्भक काल", "चारण काल", "अपभ्रिंि काल"], "correct_index": 2, "explanation": ""}, {"id": 7, "question": "प्रश्न 7", "options": ["भट्ट केदार", "िीधर", "जगलनक", "चन्दबरदाई"], "correct_index": 2, "explanation": ""}, {"id": 8, "question": "“भाषा बहुत परिष्कृत और परिमार्जित न होने पर भी कबीर की उक्तियों में कहीं-कहीं विलक्षण प्रभाव और चमत्कार है। प्रतिभा उनमें प्रखर थी इसमें संदेह नहीं?- पंक्तियों के लेखक हैं?", "options": ["लवद्यापलत", "भूषण", "जयदेव", "पद्माकर"], "correct_index": 0, "explanation": ""}, {"id": 9, "question": "आचार्य रामचन्द्र शुक्ल, प्रेमाख्यान परम्परा की पहली रचना किसे मानते हैं ?", "options": ["तुलसीदास", "रहीम", "लिलोचन िास्त्री", "भारतेन्दु हररश्चन्र"], "correct_index": 1, "explanation": ""}, {"id": 10, "question": "तुलसीदास-रचित “विनयपत्रिका में पदों की कुल संख्या है?", "options": ["लियसन", "हजारी प्रसाद लद्रवेदी", "रामचन्र िुक्ल", "उपयुनक्त में से कोई नहीं"], "correct_index": 2, "explanation": ""}, {"id": 11, "question": "अधोलिखित स्थापना (A) और तर्क (२) पर विचार कीजिए? स्थापना (A) तुलसी के मत में- “निर्गुण रूप सुलभ अति, सगुन जान नहीं कोय। सुगम अगम नाना चरित, सुनि मुनि मन भ्रम होय ॥” तर्क (२) क्योंकि सगुण आकार की उपासना और अनुभव को दायरे में लाना सहज है, जबकि निर्गुण निराकार की उपासना और उनुभूति Para कठिन। नीचे दिए गए कूट का प्रयोग कर सही उत्तर का चयन कीजिए।", "options": ["अनिंतदास", "सुखानिंद", "पीपा", "कबीर"], "correct_index": 0, "explanation": ""}, {"id": 12, "question": "प्रश्न 12", "options": ["डॉ. नगेन्र", "आचायन हजारी प्रसाद लद्रवेदी", "डॉ. राममूलतन लिपाठी", "आचायन रामचन्र िुक्ल"], "correct_index": 3, "explanation": ""}, {"id": 13, "question": "प्रश्न 13", "options": ["अद्रैतवाद लसद्धान्त", "द्रैताद्रैतवाद लसद्धान्त", "लवलिष्टाद्रैत लसद्धान्त", "द्रैतवादी लसद्धान्त"], "correct_index": 2, "explanation": ""}, {"id": 14, "question": "प्रश्न 14", "options": ["सत्यवती कथा", "चिंदायन", "मृगावती", "हिंसावली"], "correct_index": 2, "explanation": ""}, {"id": 15, "question": "प्रश्न 15", "options": ["269", "272", "279", "289"], "correct_index": 2, "explanation": ""}, {"id": 16, "question": "प्रश्न 16", "options": ["(A) और (R) दोनों सही हैं", "(A) सही है, (R) गलत है", "(A) गलत (R) सही है", "(A) और (R) दोनों गलत हैं"], "correct_index": 2, "explanation": ""}, {"id": 17, "question": "हिंदी साहित्य में निम्नलिखित पंक्तियाँ किसके द्वारा लिखी गई। जदपि सुजाति सुलप्छनी, सुबरन सरस सुवृत्त। भूषण बिनु न बिराजई, कविता बनिता मित्त ॥", "options": ["सूरदास को सभी लवद्रान जन्मान्ध मानते हैं ।", "सूरदास, िीनाथ मिंलदर , वृन्दावन में कीतन करते थे ।", "सूरदास, वल्लभाचायन के लिष्य थे ।", "‚प्रभु हौं सब पलततन को राजा । परलनन्दा मुख पूरर रह्यौ जग, यह लनसान लनत बाजा ।।‛ पिंलक्तयााँ सूरदास द्रारा लललखत हैं ।"], "correct_index": 0, "explanation": ""}, {"id": 18, "question": "“ब्रजभाषा में श्वृंगारी कवियों की परम्परा में इन्हें अन्तिम प्रसिद्ध कवि समझना चाहिए? रामचंद्र शुक्ल ने यह तथ्य किस कवि के बारे में लिखा है ?", "options": ["कबीरदास", "केिवदास", "रहीमदास", "तुलसीदास"], "correct_index": 1, "explanation": ""}, {"id": 19, "question": "रीतिकालीन कवि “भूषण! की कविता का मुख्य संवेदनात्मक स्वर है ?", "options": ["लमिबिंधुओिं ने", "लवश्वनाथ प्रसाद लमि ने", "आचायन रामचन्र िुक्ल ने", "डॉ. रामकुमार वमान ने"], "correct_index": 0, "explanation": ""}, {"id": 20, "question": "सुमित्रानन्दन Ft की सुप्रसिद्ध कविता “परिवर्तन! उनके किस काव्यसंकलन में सर्वप्रथम प्रकाशित हुई थी ?", "options": ["ठाकुर", "लद्रजदेव", "ग्वाल", "बोधा"], "correct_index": 1, "explanation": ""}, {"id": 21, "question": "“सागर मुद्रा? इनमें से किसकी कृति है?", "options": ["गाररक", "व्यिंग्यमूलक", "प्रिलस्तपरक", "कारुलणक"], "correct_index": 2, "explanation": ""}, {"id": 22, "question": "निम्नलिखित निबन्ध-संग्रहों को उनके लेखकों के साथ सुमेलित कीजिए और दिए गए कूट से सही उत्तर का चयन कीजिए ? निबन्ध-संग्रह लेखक (आ) मैंने सिल पहुँचायी  2. हरिशंकर परसाई (ब) सुनो भाई साधो 2. शिवप्रसाद राय (स) शिखरों के सेतु 3. कुबेरनाथ राय (द) रस आखेटक 4. विद्यानिवास मिश्र a ब स द", "options": ["मैलथलीिरण गुप्त", "सूयनकान्त लिपाठी ‘लनराला’", "जयििंकर प्रसाद", "सुलमिानन्दन पन्त"], "correct_index": 0, "explanation": ""}, {"id": 23, "question": "प्रश्न 23", "options": ["1930 ई.", "1936 ई.", "1938 ई.", "1940 ई."], "correct_index": 1, "explanation": ""}, {"id": 24, "question": "प्रश्न 24", "options": ["गुिंजन", "िाम्य", "पल्लव", "युगान्त"], "correct_index": 2, "explanation": ""}, {"id": 25, "question": "प्रश्न 25", "options": ["िमिेर बहादुर लसिंह", "सलच्चदानन्द हीरानन्द वात्स्यायन ‘अज्ञेय’", "कुाँवर नारायण", "हररनारायण व्यास"], "correct_index": 1, "explanation": ""}, {"id": 26, "question": "प्रश्न 26", "options": ["1        3       4        2", "4 1       2        3", "2        4       3        1", "4         2       3        1"], "correct_index": 1, "explanation": ""}, {"id": 27, "question": "TARR कहानी? के प्रवर्त्तक हैं?", "options": ["सुरेन्र वमान", "लक्ष्मीनारायण लाल", "ििंकर िेष", "भीष्म साहनी"], "correct_index": 2, "explanation": ""}, {"id": 28, "question": "“धर्मक्षेत्रे-कुरुक्षेत्र” कहानी के लेखक हैं?", "options": ["मुराराक्षस", "सुरेन्र वमान", "सत्यव्रत लसन्हा", "मोहन राकेि"], "correct_index": 0, "explanation": ""}, {"id": 29, "question": "“जंक्शन? कहानी के लेखक हैं?", "options": ["मोहन राकेि", "राजेन्र यादव", "कमलेश्वर", "लहमािंिु जोिी"], "correct_index": 2, "explanation": ""}, {"id": 30, "question": "“ 'शेखरः एक जीवनी” को मैं हिंदी के पाँच सबसे महत्त्वपूर्ण उपन्यासों में मानता हूँ।” प्रसिद्ध उपन्यास “शेखर: एक जीवनी? के सन्दर्भ में यह सूक्तिपपक अभिमत इनमें से किसका है ?", "options": ["महीप लसिंह", "कमलेश्वर", "लहमािंिु जोिी", "दूधनाथ लसिंह"], "correct_index": 3, "explanation": ""}, {"id": 31, "question": "'भूलि कहत नव रस सुकवि सकल मूल सिंगार। यह उक्ति किस आचार्य की है?", "options": ["मुलक्तबोध", "अज्ञेय", "दूधनाथ लसिंह", "यिपाल"], "correct_index": 0, "explanation": ""}, {"id": 32, "question": "हजारी प्रसाद द्विवेदी के उपन्यास “अनामदास का पोथा' में किस उपनिषद्‌ के सर्वाधिक स्थलों का प्रयोग हुआ है ?", "options": ["डॉ. रामस्वरूप चतुवेदी", "डॉ. रामकमल राय", "डॉ. लवद्यालनवास लमि", "डॉ. नामवर लसिंह"], "correct_index": 3, "explanation": ""}, {"id": 33, "question": "“व्योमकेश AAT? इनमें से किसकी जीवनी है?", "options": ["लगररराज लकिोर", "िीलाल िुक्ल", "गोलवन्द लमि", "लनमनल वमान"], "correct_index": 0, "explanation": ""}, {"id": 34, "question": "निम्नलिखित में से एक कृति आत्मकथा नहीं है ?", "options": ["हरर सुमन लबष्ट", "लहमािंिु जोिी", "िैलेष मलटयानी", "सुभाष जोिी"], "correct_index": 1, "explanation": ""}, {"id": 35, "question": "प्रश्न 35", "options": ["देव", "लचन्तामलण लिपाठी", "सोमनाथ", "कुलपलत लमि"], "correct_index": 0, "explanation": ""}, {"id": 36, "question": "प्रश्न 36", "options": ["कठोपलनषद्", "छान्दोग्य उपलनषद्", "याज्ञावल्क्य उपलनषद्", "वृहदारण्यक उपलनषद्"], "correct_index": 1, "explanation": ""}, {"id": 37, "question": "प्रश्न 37", "options": ["निंददुलारे वाजपेयी", "रामलवलास िमान", "हजारी प्रसाद लद्रवेदी", "फणीश्वरनाथ रेणु"], "correct_index": 2, "explanation": ""}, {"id": 38, "question": "प्रश्न 38", "options": ["अधनकथा", "लनज वृत्तान्त", "अब मैं नाच्यौं बहुत गोपाल", "मेरी आत्मकहानी"], "correct_index": 2, "explanation": ""}, {"id": 39, "question": "'दिनकरः की प्रसिद्ध काव्यकृति “रश्मिर्थी” की कथावस्तु कहाँ से ली गई है?", "options": ["रवीन्र भ्रमर", "माहेश्वर लतवारी", "िीराम लसिंह", "ठाकुर प्रसाद लसिंह"], "correct_index": 3, "explanation": ""}, {"id": 40, "question": "“अदोषौ सगुणौ सालंकारौ च शब्दार्थों काव्यम्‌?- यह इनमें से किस आचार्य का दिया हुआ काव्य-लक्षण है ?", "options": ["लिवसहाय पाठक", "लवजयदेव नारायण साही", "वासुदेविरण अिवाल", "रामचन्र िुक्ल"], "correct_index": 1, "explanation": ""}, {"id": 41, "question": "आचार्य भरतमुनि ने काव्यगुणों की संख्या कितनी मानी है?", "options": ["श्यौराज लसिंह ‘बेचैन’", "ओमप्रकाि वाल्मीलक", "सूरजपाल चौहान", "मोहनदास नैलमिराय"], "correct_index": 1, "explanation": ""}, {"id": 42, "question": "'परी प्रेम नन्दलाल के मोहि न भावत जोग। मधुप राजपद पाइ कै भीख न माँगत लोग ॥? इस उद्धरण में अलंकार है ?", "options": ["पूणनतया कलल्पत है", "भागवत पुराण", "रामायण", "महाभारत"], "correct_index": 3, "explanation": ""}, {"id": 43, "question": "'पूर्वी हिंदी! की बोलियों का विकास हुआ है?", "options": ["वामन", "भामह", "हेमचन्र", "कुन्तक"], "correct_index": 2, "explanation": ""}, {"id": 44, "question": "निम्नलिखित ध्वनियों में कौन सुमेलित है ?", "options": ["सात", "दस", "तेरह", "उठारह"], "correct_index": 1, "explanation": ""}, {"id": 45, "question": "प्रश्न 45", "options": ["अलभधा", "लक्षणा", "व्यिंजना", "उपयुनक्त सभी"], "correct_index": 2, "explanation": ""}, {"id": 46, "question": "प्रश्न 46", "options": ["ऋग्वेद", "अलग्नपुराण", "तैतरीय उपलनषद", "नाट्यिास्त्र"], "correct_index": 2, "explanation": ""}, {"id": 47, "question": "प्रश्न 47", "options": ["दृष्टान्त", "लवभावना", "उदाहरण", "लनदिना"], "correct_index": 0, "explanation": ""}, {"id": 48, "question": "प्रश्न 48", "options": ["िौरसेनी अपभ्रिंि से", "अद्धनमागधी अपभ्रिंि से", "मागधी अपभ्रिंि से", "पैिाची अपभ्रिंि से"], "correct_index": 1, "explanation": ""}, {"id": 49, "question": "प्रश्न 49", "options": ["ग - अघोष", "फ - अल्पप्राण", "स - ऊष्म", "ठ - सघोष"], "correct_index": 2, "explanation": ""}, {"id": 50, "question": "निम्नलिखित में से कौनसा शब्द वर्तनी की दृष्टि से शुद्ध है?", "options": ["प्रेरणाथनक लिया", "अपूणनकाललक लिया", "सकमनक लिया", "अकमनक लिया"], "correct_index": 3, "explanation": ""}, {"id": 51, "question": "“अन्वीक्षा? का संधि- rede है?", "options": ["मेजपोि", "लमठास", "सौतेला", "सरलता"], "correct_index": 2, "explanation": ""}, {"id": 52, "question": "“धर्मबुद्धि में समास है?", "options": ["पुष्पािंजली", "मिंिीपररषद्", "वाल्मीलक", "अध्यालत्मक"], "correct_index": 2, "explanation": ""}, {"id": 53, "question": "निम्नलिखित में से किस शब्द में तद्धित प्रत्यय का प्रयोग हुआ है?", "options": ["अन् + ईक्षा", "अनु + ईक्षा", "अनु + वीक्षा", "अनू + ईक्षा"], "correct_index": 1, "explanation": ""}, {"id": 54, "question": "निम्नलिखित में से ‘a का पर्यायवाची है ?", "options": ["तत्पुरुष", "बहुव्रीलह", "कमनधारय", "द्रन्द्र"], "correct_index": 2, "explanation": ""}, {"id": 55, "question": "इनमें एक शब्द अनेकार्थी नहीं हैं ?", "options": ["पूज्य", "करणीय", "पाठक", "वासुदेव"], "correct_index": 3, "explanation": ""}, {"id": 56, "question": "“गंगा गए गंगादास, जमुना गए जमुनादास- लोकोक्ति का सही अर्थ है?", "options": ["रत्नाकर", "बादल", "आकाि", "पवन"], "correct_index": 1, "explanation": ""}, {"id": 57, "question": "इनमें से एक वाक्य अशुद्ध है, वह है ?", "options": ["लनलषद्ध - लवलहत", "वि - ऋजु", "कटु - लतक्त", "पाश्चात्य - प्राच्य"], "correct_index": 2, "explanation": ""}, {"id": 58, "question": "प्रश्न 58", "options": ["मुमुक्षा", "बुभुक्षा", "बुभुक्षु", "जुगुप्सा"], "correct_index": 1, "explanation": ""}, {"id": 59, "question": "प्रश्न 59", "options": ["कनक", "वणन", "लज्जा", "अकन"], "correct_index": 2, "explanation": ""}, {"id": 60, "question": "प्रश्न 60", "options": ["न्यायलप्रय", "लसद्धान्तहीन", "आदिनवादी", "चररिहीन"], "correct_index": 1, "explanation": ""}, {"id": 61, "question": "प्रश्न 61", "options": ["लाल- पीला होना", "अत्यलधक सुन्दर होना", "लववणन होना", "दुलनभ होना"], "correct_index": 3, "explanation": ""}, {"id": 62, "question": "प्रश्न 62", "options": ["मैं दिन करने आया ह ाँ ।", "मैं अपनी बात का स्पष्टीकरण करने के ललए तैयार ह ाँ ।", "लड़का लमठाई लेकर दौड़ता हुआ घर आया ।", "वहााँ भीड़ लगी थी ।"], "correct_index": 1, "explanation": ""}, {"id": 63, "question": "स्वछंदतावाद की विशेषता नहीं है ?", "options": ["प्राण", "भलक्त", "लििु", "पुस्तक"], "correct_index": 0, "explanation": ""}, {"id": 64, "question": "“इनकी सी विशुद्ध सरस एवं शक्तिशालिनी ब्रजभाषा लिखने में और कोई कवि समर्थ नहीं हुआ।” आचार्य शुक्ल ने किस कवि के बारे में यह टिप्पणी की है ?", "options": ["नाथूराम िमान", "देवीदत्त िुक्ल", "िीधर पाठक", "इनमें से कोई नहीं"], "correct_index": 2, "explanation": ""}, {"id": 65, "question": "फोर्ट विलियम कॉलेज की स्थापना किस वर्ष में हुई थी ?", "options": ["प्रकृलत पयनवेक्षण", "प्रेम लचिण", "कथा गीत प्रयोग", "ब्रजभाषा में रचना"], "correct_index": 3, "explanation": ""}, {"id": 66, "question": "रहीमकृत “मदनाष्टक” की भाषा है ?", "options": ["देव", "ठाकुर", "घनानिंद", "इनमें से कोई नहीं"], "correct_index": 2, "explanation": ""}, {"id": 67, "question": "रीतिकाल की 'रीतिसिद्ध काव्यधारा? के कवि हैं ?", "options": ["लव. सिं. 1800 में", "1800 ई. में", "1798 ई. में", "1802 ईिं. में"], "correct_index": 1, "explanation": ""}, {"id": 68, "question": "अवधी का निजी छंद है ?", "options": ["खड़ी बोली", "अवधी", "ब्रज", "राजस्थानी"], "correct_index": 0, "explanation": ""}, {"id": 69, "question": "निम्नांकित में से किस कृति के लेखक नामवर सिंह हैं ?", "options": ["केिव", "देव", "भूषण", "लबहारी"], "correct_index": 3, "explanation": ""}, {"id": 70, "question": "“सुन्दर हैं विहण सुमन सुन्दर मानव तुम सबसे सुंदरतम”- में कौनसा काव्यदोष है?", "options": ["राम की िलक्तपूजा", "तुलसीदास", "सरोज समृलत", "पिोत्किंलठत जीवन का लवष बुझा हुआ है"], "correct_index": 3, "explanation": ""}, {"id": 71, "question": "सूची - का मिलान सूची- | से कीजिए तथा नीचे दिये कूट से सही उत्तर का चयन कीजिए: wa सूची- (अ) क्या भूलूँ क्या याद करूँ @ रेखाचित्र (ब) आवारा मसीहा (0) यात्रा- साहित्य (स) तन्त्रालोक से यनत्रालाक तक (iii) आत्मकथा (द) मेरा परिवार (iv) जीवनी a q a q", "options": ["सोजेवतन", "कमनभूलम", "गबन", "लनमनला"], "correct_index": 0, "explanation": ""}, {"id": 72, "question": "प्रश्न 72", "options": ["बरवै", "कलवत्त", "रोला", "छप्पय"], "correct_index": 0, "explanation": ""}, {"id": 73, "question": "प्रश्न 73", "options": ["आलोचना और काव्य", "दूसरी परिंपरा की खोज", "आस्था और सौन्दयन", "भाषा और समाज"], "correct_index": 1, "explanation": ""}, {"id": 74, "question": "प्रश्न 74", "options": ["अलधक पदत्व", "अप्रतीतत्व", "दुष्िमत्व", "लक्लष्टत्व"], "correct_index": 0, "explanation": ""}, {"id": 75, "question": "प्रश्न 75", "options": ["(i)          (ii)        (iii)        (iv)", "(iii)       (iv)        (ii)         (i)", "(iv)        (iii)        (i)          (ii)", "(ii)         (i)         (iv)        (iii)"], "correct_index": 1, "explanation": ""}, {"id": 76, "question": "निराला की कविता 'राम की शक्ति-पूजा? पर किस रचना का सर्वाधिक प्रभाव है ?", "options": ["(i)          (ii)        (iii)        (iv)", "(iii)        (iv)        (ii)         (i)", "(iv)        (iii)        (i)          (ii)", "(ii)         (i)         (iv)        (iii)"], "correct_index": 0, "explanation": ""}, {"id": 77, "question": "निम्नलिखित में से कौनसा कवि “दूसरा सप्तकः में सम्मिलित नहीं था ?", "options": ["रामचररत मानस", "वाल्मीलक-रामायण", "साकेत", "कृलत्तवास-रामायण"], "correct_index": 3, "explanation": ""}, {"id": 78, "question": "'रीतिकाल? की विशेषताओं के सन्दर्भ में निम्नलिखित में से एक विशेषता गलत है। उस विशेषता का चयन कीजिए?", "options": ["भवानी प्रसाद लमि", "िकुन्त माथुर", "िमिेर बहादुर लसिंह", "मुलक्तबोध"], "correct_index": 3, "explanation": ""}, {"id": 79, "question": "बृहत्त्रयी में कौनसा महाकाव्य नहीं आता है ?", "options": ["रीलतकाल में अलिंकरण की प्रधानता है", "रीलतकाल की प्रमुख भाषा ब्रजभाषा है", "रीलतकाल में प्रकृलत का आलिंबन रूप में वणन हुआ है", "रीलतकाल में लक्षण िन्थों की प्रमुखता है"], "correct_index": 2, "explanation": ""}, {"id": 80, "question": "“अभिज्ञ? शब्द का विलोम है?", "options": ["सन् 1900 ई. में, सरस्वती में", "सन् 1900 ई, में लविालभारत में", "सन् 1903 ई. में, सरस्वती में", "इनमें से लकसी में भी नहीं"], "correct_index": 0, "explanation": ""}, {"id": 81, "question": "“मार्ग के दोनों तरफ वृक्ष हैं” का संस्कृत में अनुवाद होगा?", "options": ["पािंचाली रीलत", "वैदभी रीलत", "गौड़ी रीलत", "प्रसाद रीलत"], "correct_index": 1, "explanation": ""}, {"id": 82, "question": "“कामायनी” को “छायावाद का उपनिषद्‌? किसने कहा है?", "options": ["लकराताजुनीयम्", "लििुपालवधम्", "नैषधीयचररतम्", "रघुविंिम्"], "correct_index": 3, "explanation": ""}, {"id": 83, "question": "प्रश्न 83", "options": ["लभज्ञ", "सलभज्ञ", "अनलभज्ञ", "सुलभज्ञ"], "correct_index": 2, "explanation": ""}, {"id": 84, "question": "प्रश्न 84", "options": ["मागनम् उभयतः वृक्षाः सलन्त", "मागनस्य उभयतः वृक्षः सलन्त", "मागनस्य उभयतः वृक्षाः सलन्त", "मागे वृक्षाः सलन्त"], "correct_index": 0, "explanation": ""}, {"id": 85, "question": "प्रश्न 85", "options": ["डॉ. नगेन्र ने", "मुलक्तबोध ने", "डॉ. इन्रनाथ मदान ने", "िालन्तलप्रय लद्रवेदी ने"], "correct_index": 3, "explanation": ""}, {"id": 86, "question": "“नयी merit पत्रिका का सम्पादक कौन था?", "options": ["कल सुनना मुझे", "सुदामा पाण्डेय का प्रजातन्ि", "सिंसद से सड़क तक", "लकसी पर नहीं"], "correct_index": 0, "explanation": ""}, {"id": 87, "question": "निम्नलिखित में से कौनसा शब्द “पाताका” का पर्यायवाची नहीं हैं ?", "options": ["(i)          (ii)        (iii)        (iv)", "(iv)        (iii)        (ii)         (i)", "(iii)         (i)          (ii)         (iv)", "(ii)         (iv)         (iii)        (i)"], "correct_index": 3, "explanation": ""}, {"id": 88, "question": "जिस छंद के प्रथम तथा तृतीय चरण में 2-2 मात्राएँ एवं द्वितीय तथा चतुर्थ चरण में 7- 7 मात्राएँ होती हैं, साथ ही सम चरणों के अन्त में जगण (is ॥) होता है, वह छंद हैः", "options": ["प्रेमचन्र", "मोहन राकेि", "कमलेश्वर", "भैरव प्रसाद गुप्त"], "correct_index": 3, "explanation": ""}, {"id": 89, "question": "“CAT राब्द क रूप की सप्तमा वर्भक्त के edt में होगा?", "options": ["लनिान", "ध्वज", "झण्डा", "प्रस्तर"], "correct_index": 3, "explanation": ""}, {"id": 90, "question": "रामविलास शर्मा की आत्मकथा “अपनी धरती अपने लोग? कितने Get में विभक्त है ?", "options": ["बरवै", "गीलतका", "हररगीलतका", "चौपाई"], "correct_index": 0, "explanation": ""}, {"id": 91, "question": "निराला किस पत्रिका से सम्बन्धित नहीं थे 2", "options": ["वीर रस", "रौर रस", "हास्य रस", "अद्भुत रस"], "correct_index": 1, "explanation": ""}, {"id": 92, "question": "नई कविता के Wai थे ?", "options": ["रमासु,", "रमाणाम्", "रमयोः", "रमायाम् ।"], "correct_index": 0, "explanation": ""}, {"id": 93, "question": "“राष्ट्र” की भाववाचक संज्ञा है?", "options": ["दो", "तीन", "एक", "चार"], "correct_index": 1, "explanation": ""}, {"id": 94, "question": "हिंदी समालोचना के सूत्रपात के लिये भारतेन्दु युग की कौनसी पत्रिका उल्लेखनीय है ?", "options": ["सुधा", "इिंदु", "समन्वय", "मतवाला"], "correct_index": 1, "explanation": ""}, {"id": 95, "question": "प्रश्न 95", "options": ["जगदीि गुप्त", "जगदीि चतुवेदी", "अज्ञेय", "िीकािंत वमान"], "correct_index": 2, "explanation": ""}, {"id": 96, "question": "प्रश्न 96", "options": ["राष्री", "राष्रीय", "सौराष्र", "राष्रीयता"], "correct_index": 3, "explanation": ""}, {"id": 97, "question": "प्रश्न 97", "options": ["कलव वचन सुधा", "हररश्चिंर पालिका", "ब्राह्मण", "आनन्द कादलम्बनी"], "correct_index": 0, "explanation": ""}, {"id": 98, "question": "प्रयोगवाद के प्रवर्तक के अनुसार प्रयोगवादी कवि का मुख्य लक्ष्य क्या था ?", "options": ["दािनलनक", "वगन चेतना प्रधान", "वैयलक्तक यथाथन", "यथालस्थलतवादी"], "correct_index": 3, "explanation": ""}, {"id": 99, "question": "“अलका” जयशंकर प्रसाद के किस नाटक की पात्र है?", "options": ["युग की गिंगा", "नींद के बादल", "आग का झरना", "युगधारा"], "correct_index": 3, "explanation": ""}, {"id": 100, "question": "हिंदी में रिपोर्ताज का आरम्भ किस युग में हुआ था ?", "options": ["नये काव्य उपकरण", "भावुकता के स्थान पर बोलद्धकता की प्रलतष्ठा", "नई राहों सा अन्वेषण", "काव्य की पूवन परम्परा का लनषेध"], "correct_index": 2, "explanation": ""}, {"id": 101, "question": "“बनाफरी? किसकी उपबोली है?", "options": ["ध्रुवस्वालमनी", "लविाख", "स्कन्दगुप्त", "चिंरगुप्त"], "correct_index": 3, "explanation": ""}, {"id": 102, "question": "“देवनागरी लिपि? मूलतः क्या है?", "options": ["लद्रवेदी युग", "भारतेन्दु युग", "प्रसाद युग", "प्रसादोत्तर युग / छायावादोत्तर युग"], "correct_index": 3, "explanation": ""}, {"id": 103, "question": "निम्नलिखित में से कौनसा शब्द Veit है ?", "options": ["बुिंदेली", "छत्तीसगढी", "बघेली", "कन्नौजी"], "correct_index": 0, "explanation": ""}, {"id": 104, "question": "इसमें से कौनसी लिपि नहीं है ?", "options": ["वणानत्मक", "अक्षरात्मक", "लचिात्मक", "प्रतीकात्मक"], "correct_index": 1, "explanation": ""}, {"id": 105, "question": "'रामू घर से निकला |? इस वाक्य में “घर से? में कौनसा कारक है?", "options": ["चना", "अरहर", "बाजरा", "उड़द"], "correct_index": 1, "explanation": ""}, {"id": 106, "question": "'संशय की एक रात” किस कवि की कृति है ?", "options": ["करुण रस", "लवयोग     गार रस", "िान्त रस", "हास्य रस"], "correct_index": 1, "explanation": ""}, {"id": 107, "question": "हिंदी को राजभाषा के रूप में सांविधानिक मान्यता कब मिली ?", "options": ["अरबी", "गुरुमुखी", "देवनागरी", "अिंिेजी"], "correct_index": 3, "explanation": ""}, {"id": 108, "question": "इनमें से कौनसी कृति केशवदास की नहीं है?", "options": ["करण", "अपादान", "कतान", "सिंप्रदान"], "correct_index": 1, "explanation": ""}, {"id": 109, "question": "'सचेतन कहानी” का प्रवर्तक इनमें से कौन हैं?", "options": ["अज्ञेय", "नरेन्र िमान", "नरेि मेहता", "केसरी कुमार"], "correct_index": 2, "explanation": ""}, {"id": 110, "question": "प्रश्न 110", "options": ["14 लसतिंबर, 1949", "14 लसतिंबर, 1950", "14 लसतिंबर, 1951", "14 लसतिंबर, 1952"], "correct_index": 0, "explanation": ""}, {"id": 111, "question": "प्रश्न 111", "options": ["रामचिंलरका", "रलसकलप्रया", "अनेकाथनमिंजरी", "लवज्ञान गीता"], "correct_index": 2, "explanation": ""}, {"id": 112, "question": "प्रश्न 112", "options": ["जैनेन्र", "महीप लसिंह", "कमलेश्वर", "लनमनल वमान"], "correct_index": 1, "explanation": ""}, {"id": 113, "question": "“जहाँ वक्रता सर्प के चाल में थी। प्रजा में नहीं थी, न भूपाल में थी ॥” उपर्युक्त पंक्तियाँ किस अलंकार की उदाहरण हैं?", "options": ["उपन्यास", "नाटक", "आत्मकथा", "काव्य सिंकलन"], "correct_index": 1, "explanation": ""}, {"id": 114, "question": "“मर गया दीपनाथ' चर्चित कहानी के लेखक हैं?", "options": ["लचिंतामलण -  काव्य प्रकाि", "मलतराम - रस रहस्य", "भीषण - अिंगदपनण", "रसलीन - लिवा बावनी"], "correct_index": 0, "explanation": ""}, {"id": 115, "question": "“PEAR GT FTA, प्रबुद्ध शुद्ध भारती स्वयं प्रभा समुज्ज्वला, स्वतंत्रता पुकारती”- प्रस्तुत पंक्तियों में काव्य का कौनसा गुण मौजूद है?", "options": ["अथान्तरन्यास", "पररसिंख्या", "लवभावना", "अपह्नुलत"], "correct_index": 1, "explanation": ""}, {"id": 116, "question": "“युष्मद्‌ शब्द के चतुर्थी विभक्ति एकवचन के रूप हैं ?", "options": ["चिंरलकिोर जायसवाल", "रमाकान्त िीवास्तव", "रमलणका गुप्त", "सिंजीव"], "correct_index": 0, "explanation": ""}, {"id": 117, "question": "निम्नलिखित कृतियों को उनके प्रकाशनवर्ष के अनुसार आरोही क्रम में व्यक्त करने वाली श्रेणी है ?", "options": ["माधुयन", "ओज", "प्रसाद", "इनमें से कोई नहीं"], "correct_index": 1, "explanation": ""}, {"id": 118, "question": "हिंदी काव्यशास्तर में “बौद्धिक रस” की स्थापना करने वाले विद्वान हैं?", "options": ["कणनफूल", "िूलफूल", "प्रवासी के गीत", "अपरालजता"], "correct_index": 3, "explanation": ""}, {"id": 119, "question": "प्रगतिवाद आन्दोलन के “सैनिक रूप” का उल्लेख किस साहित्यकार ने किया है ?", "options": ["द्रन्द्र", "लद्रग", "कमनधारय", "तत्पुरुष"], "correct_index": 3, "explanation": ""}, {"id": 120, "question": "प्रश्न 120", "options": ["सेवासदन", "रिंगभूलम", "कमनभूलम", "कायाकल्प"], "correct_index": 1, "explanation": ""}, {"id": 121, "question": "प्रश्न 121", "options": ["रोमािंच", "किंप", "लवषाद", "प्रलय"], "correct_index": 2, "explanation": ""}, {"id": 122, "question": "प्रश्न 122", "options": ["‘तुभ्यम्’ तथा ‘तव’", "‘तुभ्यम्’ तथा ‘ते ’", "‘तुभ्यम्’ तथा ‘तौ’", "‘त्वया’ तथा ‘त्वाम्’"], "correct_index": 1, "explanation": ""}, {"id": 123, "question": "प्रश्न 123", "options": ["जयभारत, साकेत, भारत-भारती, यिोधरा", "भारत,-भारती, साकेत, यिोधरा, जयभारत", "भारत-भारती, जयभारत, साकेत, यिोधरा", "यिोधरा, साकेत, भारत-भारती, जयभारत"], "correct_index": 1, "explanation": ""}, {"id": 124, "question": "प्रश्न 124", "options": ["माता प्रसाद गुप्त", "भगीरथ लमि", "लभखारीदास", "गणपलतचन्र गुप्त"], "correct_index": 3, "explanation": ""}, {"id": 125, "question": "प्रश्न 125", "options": ["प्रेमचन्र", "मुलक्तबोध", "अज्ञेय", "नागाजुन"], "correct_index": 1, "explanation": ""}];
+const TOT=125,SEC=11250;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEST 30: पुरस्कार एवं सम्मान — Mock Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#f0f4ff;--surface:#fff;--surface2:#f8faff;
+  --border:#e2e8f0;--text:#1e293b;--muted:#64748b;
+  --primary:#4f46e5;--primary-dark:#3730a3;--primary-light:#eef2ff;
+  --pyq:#0891b2;--pyq-bg:#ecfeff;--pyq-dark:#0e7490;
+  --ts:#ea580c;--ts-bg:#fff7ed;--ts-dark:#c2410c;
+  --correct:#16a34a;--correct-bg:#dcfce7;--correct-bdr:#86efac;
+  --wrong:#dc2626;--wrong-bg:#fee2e2;--wrong-bdr:#fca5a5;
+  --trick:#d97706;--trick-bg:#fffbeb;--trick-bdr:#fcd34d;
+  --sel-bg:#eef2ff;--sel-bdr:#4f46e5;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --r:14px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1117;--surface:#1a1d27;--surface2:#141720;
+    --border:#2d3141;--text:#e2e8f0;--muted:#94a3b8;
+    --primary:#818cf8;--primary-dark:#6366f1;--primary-light:#1e1b4b;
+    --pyq:#22d3ee;--pyq-bg:#0c1a1e;--pyq-dark:#0891b2;
+    --ts:#fb923c;--ts-bg:#1c0f05;--ts-dark:#ea580c;
+    --correct:#4ade80;--correct-bg:#052e16;--correct-bdr:#166534;
+    --wrong:#f87171;--wrong-bg:#2d0909;--wrong-bdr:#991b1b;
+    --trick:#fbbf24;--trick-bg:#1c1500;--trick-bdr:#92400e;
+    --sel-bg:#1e1b4b;--sel-bdr:#818cf8;
+    --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+     background:var(--bg);color:var(--text);line-height:1.7;
+     -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.qheader{position:sticky;top:0;z-index:100;background:var(--surface);
+          border-bottom:1px solid var(--border);padding:0 18px;
+          box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.htop{display:flex;align-items:center;gap:10px;padding:11px 0 7px;flex-wrap:wrap}
+.back{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+       background:var(--surface2);display:flex;align-items:center;justify-content:center;
+       font-size:16px;flex-shrink:0;text-decoration:none;transition:background .15s}
+.back:hover{background:var(--ts-bg)}
+.htitle{font-size:14px;font-weight:800;flex:1;min-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-size:17px;font-weight:800;letter-spacing:1px;color:var(--ts);
+        font-variant-numeric:tabular-nums;flex-shrink:0}
+.timer.urg{color:var(--wrong);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.5}}
+.hmode{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;
+        background:var(--ts-bg);color:var(--ts);flex-shrink:0}
+.prow{display:flex;align-items:center;gap:10px;padding:5px 0 9px}
+.plbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.pbar{flex:1;height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ts),#f97316);
+        width:0%;transition:width .3s;border-radius:100px}
+.wrap{max-width:780px;margin:0 auto;padding:22px 15px 36px}
+.qcard{background:var(--surface);border:1px solid var(--border);
+        border-radius:var(--r);padding:20px 20px 16px;margin-bottom:16px;
+        box-shadow:var(--shadow)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.qnum{font-size:11px;font-weight:800;color:var(--ts);
+       background:var(--ts-bg);padding:3px 10px;border-radius:100px;letter-spacing:.4px}
+.qdot{width:7px;height:7px;border-radius:50%;background:var(--border);
+       margin-left:auto;transition:background .2s}
+.qdot.done{background:var(--ts)}
+.qtxt{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;
+      border-radius:9px;border:1.5px solid var(--border);background:var(--surface2);
+      cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);
+      text-align:left;line-height:1.5;width:100%;transition:all .15s}
+.or{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);
+     flex-shrink:0;margin-top:2px;transition:all .15s;background:var(--surface);
+     display:flex;align-items:center;justify-content:center}
+.or::after{content:'';display:none;width:7px;height:7px;background:#fff;border-radius:50%}
+.opt:hover:not(:disabled):not(.sel) .or{border-color:var(--ts)}
+.opt:hover:not(:disabled):not(.sel){border-color:var(--ts);background:var(--ts-bg)}
+.opt:disabled{cursor:default}
+.opt.sel{background:var(--sel-bg);border-color:var(--sel-bdr)}
+.opt.sel .or{border-color:var(--primary);background:var(--primary)}
+.opt.sel .or::after{display:block}
+.opt.correct{background:var(--correct-bg);border-color:var(--correct-bdr)}
+.opt.correct .or{background:var(--correct);border-color:var(--correct)}
+.opt.correct .or::after{content:'✓';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.correct .ol{color:var(--correct);font-weight:700}
+.opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-bdr)}
+.opt.wrong .or{background:var(--wrong);border-color:var(--wrong)}
+.opt.wrong .or::after{content:'✗';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.opt.wrong .ol{color:var(--wrong);font-weight:700}
+.tbox{margin-top:13px;border-radius:9px;border:1.5px solid var(--trick-bdr);
+       background:var(--trick-bg);padding:12px 14px;display:none;
+       animation:fs .3s ease}
+.tbox.show{display:block}
+@keyframes fs{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.tlabel{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+         color:var(--trick);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.ttext{font-size:13px;line-height:1.7}
+.subwrap{text-align:center;padding:22px 16px 18px}
+.subbtn{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;border:none;
+         padding:15px 48px;font-size:16px;font-weight:800;border-radius:11px;
+         cursor:pointer;font-family:inherit;
+         box-shadow:0 4px 18px rgba(234,88,12,.4);transition:transform .15s,box-shadow .15s}
+.subbtn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(234,88,12,.5)}
+.subbtn:disabled{opacity:.5;cursor:default;transform:none}
+.warn{font-size:12px;color:var(--wrong);margin-top:8px;display:none}
+/* Modal */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+     backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.ov.show{display:flex}
+.modal{background:var(--surface);border-radius:18px;padding:38px 32px;
+        max-width:420px;width:92%;text-align:center;
+        box-shadow:0 24px 64px rgba(0,0,0,.35);
+        animation:pi .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pi{from{transform:scale(.82);opacity:0}to{transform:scale(1);opacity:1}}
+.mico{font-size:52px;margin-bottom:5px}
+.mhead{font-size:22px;font-weight:900;margin-bottom:3px}
+.mscore{font-size:48px;font-weight:900;
+         background:linear-gradient(135deg,var(--ts),#f97316);
+         -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+         background-clip:text;margin:7px 0}
+.mpct{font-size:14px;color:var(--muted);margin-bottom:20px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ms{padding:13px;border-radius:11px}
+.ms .bn{font-size:28px;font-weight:900;display:block;margin-bottom:1px}
+.ms .lb{font-size:11px;font-weight:700}
+.msc{background:var(--correct-bg);color:var(--correct)}
+.msw{background:var(--wrong-bg);  color:var(--wrong)}
+.mss{background:var(--surface2);  color:var(--muted);grid-column:span 2}
+.revbtn{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;
+         padding:13px 38px;font-size:14px;font-weight:800;border-radius:9px;
+         cursor:pointer;font-family:inherit;transition:transform .15s}
+.revbtn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="qheader">
+  <div class="htop">
+    <a href="../index.html" class="back">←</a>
+    <div class="htitle">TEST 30: पुरस्कार एवं सम्मान</div>
+    <div class="timer" id="tmr">⏱ --:--:--</div>
+    <div class="hmode">🏆 Mock Test</div>
+  </div>
+  <div class="prow">
+    <span class="plbl" id="plbl">0 / 42 उत्तर दिए</span>
+    <div class="pbar"><div class="pfill" id="pf"></div></div>
+  </div>
+</div>
+<div class="wrap" id="qc"></div>
+<div class="subwrap">
+  <button class="subbtn" id="sbtn" onclick="trySub()">🏁 &nbsp;परीक्षा जमा करें</button>
+  <div class="warn" id="wn"></div>
+</div>
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mico" id="mi">🏆</div>
+    <div class="mhead" id="mh">परिणाम</div>
+    <div class="mscore" id="ms">0/42</div>
+    <div class="mpct" id="mp">0%</div>
+    <div class="mgrid">
+      <div class="ms msc"><span class="bn" id="mc">0</span><span class="lb">✅ सही</span></div>
+      <div class="ms msw"><span class="bn" id="mw">0</span><span class="lb">❌ गलत</span></div>
+      <div class="ms mss"><span class="bn" id="mk">0</span><span class="lb">⏭ छोड़े गए</span></div>
+    </div>
+    <button class="revbtn" onclick="closeM()">📋 उत्तर देखें</button>
+  </div>
+</div>
+<script>
+const Q=[{"id": 1, "question": "ज्ञानपीठ पुरस्कार प्राप्त करने वाले हहंदी के प्रथम रचनाकार हैं ?", "options": ["सुहमत्रानंदन पंत", "रामधारी हसंह ‘हदनकर’", "अज्ञेय", "माखन लाल चतुवेदी"], "correct_index": 0, "explanation": ""}, {"id": 2, "question": "रामधारी हसंह ‘हदनकर’ को हकस रचना के हलए 1972ई. में ज्ञानपीठ पुरस्कार से सम्माहनत हकया?", "options": ["धूप और धुआँ (1951)", "उववशी (1961)", "आत्मा की आँखें (1964)", "हारे को हररनाम (1970)"], "correct_index": 1, "explanation": ""}, {"id": 3, "question": "अज्ञेय को ‘हकतनी नावों में हकतनी बार’ के हलए ज्ञानपीठ पुरस्कार से कब सम्माहनत हकया गया?", "options": ["1976 ई. में", "1977 ई. में", "1978 ई. में", "1979 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 5, "question": "हकस वषव ज्ञानपीठ पुरस्कार हकसी एक कृहत की बजाय संपूणव साहहत्य के हलए हदया जाने लगा?", "options": ["1981 ई. से", "1982 ई. से", "1983 ई. से", "1984 ई. से"], "correct_index": 2, "explanation": ""}, {"id": 6, "question": "नरेश मेहता को संपूणव साहहत्य के हलए ज्ञानपीठ पुरस्कार से कब सम्माहनत हकया गया ?", "options": ["1991 ई. में", "1992 ई. में", "1993 ई. में", "1994 ई. में"], "correct_index": 1, "explanation": ""}, {"id": 7, "question": "हनमवल वमाव को संपूणव साहहत्य के हलए ज्ञानपीठ पुरस्कार से हकस वषव सम्माहनत हकया गया?", "options": ["1998 ई. में", "1999 ई. में", "2000 ई. में", "2001 ई. में"], "correct_index": 1, "explanation": ""}, {"id": 9, "question": "संपूणव साहहत्य के हलए श्रीलाल शुक्ल एवं अमरकांत को ज्ञानपीठ पुरस्कार से हकस वषव सम्माहनत हकया गया?", "options": ["2007 ई. में", "2008 ई. में", "2009 ई. में", "2010 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 10, "question": "संपूणव साहहत्य के हलए केदारनाथ हसंह को ज्ञानपीठ पुरस्कार से कब सम्माहनत हकया गया?", "options": ["2013 ई. में", "2014 ई. मे", "2015 ई. में", "2016 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 11, "question": "कृष्णा सोबती को संपूणव साहहत्य के हलए ज्ञानपीठ पुरस्कार से कब सम्माहनत हकया गया ?", "options": ["2015 ई. में", "2016 ई. में", "2017 ई. में", "2018 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 12, "question": "हवनोद कुमार शुक्ल को संपूणव साहहत्य के हलए ज्ञानपीठ पुरस्कार से कब सम्माहनत हकया गया ?", "options": ["2021 ई. में", "2022 ई. में", "2023 ई. में", "2024 ई. में"], "correct_index": 3, "explanation": ""}, {"id": 13, "question": "हहंदी में साहहत्य अकादमी पुरस्कार पाने वाले प्रथम रचनाकार हैं?", "options": ["वासुदेवशरण अग्रवाल", "माखनलाल चतुवेदी", "आचायव नरेंद्रदेव", "राहुल सांकृत्यायन"], "correct_index": 1, "explanation": ""}, {"id": 14, "question": "राहुल सांकृत्यायन को हकस रचना के हलए साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया ?", "options": ["मेरी यूरोप यात्रा", "एहशया के दुगवम भूखंडों में", "मध्य एहशया का इहतहास", "वोल्गा से गंगा"], "correct_index": 2, "explanation": ""}, {"id": 15, "question": "रामधारी हसंह ‘हदनकर’ को हकस रचना के हलए 1959ई. में साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया ?", "options": ["हमट्टी की ओर", "अर्द्वनारीश्वर", "संस्कृहत के चार अध्याय", "वट पीपल"], "correct_index": 2, "explanation": ""}, {"id": 16, "question": "श्रीलाल शुक्ल को ‘राग दरबारी’ उपन्यास के हलए साहहत्य अकादमी पुरस्कार से कब सम्माहनत हकया गया?", "options": ["1967 ई. में", "1968 ई. में", "1969 ई. में", "1970 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 18, "question": "डॉ. नामवर हसंह को 1971 ई. में ‘कहवता के नये प्रहतमान’ (आलोचना) के हलए साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया। इस रचना का प्रकाशन वषव है?", "options": ["1968 ई.", "1969 ई.", "1970 ई.", "1971 ई."], "correct_index": 0, "explanation": ""}, {"id": 19, "question": "2021 में दयाप्रकाश हसन्हा को ‘सम्राट अशोक’ के हलए साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया।इस रचना की हवधा है?", "options": ["काव्य", "उपन्यास", "नाटक", "एकांकी"], "correct_index": 2, "explanation": ""}, {"id": 20, "question": "बद्रीनारायण को 2022 ई. में हकस रचना के हलए साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया?", "options": ["खुदाई में हहंसा", "शब्दपदीयम्", "सच सुने कई हदन हुए", "तुम़िी के शब्द"], "correct_index": 3, "explanation": ""}, {"id": 22, "question": "2024 ई. में हकस रचनाकार को साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया है?", "options": ["गगन हगल", "ज्ञान चतुवेदी", "हवश्वनाथ हत्रपाठी", "सौम्य मालवीय"], "correct_index": 0, "explanation": ""}, {"id": 23, "question": "2021 ई. में रामदरश हमश्र को ‘मैं तो यहाँ ह ँ’ के हलए सरस्वती सम्मान से सम्माहनत हकया गया। इस रचना की हवधा है?", "options": ["आत्मकथा", "आलोचना", "जीवनी", "काव्य"], "correct_index": 3, "explanation": ""}, {"id": 24, "question": "2024 ई. का व्यास सम्मान हकस रचनाकार को हदया गया है ?", "options": ["सूयवबाला", "कृष्णा सोबती", "उषा हप्रयंवदा", "मृदुला गगव"], "correct_index": 0, "explanation": ""}, {"id": 25, "question": "हररवंश राय बच्चन को उनकी आत्मकथा के हलए सरस्वती सम्मान से हकस वषव सम्माहनत हकया गया?", "options": ["1990 ई.", "1991 ई.", "1992 ई.", "1993 ई."], "correct_index": 1, "explanation": ""}, {"id": 26, "question": "2021 ई. का भारत- भारती सम्मान हकस रचना को हदया गया ?", "options": ["उषा हकरण खान", "सूयवबाला", "पांडेय शहशभूषण ‘शीतांशु’", "डॉ. रमानाथ हत्रपाठी"], "correct_index": 3, "explanation": ""}, {"id": 27, "question": "सोहवयत लैंड नेहरु पुरस्कार से सम्माहनत हहंदी के प्रथम रचनाकार हैं?", "options": ["हशवमंगल हसंह ‘सुमन’", "सुहमत्रानंदन पंत", "केदारनाथ अग्रवाल", "अमृतलाल नागर"], "correct_index": 1, "explanation": ""}, {"id": 28, "question": "हजारी प्रसाद हद्ववेदी को ‘आलोक पवव’ के हलए साहहत्य अकादमी पुरस्कार से कब सम्माहनत हकया गया ?", "options": ["1971 ई. में", "1972 ई. में", "1973 ई. में", "1974 ई. में"], "correct_index": 2, "explanation": ""}, {"id": 29, "question": "शमशेर बहादुर हसंह को हकस रचना के हलए साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया?", "options": ["टूटी हुई हबखरी हुई", "चुका भी नहीं ह ँ मैं", "इतने पास अपने", "काल तुझसे हो़ि है मेरी"], "correct_index": 1, "explanation": ""}, {"id": 31, "question": "भवानी प्रसाद हमश्र को ‘बुनी हुई रस्सी’ काव्य संग्रह के हलए साहहत्य अकादमी पुरस्कार से कब सम्माहनत हकया गया?", "options": ["1971 ई. में", "1972 ई. में", "1973 ई. में", "1974 ई. में"], "correct_index": 1, "explanation": ""}, {"id": 32, "question": "अज्ञेय को हकस रचना के हलए 1964 ई. में साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया?", "options": ["इंद्रधनु रौंदे हुए थे", "अरी ओ करुणा प्रभामय", "इत्यलम्", "आँगन के पार द्वार"], "correct_index": 3, "explanation": ""}, {"id": 33, "question": "कमलेश्वर को ‘हकतने पाहकस्तान’ के हलए साहहत्य अकादमी पुरस्कार से कब सम्माहनत हकया गया ?", "options": ["2000 ई.", "2001 ई.", "2002 ई.", "2003 ई."], "correct_index": 3, "explanation": ""}, {"id": 35, "question": "हनम्नहलहखत में से व्यास सम्मान प्राप्त प्रथम हहंदी साहहत्यकार हैं ?", "options": ["रामहवलास शमाव", "हशव प्रसाद हसंह", "हगररजाकुमार माथुर", "धमवीर भारती"], "correct_index": 0, "explanation": ""}, {"id": 36, "question": "2022 ई. का व्यास सम्मान हकस रचनाकार को हदया गया ?", "options": ["नाहसरा शमाव", "शरद पगारे", "असगर वजाहत", "ज्ञान चतुवेदी"], "correct_index": 3, "explanation": ""}, {"id": 37, "question": "रामस्वरूप चतुवेदी को ‘हहंदी साहहत्य और संवेदना का हवकास’ रचना के हलए व्यास सम्मान से हकस वषव सम्माहनत हकया गया ?", "options": ["1995 ई.", "1996 ई.", "1997 ई.", "1998 ई."], "correct_index": 1, "explanation": ""}, {"id": 39, "question": "रामदरश हमश्र को ‘आग की हँसी’ काव्य संग्रह के हलए साहहत्य अकादमी पुरस्कार से हकस वषव सम्माहनत हकया गया?", "options": ["2013 में", "2014 में", "2015 में", "2016 में"], "correct_index": 2, "explanation": ""}, {"id": 40, "question": "चंद्रकांता को 2005 ई. में हकस रचना के हलए व्यास सम्मान से सम्माहनत हकया गया ?", "options": ["यहाँ हवतस्ता बहती है", "कथा सतीसर", "बाकी सब खैररयत है", "अथावतर और अंहतम साक्ष्य"], "correct_index": 1, "explanation": ""}, {"id": 41, "question": "रामदरश हमश्र को हकस रचना के हलए 2011 में व्यास सम्मान से सम्माहनत हकया गया ?", "options": ["शब्द सेतु", "पक गयी है धूप", "आग की हँसी", "आम के पत्ते"], "correct_index": 3, "explanation": ""}, {"id": 42, "question": "1999 का व्यास सम्मान हकसे हदया गया?", "options": ["श्रीलाल शुक्ल", "हगररराज हकशोर", "रमेशचंद्र शाह", "कैलाश वाजपेयी"], "correct_index": 0, "explanation": ""}, {"id": 44, "question": "हवष्णु प्रभाकर को हकस रचना के हलए 1993ई. में साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया?", "options": ["ढलती रात", "अर्द्वनारीश्वर", "स्वप्नमयी", "संकल्प"], "correct_index": 1, "explanation": ""}, {"id": 45, "question": "मनोहर श्याम जोशी को ‘क्याप’ उपन्यास के हलए साहहत्य अकादमी पुरस्कार से कब सम्माहनत हकया गया ?", "options": ["2005 ई. में", "2006 ई. में", "2007 ई. में", "2008 ई. में"], "correct_index": 0, "explanation": ""}, {"id": 46, "question": "चंद्रकांत देवताले को हकस रचना के हलए 2012 में साहहत्य अकादमी पुरस्कार से सम्माहनत हकया गया ?", "options": ["हड्हडयों में हिपा ज्वर", "दीवारों पर खून से", "भूखंड तप रहा है", "पत्थर फेंक रहा ह ँ"], "correct_index": 3, "explanation": ""}, {"id": 47, "question": "2013 ई. का व्यास सम्मान हकसे हदया गया ?", "options": ["नरेंद्र कोहली", "हवश्वनाथ हत्रपाठी", "कमलहकशोर गोयनका", "सुनीता जैन"], "correct_index": 1, "explanation": ""}, {"id": 48, "question": "1987 ई. का साहहत्य अकादमी पुरस्कार हकसे हदया गया ?", "options": ["नरेश मेहता", "केदारनाथ हसंह", "हशवप्रसाद हसंह", "श्रीकांत वमाव"], "correct_index": 3, "explanation": ""}, {"id": 49, "question": "मृदुला गगव को ‘कठगुलाब’ उपन्यास के हलए व्यास सम्मान हकस वषव हदया गया ?", "options": ["2003 ई. में", "2004 ई. में", "2005 ई. में", "2006 ई. में"], "correct_index": 1, "explanation": ""}, {"id": 50, "question": "लीलाधर जगू़िी को 2018 ई. में हकस रचना के हलए व्यास सम्मान से सम्माहनत हकया गया ?", "options": ["शंखमुखी हशखरों पर", "इस यात्रा में", "हजतने लोग उतने प्रेम", "ईश्वर की अध्यता में"], "correct_index": 2, "explanation": ""}];
+const TOT=42,SEC=5400;
+const UA=new Array(Q.length).fill(null);
+let done=false,left=SEC,tmr=null,cfm=false;
+function p2(n){return String(n).padStart(2,'0')}
+function startTmr(){
+  const el=document.getElementById('tmr');
+  function tick(){
+    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),s=left%60;
+    el.textContent='⏱ '+p2(h)+':'+p2(m)+':'+p2(s);
+    if(left<=300)el.classList.add('urg');
+    if(left--<=0){clearInterval(tmr);doSub();}
+  }
+  tick();tmr=setInterval(tick,1000);
+}
+function updP(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('plbl').textContent=n+' / '+TOT+' उत्तर दिए';
+  document.getElementById('pf').style.width=Math.round(n/TOT*100)+'%';
+}
+function build(){
+  const c=document.getElementById('qc');
+  Q.forEach((q,qi)=>{
+    const card=document.createElement('div');
+    card.className='qcard';card.id='c'+qi;
+    card.innerHTML=`
+      <div class="qmeta"><span class="qnum">प्रश्न ${qi+1}</span><span class="qdot" id="d${qi}"></span></div>
+      <div class="qtxt">${q.question}</div>
+      <div class="opts" id="o${qi}"></div>
+      ${q.explanation?`<div class="tbox" id="t${qi}"><div class="tlabel">💡 याद रखें</div><div class="ttext">${q.explanation}</div></div>`:''}`;
+    const od=card.querySelector('#o'+qi);
+    q.options.forEach((opt,oi)=>{
+      const b=document.createElement('button');
+      b.className='opt';
+      b.innerHTML=`<span class="or"></span><span class="ol">${opt}</span>`;
+      b.addEventListener('click',()=>sel(qi,oi,b));
+      od.appendChild(b);
+    });
+    c.appendChild(card);
+  });
+}
+function sel(qi,oi,btn){
+  if(done)return;
+  const prev=UA[qi];
+  if(prev!==null)document.querySelectorAll('#o'+qi+' .opt')[prev].classList.remove('sel');
+  UA[qi]=oi;btn.classList.add('sel');
+  document.getElementById('d'+qi).classList.add('done');
+  updP();
+}
+function trySub(){
+  if(done)return;
+  const un=UA.filter(a=>a===null).length;
+  if(!cfm&&un>0){
+    const w=document.getElementById('wn');
+    w.textContent=un+' प्रश्न अनुत्तरित हैं — दोबारा क्लिक करें';
+    w.style.display='block';cfm=true;return;
+  }
+  doSub();
+}
+function doSub(){
+  if(done)return;
+  done=true;clearInterval(tmr);
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('wn').style.display='none';
+  let c=0,w=0,sk=0;
+  Q.forEach((q,qi)=>{
+    const a=UA[qi];
+    const bs=document.querySelectorAll('#o'+qi+' .opt');
+    bs.forEach(b=>b.disabled=true);
+    bs[q.correct_index].classList.remove('sel');
+    bs[q.correct_index].classList.add('correct');
+    if(a===null)sk++;
+    else if(a===q.correct_index)c++;
+    else{bs[a].classList.remove('sel');bs[a].classList.add('wrong');w++;}
+    const t=document.getElementById('t'+qi);
+    if(t)t.classList.add('show');
+  });
+  const pct=Math.round(c/TOT*100);
+  document.getElementById('ms').textContent=c+'/'+TOT;
+  document.getElementById('mp').textContent=pct+'% · '+(pct>=40?'उत्तीर्ण ✓':'अनुत्तीर्ण ✗');
+  document.getElementById('mi').textContent=pct>=75?'🏆':pct>=50?'🎯':pct>=40?'👍':'📚';
+  document.getElementById('mh').textContent=pct>=75?'शानदार!':pct>=50?'बहुत अच्छे':pct>=40?'अच्छा प्रयास':'और मेहनत करें';
+  document.getElementById('mc').textContent=c;
+  document.getElementById('mw').textContent=w;
+  document.getElementById('mk').textContent=sk;
+  document.getElementById('ov').classList.add('show');
+}
+function closeM(){
+  document.getElementById('ov').classList.remove('show');
+  const fw=document.querySelector('.opt.wrong');
+  if(fw)fw.closest('.qcard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+build();updP();startTmr();
+</script>
+</body>
+</html>
