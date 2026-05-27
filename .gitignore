@@ -5,8 +5,8 @@ __pycache__/
 .env
 
 # Source PDFs and HTMLs (large files, not needed on GitHub)
-pyq/
-test series/
+/pyq/
+/test series/
 
 # macOS
 .DS_Store
